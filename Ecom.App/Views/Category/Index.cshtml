@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-controller="categoryController as $ctrl">
+    @await Html.PartialAsync("~/Views/Shared/_Table.cshtml")
+</div>
+@await Html.PartialAsync("~/Views/Category/CategoryFormModal.cshtml")
+<div class="row">
+</div>
+@section Scripts{
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })</script>
+    <script src="~/app/categoryController.js"></script>
+}

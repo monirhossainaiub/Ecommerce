@@ -1,0 +1,28 @@
+﻿    <div class="row">
+        <div class="col-sm-6">
+            <div class="pull-left">
+                <pre>Page: {{currentPage}}/{{numPages}}</pre>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="pull-right">
+                <ul uib-pagination
+                    total-items="(categories | filter:searchText).length"
+                    ng-model="currentPage"
+                    items-per-page="itemsPerpage"
+                    max-size="5"
+                    boundary-links="true"
+                    num-pages="numPages"
+
+                  
+                    force-ellipses="true"
+                    rotate="true"
+                    previous-text="&lsaquo;" 
+                    next-text="&rsaquo;" 
+                    first-text="&laquo;" 
+                    last-text="&raquo;"
+                    >
+                </ul>
+            </div>
+        </div>
+    </div>
