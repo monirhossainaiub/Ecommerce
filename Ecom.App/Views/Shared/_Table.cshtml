@@ -1,12 +1,11 @@
 ﻿<div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
-            <h3 class="card-header">{{tableName}}</h3>
+            <h3 class="card-header">{{dataTableName}}</h3>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 float-left">
                         <i class="fa fa-filter fa-lg" aria-hidden="true"></i>: <input type="text" name="search" ng-model="searchText" autocomplete="off">
-                        
                     </div>
                     <div class="col-md-6 form-group float-md-right text-md-right">
                         Show
@@ -22,7 +21,7 @@
                                 <option ng-value="50">50</option>
                             </select>
                         </label>
-                        <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                        <button title="{{addEntityTitle}}" type="button" data-toggle="modal" data-target="#exampleModalCenter">
                             <span><i class="fa fa-plus fa-2x" aria-hidden="true"></i></span>
                         </button>
                     </div>
@@ -53,7 +52,7 @@
                                     <td>{{x.parentCategoryId}}</td>
                                     <td>
                                         <span title="Edit"><i class="fa fa-2x fa-pencil-square" aria-hidden="true"></i></span>
-                                        <span title="Delete"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></span>
+                                        <span ng-click="delete(x)" title="Delete"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></span>
                                     </td>
                                 </tr>
                             </tbody>

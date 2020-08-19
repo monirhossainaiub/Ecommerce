@@ -13,5 +13,6 @@ namespace Ecom.App.Services
         void Add(Category category);
         Task<IEnumerable<Category>> GetAllAsync();
         void Remove(Category category);
+       
     }
 }

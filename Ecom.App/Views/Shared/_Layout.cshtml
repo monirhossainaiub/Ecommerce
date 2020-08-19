@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+
+    <link href="~/assets/vendor/tostr/cs/toastr.css" rel="stylesheet" />
     <title>@ViewData["Title"] - Ecommerce</title>
 </head>
 
@@ -75,11 +77,18 @@
     <script src="assets/vendor/charts/c3charts/C3chartjs.js"></script>
     <script src="assets/libs/js/dashboard-ecommerce.js"></script>
 
+    <script src="~/assets/vendor/tostr/js/toastr.js"></script>
+    <script src="~/assets/vendor/bootbox/bootbox.js"></script>
+
     <script src="~/assets/vendor/angular/angular.js"></script>
     <script src="~/assets/vendor/angular/angular-route.js"></script>
     @*<script src="~/assets/vendor/angular/ui-bootstrap-tpls.js"></script>*@
     <script src="~/assets/vendor/angular/ui-bootstrap-tpls-3.0.6.min.js"></script>
     <script src="~/app/app.js"></script>
+    <script src="~/app/Services/messageService.js"></script>
+    <script src="~/app/Services/urlService.js"></script>
+    <script src="~/app/settingsController.js"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 

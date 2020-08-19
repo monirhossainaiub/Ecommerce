@@ -85,6 +85,17 @@ namespace Ecom.App.Controllers
 
             return Ok(result);
         }
+
+        public async Task<IActionResult> Delete(Category category)
+        {
+            if (category == null)
+                return BadRequest();
+
+            categoryRepository.Remove(category);
+            await unitOfWork.SaveChangesAsync();
+
+            return Ok(category);
+        }
         
     }
 }

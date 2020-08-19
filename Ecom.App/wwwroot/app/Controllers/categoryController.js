@@ -1,24 +1,15 @@
-﻿/// <reference path="app.js" />
-
+﻿/// <reference path="../app.js" />
 
 'use strict';
 
-app.controller("categoryController", function ($scope, $http, $rootScope) {
+app.controller("categoryController", function ($scope, $http, $rootScope, categoryService, messageService) {
     $scope.message = "Categories";  
     $scope.action = "Save";
     $scope.categories = [];
-    
-
-    //const ROOT_URL = "category";
-    //const SAVE_URL = $rootScope.domainUrl + ROOT_URL + "/" + $rootScope.actions.save;
-    //const EDIT_URL = $rootScope.domainUrl + ROOT_URL + "/" + $rootScope.actions.edit;
-    //const DELETE_URL = $rootScope.domainUrl + ROOT_URL + "/" + $rootScope.actions.delete;
-
-    $scope.saveUrl = "https://localhost:44317/" + "category" + "/" + "create";
-    $scope.getUrl = "https://localhost:44317/" + "category/getall";
-    $scope.tableName = "Categories";
-
-    //#region pagination bootstrap
+    $scope.addEntityTitle = "Add Category";
+    $scope.dataTableName = "Categories";
+ 
+    //#region pagination
     $scope.searchText = "";
     $scope.itemsPerpage = 2;
     $scope.currentPage = 1;
@@ -38,10 +29,7 @@ app.controller("categoryController", function ($scope, $http, $rootScope) {
 
     ];
 
-    //#endregion pagination with mosh 
-
-
-
+    //#endregion pagination 
 
     var modelDefault = {
         Id: 0,
@@ -54,18 +42,20 @@ app.controller("categoryController", function ($scope, $http, $rootScope) {
 
     $scope.model = angular.copy(modelDefault);
 
-    $scope.getCategories = function () {
-        $http.get($scope.getUrl)
-            .then(function successCallback(response) {
+    $scope.getCategories = ()=> {
+        categoryService.getCategories()
+            .then(
+                (response) => {
+                    
+                    
                 $scope.categories = response.data;
-               
             },
-            function errorCallBack(err) {
-
+                (err) => {
+                    messageService.error(err.message);
             });
     };
-
     $scope.getCategories();
+
     $scope.formSubmit = function () {
         console.log($scope.model);
         if (!$scope.formCategory.$valid)
@@ -80,7 +70,7 @@ app.controller("categoryController", function ($scope, $http, $rootScope) {
             }).then(function successCallback(response) {
                 console.log(response);
                 Clear();
-                toastr.success('Data saved successfully', 'Success', { timeOut: 5000 });
+                //toastr.success('Data saved successfully', 'Success');
             }, function errorCallBack(response) {
 
             });
@@ -89,6 +79,34 @@ app.controller("categoryController", function ($scope, $http, $rootScope) {
 
         }
     };
+    $scope.delete = function (category) {
+
+        bootbox.confirm({
+            message: "Are you sure? You want to delete " + category.name + " permanently?",
+            buttons: {
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '<i class="fa fa-times"></i> No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    categoryService.deleteCategory(category)
+                        .then(
+                            (result) => {
+                                $scope.getCategories();
+                                messageService.deleted(category.name);
+                            },
+                            (error) => { messageService.error(err.message); }
+                     );
+                }
+            }
+        });
+    };
 
     var Clear = () => {
         $scope.model = angular.copy(modelDefault);
@@ -96,5 +114,4 @@ app.controller("categoryController", function ($scope, $http, $rootScope) {
         $scope.formCategory.$setUntouched();
     };
 
-    
 });

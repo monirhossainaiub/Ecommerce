@@ -36,5 +36,7 @@ namespace Ecom.App.Services
         {
             context.Categories.Remove(category);
         }
+
+       
     }
 }

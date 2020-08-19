@@ -10,3 +10,4 @@ var app = angular.module("app", [
 //app.config(function (paginationTemplateProvider) {
 //    paginationTemplateProvider.setPath('https://localhost:44317/dirpagination.tpl.html');
 //});
+

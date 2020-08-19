@@ -1,5 +1,5 @@
-﻿/// <reference path="../angular/angular.js" />
-/// <reference path="app.js" />
+﻿/// <reference path="app.js" />
+
 'use strict';
 
 app.controller("settingsController", function ($scope, $rootScope) {
