@@ -7,6 +7,8 @@ using Ecom.App.Controllers.Resources.DTOs;
 using Ecom.App.Models;
 using Ecom.App.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace Ecom.App.Controllers
 {
@@ -35,6 +37,7 @@ namespace Ecom.App.Controllers
         public async Task<IActionResult> GetAll()
         {
             var categories = await categoryRepository.GetAllAsync();
+            
             //categoryViewResource (dto)
             var categoryViewResource = mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDto>>(categories);
             return Ok(categoryViewResource);
@@ -49,13 +52,38 @@ namespace Ecom.App.Controllers
             return Ok(result);
         }
 
+        private bool isNameExist(string name)
+        {
+            var categoryNames = categoryRepository.getCategoryName();
+            if (categoryNames.Count == 0)
+                return false;
+
+            else
+            {
+                for (int i = 0; i < categoryNames.Count; i++)
+                {
+                    if(name == categoryNames[i])
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CategoryDto categoryDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-        
+            if (isNameExist(categoryDto.Name))
+            {
+                ModelState.AddModelError("Exist", "Category name already exist.");
+                return BadRequest(ModelState);
+            }
+                
+           
             var category = mapper.Map<CategoryDto, Category>(categoryDto);
             category.CreatedAt = DateTime.Now;
             categoryRepository.Add(category);

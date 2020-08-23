@@ -37,6 +37,9 @@ namespace Ecom.App.Services
             context.Categories.Remove(category);
         }
 
-       
+       public List<string> getCategoryName()
+        {
+            return context.Categories.Select(c => c.Name).ToList();
+        }
     }
 }

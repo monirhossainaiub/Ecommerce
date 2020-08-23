@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Publisher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-controller="publisherController as $ctrl">
+    @await Html.PartialAsync("~/Views/Publisher/_Table.cshtml")
+    @await Html.PartialAsync("~/Views/Publisher/FormPopUp.cshtml")
+</div>
+
+
+@section Scripts{
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })</script>
+    <script src="~/app/Controllers/publisherController.js"></script>
+}

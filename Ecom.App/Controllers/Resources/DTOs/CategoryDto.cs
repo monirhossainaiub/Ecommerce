@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace Ecom.App.Controllers.Resources.DTOs
     public class CategoryDto
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Name is required")]
+        [MaxLength(150)]
         public string Name { get; set; }
         public int ParentCategoryId { get; set; }
         public string Description { get; set; }

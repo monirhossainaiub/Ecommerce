@@ -1,4 +1,5 @@
 ﻿/// <reference path="../app.js" />
+'use strict';
 
 // #region tostr message
 let success = (message, title) => {
@@ -10,19 +11,32 @@ let info = (message) => {
 }
 
 let added = (data) => {
-    toastr.success(data + ' is added', 'Success', { timeOut: 5000 });
+    toastr.success("<b><i>" + data + "</i></b>"  + ' is added', 'Success', { timeOut: 5000 });
 }
 
 let updated = (data) => {
-    toastr.success(data + ' is updated', 'Success', { timeOut: 5000 });
+    toastr.success("<b><i>" +data + "</i></b>" + ' is updated', 'Success', { timeOut: 5000 });
 }
 
 let deleted = (data) => {
-    toastr.success(data + ' is deleted', 'Success', { timeOut: 5000 });
+    toastr.success("<b><i>" + data + "</i></b>"  + ' is deleted', 'Success', { timeOut: 5000 });
 }
 
-let error = (message) => {
-    toastr.error(message, 'Error', { timeOut: 5000 });
+let error = (status) => {
+    if (status == 404) {
+        toastr.error("status code:" + status + ", The resource could not be found", 'Error', { timeOut: 5000 });
+        return;
+    }
+    else if (status == 400) {
+        toastr.error("status code:" + status + ", " , 'Error', { timeOut: 5000 });
+        return;
+    }
+    else if (status == 500) {
+        toastr.error("status code:" + status + ", " + " Unhandal error exception occured.", 'Error', { timeOut: 5000 });
+        return;
+    }
+
+    toastr.error("status code:" + status + " ," + message, 'Error', { timeOut: 5000 });
 }
 
 // #endregion tostr message
@@ -49,6 +63,7 @@ let deleteconfirmationMessage = (data) => {
 // #endregion bootbox message
 
 var messageService = () => {
+
     return {
         success: success,
         info: info,
@@ -59,6 +74,5 @@ var messageService = () => {
         deleteconfirmationMessage: deleteconfirmationMessage
     }
 }
-
 
 app.factory('messageService', messageService);

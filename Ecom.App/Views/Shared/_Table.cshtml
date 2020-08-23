@@ -17,12 +17,16 @@
                                 <option ng-value="4">4</option>
                                 <option ng-value="5">5</option>
                                 <option ng-value="10">10</option>
+                                <option ng-value="15">15</option>
                                 <option ng-value="25">25</option>
                                 <option ng-value="50">50</option>
+                                <option ng-value="100">100</option>
                             </select>
                         </label>
-                        <button title="{{addEntityTitle}}" type="button" data-toggle="modal" data-target="#exampleModalCenter">
-                            <span><i class="fa fa-plus fa-2x" aria-hidden="true"></i></span>
+                        <button ng-click="showFormPopUpForSave()" title="{{addEntityTitle}}" type="button" data-toggle="modal" >
+                            <span>
+                                <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -43,15 +47,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="x in categories | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
+                                <tr ng-repeat="x in dataSource | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
                                     <td>{{x.id}}</td>
                                     <td>{{x.name}}</td>
                                     <td>{{x.description}}</td>
                                     <td>{{x.displayOrder}}</td>
-                                    <td>{{x.isPublished}}</td>
+                                    <td><input type="checkbox" style="background-color:blueviolet" disabled ng-model="x.isPublished"></td>
                                     <td>{{x.parentCategoryId}}</td>
                                     <td>
-                                        <span title="Edit"><i class="fa fa-2x fa-pencil-square" aria-hidden="true"></i></span>
+                                        <span ng-click="showFormPopUp(x)" title="Edit"><i class="fa fa-2x fa-pencil-square" aria-hidden="true"></i></span>
                                         <span ng-click="delete(x)" title="Delete"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></span>
                                     </td>
                                 </tr>

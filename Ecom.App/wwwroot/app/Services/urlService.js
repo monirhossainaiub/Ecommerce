@@ -1,9 +1,7 @@
 ﻿/// <reference path="../app.js" />
-
 'use strict';
 
-var urlService = () => {
-
+var urlService = ($rootScope) => {
     return {
         getUrlService: function (controllerName) {
             const ROOT_URL = "https://localhost:44317/"
@@ -23,7 +21,6 @@ var urlService = () => {
             }
         }
     }
-   
-}
+};
 
 app.factory('urlService', urlService);

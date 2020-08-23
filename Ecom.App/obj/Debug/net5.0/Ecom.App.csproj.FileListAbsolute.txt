@@ -158,6 +158,9 @@ E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.genruntimeconfig.c
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.csprojAssemblyReference.cache
 E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\AutoMapper.dll
 E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Category\CategoryFormModal.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Shared\_Pagination.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Shared\_Table.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Category\FormPopUp.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Publisher\FormPopUp.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Publisher\Index.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Publisher\_Table.cshtml.g.cs

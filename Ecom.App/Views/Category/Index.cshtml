@@ -6,16 +6,15 @@
 
 <div ng-controller="categoryController as $ctrl">
     @await Html.PartialAsync("~/Views/Shared/_Table.cshtml")
+    @await Html.PartialAsync("~/Views/Category/FormPopUp.cshtml")
 </div>
-@await Html.PartialAsync("~/Views/Category/CategoryFormModal.cshtml")
-<div class="row">
-</div>
+
+
 @section Scripts{
     <script>
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').trigger('focus')
         })</script>
 
-    <script src="~/app/Services/categoryService.js"></script>
     <script src="~/app/Controllers/categoryController.js"></script>
 }

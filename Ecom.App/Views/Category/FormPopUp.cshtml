@@ -1,0 +1,85 @@
+﻿<div class="modal fade" id="FormPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{formTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-elements form-horizontal">
+                    <form method="post" name="form">
+                        <input type="hidden" ng-model="model.id">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Category Name</label>
+                                    <input ng-change="isExistName()"
+                                           type="text"
+                                           class="form-control"
+                                           id="name"
+                                           name="name"
+                                           ng-model="model.name"
+                                           required
+                                           autocomplete="off"
+                                           maxlength="150"
+                                           autofocus>
+                                </div>
+                                <span class="text-danger" ng-show="form.name.$touched && form.name.$invalid">Category name is required.</span>
+                                <span class="text-danger" ng-show="form.name.$dirty && isExist">This name already exits.</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="displayOrder">Display Order</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="displayOrder"
+                                           name="displayOrder"
+                                           ng-model="model.displayOrder"
+                                           autocomplete="off"
+                                           min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-check">
+                                    <input type="checkbox"
+                                           class="form-check-input"
+                                           id="isPublished"
+                                           name="isPublished"
+                                           ng-model="model.isPublished">
+                                    <label class="form-check-label" for="isPublished">isPublished?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control"
+                                          id="description"
+                                          rows="3"
+                                          name="description"
+                                          ng-model="model.description"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fa fa-times-circle fa-lg"></i> Close
+                </button>
+                <button ng-click="reset()" type="button" class="btn btn-secondary">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> Reset
+                </button>
+                <button ng-click="formSubmit()" ng-disabled="form.$invalid || isExist" type="button" class="btn btn-primary">
+                    <i class="fa fa-save fa-lg" fa-save"></i>
+                    {{action}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,7 @@ namespace Ecom.App.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         [MaxLength(150)]
         public string Name { get; set; }
         public int ParentCategoryId { get; set; }

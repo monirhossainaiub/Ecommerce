@@ -2,16 +2,22 @@
 
 'use strict';
 
-app.controller("categoryController", function ($scope, $http, $rootScope, categoryService, messageService) {
-    $scope.message = "Categories";  
-    $scope.action = "Save";
-    $scope.categories = [];
-    $scope.addEntityTitle = "Add Category";
+app.controller("categoryController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>
+{
+    //server controller name
+    var controllerName = "category";
     $scope.dataTableName = "Categories";
+    var FormPopUp = "FormPopUp";
+    var entityNameToPerform = "category";
+    
+    $scope.action = "Save";
+    $scope.dataSource = [];
+    $scope.addEntityTitle = "Add " + entityNameToPerform;
+    $scope.formTitle = "Create a " + entityNameToPerform;
  
     //#region pagination
     $scope.searchText = "";
-    $scope.itemsPerpage = 2;
+    $scope.itemsPerpage = 10;
     $scope.currentPage = 1;
     $scope.sortBy = function (column) {
         $scope.sortColumn = column;
@@ -28,61 +34,125 @@ app.controller("categoryController", function ($scope, $http, $rootScope, catego
         { title: 'Action', key: 'action', isSortable: false }
 
     ];
-
     //#endregion pagination 
 
-    var modelDefault = {
-        Id: 0,
-        Name: null,
-        ParentCategoryId : 0,
-        Description: null,
-        DisplayOrder: 0,
-        IsPublished: true
+    var defaultModel = {
+        id: 0,
+        name: null,
+        parentCategoryId : 0,
+        description: null,
+        displayOrder: 0,
+        isPublished: true
     };
 
-    $scope.model = angular.copy(modelDefault);
+    $scope.model = angular.copy(defaultModel);
 
-    $scope.getCategories = ()=> {
-        categoryService.getCategories()
+    var addToDataSource = (data) => {
+        $scope.dataSource.push(data);
+    }
+    var updateDataSource = (data) => {
+        for (var i = 0; i < $scope.dataSource.length; i++) {
+            if ($scope.dataSource[i].id == data.id) {
+                $scope.dataSource.splice(i, 1, data);
+            }
+        }
+    }
+    var removeFromDataSource = (data) => {
+        for (var i = 0; i < $scope.dataSource.length; i++) {
+            if ($scope.dataSource[i].id == data.id) {
+                $scope.dataSource.splice(i, 1);
+            }
+        }
+    }
+    $scope.isExist = false;
+    $scope.isExistName = () => {
+        if ($scope.model.name == undefined) {
+            $scope.isExist = false;
+            return;
+        }
+            
+        if ($scope.dataSource.length == 0) {
+            $scope.isExist = false;
+            return;
+        }
+        
+        for (var i = 0; i < $scope.dataSource.length; i++) {
+            if ($scope.model.id == 0 && $scope.dataSource[i].name.toLowerCase() == $scope.model.name.toLowerCase()) {
+                $scope.isExist = true;
+                return;
+            }
+                
+
+            else if ($scope.model.id > 0) {
+                if ($scope.model.id == $scope.dataSource[i].id && $scope.dataSource[i].name.toLowerCase() == $scope.model.name.toLowerCase()) {
+                    $scope.isExist = false;
+                    return;
+                }
+                else {
+                    for (var j = 0; j < $scope.dataSource.length; j++) {
+                        if ($scope.model.id == $scope.dataSource[j].id)
+                            continue;
+                        if ($scope.dataSource[j].name.toLowerCase() == $scope.model.name.toLowerCase()) {
+                            $scope.isExist = true;
+                            return;
+                        }
+                    }
+                }
+                
+                
+            }
+            
+        }
+        $scope.isExist = false;
+        return;
+    }
+
+    $scope.getAll = () => {
+        httpRequestService.getHttpRequestService(controllerName).getAll()
             .then(
                 (response) => {
-                    
-                    
-                $scope.categories = response.data;
+                    $scope.dataSource = response.data;
             },
                 (err) => {
-                    messageService.error(err.message);
+                    messageService.error(err.status);
             });
     };
-    $scope.getCategories();
-
-    $scope.formSubmit = function () {
-        console.log($scope.model);
-        if (!$scope.formCategory.$valid)
+    $scope.getAll();
+    $scope.formSubmit = ()=> {
+        if (!$scope.form.$valid)
             return;
-
+        
         if ($scope.action === "Save") {
-            $http({
-                method: 'POST',
-                url: $scope.saveUrl,
-                data: $scope.model,
-                dataType: 'JSON'
-            }).then(function successCallback(response) {
-                console.log(response);
-                Clear();
-                //toastr.success('Data saved successfully', 'Success');
-            }, function errorCallBack(response) {
-
-            });
+            httpRequestService.getHttpRequestService(controllerName).createEntity($scope.model)
+                .then(
+                    (response) => {
+                        $scope.reverse = true;
+                        baseService.hidePopUpByPopId(FormPopUp);
+                        messageService.added(response.data.name);
+                        addToDataSource(response.data);
+                        $scope.reset();
+                    }, (error) => {
+                        messageService.error(error.status);
+                    });
         }
-        else if ($scope.action === "Update") {
-
+        else if ($scope.action === "Update"){
+            httpRequestService.getHttpRequestService(controllerName).updateEntity($scope.model)
+                .then(
+                    (response) => {
+                        baseService.hidePopUpByPopId(FormPopUp);
+                        messageService.updated(response.data.name);
+                        updateDataSource(response.data);
+                        $scope.reset();
+                    }, (error) => {
+                        messageService.error(error.status);
+                    });
         }
+            
     };
-    $scope.delete = function (category) {
+    $scope.delete = (entity)=> {
 
         bootbox.confirm({
-            message: "Are you sure? You want to delete " + category.name + " permanently?",
+            message: "Are you sure? You want to delete " + "<b><i>" + entity.name + "</i></b>" + " permanently?",
             buttons: {
                 confirm: {
                     label: '<i class="fa fa-check"></i> Confirm',
@@ -93,25 +163,35 @@ app.controller("categoryController", function ($scope, $http, $rootScope, catego
                     className: 'btn-danger'
                 }
             },
-            callback: function (result) {
+            callback: (result)=>  {
                 if (result) {
-                    categoryService.deleteCategory(category)
+                    httpRequestService.getHttpRequestService(controllerName).deleteEntity(entity)
                         .then(
                             (result) => {
-                                $scope.getCategories();
-                                messageService.deleted(category.name);
+                                removeFromDataSource(result.data);
+                                messageService.deleted(entity.name);
                             },
-                            (error) => { messageService.error(err.message); }
+                            (error) => { messageService.error(err.status); }
                      );
                 }
             }
         });
     };
+    $scope.showFormPopUpForSave = () => {
+        $scope.action = "Save";
+        $scope.reset();
+        baseService.showPopUpByPopId(FormPopUp);
+    }
 
-    var Clear = () => {
-        $scope.model = angular.copy(modelDefault);
-        $scope.formCategory.$setPristine();
-        $scope.formCategory.$setUntouched();
+    $scope.showFormPopUp = (entity) => {
+        $scope.model = angular.copy(entity);
+        baseService.showPopUpByPopId(FormPopUp);
+        $scope.action = "Update";
+        $scope.formTitle = "Update the " + entityNameToPerform;
+    }
+    $scope.reset = () => {
+        $scope.model = angular.copy(defaultModel);
+        $scope.form.$setPristine();
+        $scope.form.$setUntouched();
     };
-
 });
