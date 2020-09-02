@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ecom.App.Controllers.Resources.DTOs;
@@ -38,7 +39,6 @@ namespace Ecom.App.Controllers
         {
             var publishers = await publisherRepository.GetAllAsync();
             
-            //categoryViewResource (dto)
             var result = mapper.Map<IEnumerable<Publisher>, IEnumerable<PublisherDto>>(publishers);
             return Ok(result);
         }

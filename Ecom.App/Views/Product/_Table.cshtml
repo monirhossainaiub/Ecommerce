@@ -23,7 +23,7 @@
                                 <option ng-value="100">100</option>
                             </select>
                         </label>
-                        <button class="btn btn-primary"  ng-click="showFormPopUpForSave()" title="{{addEntityTitle}}" type="button" data-toggle="modal">
+                        <button class="btn btn-primary" ng-click="showFormPopUpForSave()" title="{{addEntityTitle}}" type="button" data-toggle="modal" >
                             <span>
                                 <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
                             </span>
@@ -47,29 +47,37 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-hide="dataSource.length == 0" ng-repeat="x in dataSource | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
+                                <tr ng-repeat="x in dataSource | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
                                     <td>{{x.id}}</td>
                                     <td>{{x.name}}</td>
-                                    <td>{{x.description}}</td>
+                                    <td>{{x.title}}</td>
+                                    <td>{{x.ISBN}}</td>
+                                    @*<td><input type="checkbox" style="background-color:blueviolet" disabled ng-model="x.isPublished"></td>*@
+                                    <td>{{x.edition}}</td>
+                                    <td>{{x.country}}</td>
+                                    <td>{{x.language}}</td>
                                     <td>{{x.displayOrder}}</td>
-                                    <td><input type="checkbox" style="background-color:blueviolet" disabled ng-model="x.isPublished"></td>
-                                    <td>{{x.address}}</td>
+                                    <td>{{x.price}}</td>
+                                    <td>{{x.oldPrice}}</td>
+                                    <td>{{x.costPrice}}</td>
+                                    <td>{{x.stockQuantity}}</td>
+                                    <td>{{x.costPrice}}</td>
                                     <td>
                                         <span ng-click="showFormPopUp(x)" title="Edit"><i class="fa fa-2x fa-pencil-square" aria-hidden="true"></i></span>
                                         <span ng-click="delete(x)" title="Delete"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></span>
                                     </td>
                                 </tr>
-                                <tr ng-show="dataSource.length == 0">
+                                @*<tr ng-show="dataSource.length == 0">
                                     <td colspan="{{columns.length}}">
                                         <h3 class="text-danger d-block text-center">There is no recored yet</h3>
                                     </td>
-                                </tr>
+                                </tr>*@
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <div ng-hide="dataSource.length == 0"> 
+            <div>
                 @await Html.PartialAsync("~/Views/Shared/_Pagination.cshtml")
             </div>
         </div>

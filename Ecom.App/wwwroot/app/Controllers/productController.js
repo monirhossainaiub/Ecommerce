@@ -2,13 +2,14 @@
 
 'use strict';
 
-app.controller("publisherController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>
+app.controller("productController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>
 {
     //server controller name
-    var controllerName = "publisher";
-    $scope.dataTableName = "publishers";
+    var controllerName = "product";
+    $scope.dataTableName = "Products";
     var FormPopUp = "FormPopUp";
-    var entityNameToPerform = "publisher";
+    var entityNameToPerform = "product";
+    $scope.isExist = false;
     $scope.isResponseComplete = false;
     $scope.action = "Save";
     $scope.dataSource = [];
@@ -27,21 +28,45 @@ app.controller("publisherController", ($scope, $http, $rootScope, httpRequestSer
     $scope.columns = [
         { title: 'Id', key: 'id', isSortable: true },
         { title: 'Name', key: 'name', isSortable: true },
-        { title: 'Description', key: 'description', isSortable: true },
+        { title: 'Title', key: 'title', isSortable: true },
+        { title: 'ISBN', key: 'ISBN', isSortable: true },
+        { title: 'Edition', key: 'edition', isSortable: true },
+        { title: 'Country', key: 'country', isSortable: true },
+        { title: 'Language', key: 'language', isSortable: true },
         { title: 'Display Order', key: 'displayOrder', isSortable: true },
-        { title: 'isPublished', key: 'isPublished', isSortable: true },
-        { title: 'Address', key: 'address', isSortable: true },
-        { title: 'Action', key: 'action', isSortable: false }
+        { title: 'Price', key: 'price', isSortable: true },
+        { title: 'OldPrice', key: 'oldPrice', isSortable: true },
+        { title: 'CostPrice', key: 'costPrice', isSortable: true },
+        { title: 'Quantity', key: 'stockQuantity', isSortable: true }
     ];
     //#endregion pagination 
 
     var defaultModel = {
         id: 0,
         name: null,
-        Description: null,
+        title: null,
+        ISBN: null,
+        
+        edition: null,
+        country : null,
+        language: null,
+        description : null,
         displayOrder: 0,
+        price : 0,
+        oldPrice  : 0,
+        costPrice: 0,
+        numberOfPage: 0,
+        stockQuantity: 0,
+        orderMinimumQuantity : 0,
+        orderMaximumQuantity : 0,
+        notifyForMinimumQuantityBellow : 0,
+
+        isNewProduct: true,
         isPublished: true,
-        address : null
+        isAproved : true,
+        isReturnAble : true,
+        isShippingChargeApplicable : true,
+        isLimitedToStore : true,
     };
 
     $scope.model = angular.copy(defaultModel);
@@ -63,24 +88,24 @@ app.controller("publisherController", ($scope, $http, $rootScope, httpRequestSer
             }
         }
     }
-    $scope.isExist = false;
+    
     $scope.isExistName = () => {
         if ($scope.model.name == undefined) {
             $scope.isExist = false;
             return;
         }
-
+            
         if ($scope.dataSource.length == 0) {
             $scope.isExist = false;
             return;
         }
-
+        
         for (var i = 0; i < $scope.dataSource.length; i++) {
             if ($scope.model.id == 0 && $scope.dataSource[i].name.toLowerCase() == $scope.model.name.toLowerCase()) {
                 $scope.isExist = true;
                 return;
             }
-
+                
 
             else if ($scope.model.id > 0) {
                 if ($scope.model.id == $scope.dataSource[i].id && $scope.dataSource[i].name.toLowerCase() == $scope.model.name.toLowerCase()) {
@@ -97,8 +122,10 @@ app.controller("publisherController", ($scope, $http, $rootScope, httpRequestSer
                         }
                     }
                 }
+                
+                
             }
-
+            
         }
         $scope.isExist = false;
         return;
@@ -120,14 +147,13 @@ app.controller("publisherController", ($scope, $http, $rootScope, httpRequestSer
     $scope.formSubmit = ()=> {
         if (!$scope.form.$valid)
             return;
-
+        
         if ($scope.action === "Save") {
-            baseService.hidePopUpByPopId(FormPopUp);
             httpRequestService.getHttpRequestService(controllerName).createEntity($scope.model)
                 .then(
                     (response) => {
                         $scope.reverse = true;
-
+                        baseService.hidePopUpByPopId(FormPopUp);
                         messageService.added(response.data.name);
                         addToDataSource(response.data);
                         $scope.reset();
@@ -135,12 +161,11 @@ app.controller("publisherController", ($scope, $http, $rootScope, httpRequestSer
                         messageService.error(error.status);
                     });
         }
-        else if ($scope.action === "Update") {
-            baseService.hidePopUpByPopId(FormPopUp);
+        else if ($scope.action === "Update"){
             httpRequestService.getHttpRequestService(controllerName).updateEntity($scope.model)
                 .then(
                     (response) => {
-                        
+                        baseService.hidePopUpByPopId(FormPopUp);
                         messageService.updated(response.data.name);
                         updateDataSource(response.data);
                         $scope.reset();

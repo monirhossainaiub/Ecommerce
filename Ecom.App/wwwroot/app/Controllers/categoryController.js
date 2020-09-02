@@ -9,7 +9,8 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
     $scope.dataTableName = "Categories";
     var FormPopUp = "FormPopUp";
     var entityNameToPerform = "category";
-    
+    $scope.isExist = false;
+    $scope.isResponseComplete = false;
     $scope.action = "Save";
     $scope.dataSource = [];
     $scope.addEntityTitle = "Add " + entityNameToPerform;
@@ -64,7 +65,7 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
             }
         }
     }
-    $scope.isExist = false;
+    
     $scope.isExistName = () => {
         if ($scope.model.name == undefined) {
             $scope.isExist = false;
@@ -111,9 +112,13 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
         httpRequestService.getHttpRequestService(controllerName).getAll()
             .then(
                 (response) => {
+                    $scope.isResponseComplete = true;
                     $scope.dataSource = response.data;
             },
                 (err) => {
+                    $scope.isResponseComplete = true;
+                    
+                    //toastr.error("status code:" + err.message + ", The resource could not be found", 'Error', { timeOut: 5000 });
                     messageService.error(err.status);
             });
     };
@@ -177,12 +182,24 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
             }
         });
     };
+    $scope.maxOrderBy = 0;
+    $scope.getMaxOrderBy = () => {
+        if ($scope.dataSource.length == 0)
+            return;
+        var max = $scope.dataSource[0].displayOrder;
+        for (var i = 0; i < $scope.dataSource.length; i++) {
+            if (max < $scope.dataSource[i].displayOrder) {
+                max = $scope.dataSource[i].displayOrder;
+            }
+        }
+        $scope.model.displayOrder = max + 1;
+    }
     $scope.showFormPopUpForSave = () => {
-        $scope.action = "Save";
         $scope.reset();
+        $scope.getMaxOrderBy();
+        $scope.action = "Save";
         baseService.showPopUpByPopId(FormPopUp);
     }
-
     $scope.showFormPopUp = (entity) => {
         $scope.model = angular.copy(entity);
         baseService.showPopUpByPopId(FormPopUp);

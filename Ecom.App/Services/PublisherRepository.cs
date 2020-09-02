@@ -24,7 +24,10 @@ namespace Ecom.App.Services
 
         public async Task<IEnumerable<Publisher>> GetAllAsync()
         {
-            return await context.Publishers.ToListAsync();
+            return await context.Publishers
+                .OrderBy(pb => pb.DisplayOrder)
+                .ThenBy(pb => pb.Name)
+                .ToListAsync();
         }
 
         public async Task<Publisher> GetAsync(int id, bool includeRelated = true)

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "asLFwX6r8+KXVCN+dTDGOctTzmaWFkHU+2TrQ9M0GGtdfmVD0aobKhMi1gYUYaNX/9r6SAx/PEZxEKvfuSD0MQ==",
+  "dgSpecHash": "GYDlUKMHcx/WtZkkOAvbu740ekA6PYEubUcyx05+wWfWLkrkmcEx3MgfLyY0L1si8/xkbbcj0cApzSBgtqtVTA==",
   "success": true,
   "projectFilePath": "E:\\Projects\\Book\\Ecommerce\\Ecom.App\\Ecom.App.csproj",
   "expectedPackageFiles": [
@@ -153,7 +153,7 @@
       "message": "Microsoft.VisualStudio.Web.CodeGeneration.Templating 5.0.0-preview.7.20370.3 depends on Microsoft.CodeAnalysis.CSharp (>= 3.7.0-3.20269.11) but Microsoft.CodeAnalysis.CSharp 3.7.0-3.20269.11 was not found. An approximate best match of Microsoft.CodeAnalysis.CSharp 3.7.0-3.final was resolved.",
       "libraryId": "Microsoft.CodeAnalysis.CSharp",
       "targetGraphs": [
-        ".NETCoreApp,Version=v5.0"
+        "net5.0"
       ]
     },
     {
@@ -163,7 +163,7 @@
       "message": "Microsoft.VisualStudio.Web.CodeGeneration.Utils 5.0.0-preview.7.20370.3 depends on Microsoft.CodeAnalysis.CSharp.Workspaces (>= 3.7.0-3.20269.11) but Microsoft.CodeAnalysis.CSharp.Workspaces 3.7.0-3.20269.11 was not found. An approximate best match of Microsoft.CodeAnalysis.CSharp.Workspaces 3.7.0-3.final was resolved.",
       "libraryId": "Microsoft.CodeAnalysis.CSharp.Workspaces",
       "targetGraphs": [
-        ".NETCoreApp,Version=v5.0"
+        "net5.0"
       ]
     }
   ]

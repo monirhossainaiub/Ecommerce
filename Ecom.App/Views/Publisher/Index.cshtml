@@ -5,8 +5,19 @@
 }
 
 <div ng-controller="publisherController as $ctrl">
-    @await Html.PartialAsync("~/Views/Publisher/_Table.cshtml")
-    @await Html.PartialAsync("~/Views/Publisher/FormPopUp.cshtml")
+    <div>
+        <div ng-show="isResponseComplete">
+            @await Html.PartialAsync("~/Views/Publisher/_Table.cshtml")
+            @await Html.PartialAsync("~/Views/Publisher/FormPopUp.cshtml")
+        </div>
+        <div ng-hide="isResponseComplete" class="container-fluid">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

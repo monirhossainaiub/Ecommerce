@@ -1,46 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ecom.App.Models
+namespace Ecom.App.Controllers.Resources.DTOs
 {
-    [Table("Products")]
-    public class Product
+    public class ProductDto
     {
-        #region Properties
-        [Key]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(15)]
+        
         public string SKU { get; set; }
+
         [Required]
-        [MaxLength(150)]
+        [MaxLength(200)]
         [Display(Name = "Product")]
         public string Name { get; set; }
 
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(150)]
         public string ISBN { get; set; }
         public double NumberOfPage { get; set; }
         public string Edition { get; set; }
-
-        [MaxLength(50)]
         public string Country { get; set; }
-
-        [Required]
-        [MaxLength(50)]
         public string Language { get; set; }
 
         public string Description { get; set; }
 
-       
+
 
         //[Display(Name = "Display Order")]
         //[Range(0, 500)]
@@ -79,7 +68,6 @@ namespace Ecom.App.Models
         public bool IsShippingChargeApplicable { get; set; }
         public bool IsLimitedToStore { get; set; }
 
-        #endregion
 
         #region Common Properties
         public DateTime? CreatedAt { get; set; }
@@ -93,19 +81,6 @@ namespace Ecom.App.Models
         public string IPAddress { get; set; }
         #endregion
 
-        #region Navigation Property
-        public ICollection<ProductNote> ProductNotes { get; set; }
-        //public ICollection<Photo> Photos { get; set; }
 
-        [ForeignKey("Publisher")]
-        public int PublisherId { get; set; }
-        public Publisher Publisher { get; set; }
-        #endregion
-
-        public Product()
-        {
-            ProductNotes = new Collection<ProductNote>();
-            //Photos = new Collection<Photo>();
-        }
     }
 }

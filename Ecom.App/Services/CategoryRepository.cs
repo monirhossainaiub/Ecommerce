@@ -24,7 +24,10 @@ namespace Ecom.App.Services
 
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            return await context.Categories.ToListAsync();
+            return await context.Categories
+                .OrderBy(c => c.DisplayOrder)
+                .ThenBy(c => c.Name)
+                .ToListAsync();
         }
 
         public async Task<Category> GetAsync(int id)

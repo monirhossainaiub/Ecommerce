@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v5.0": {
+    "net5.0": {
       "Angular.UI.Bootstrap/2.5.0": {
         "type": "package"
       },
@@ -7771,7 +7771,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v5.0": [
+    "net5.0": [
       "Angular.UI.Bootstrap >= 2.5.0",
       "AutoMapper >= 10.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.0.1",
@@ -7815,6 +7815,7 @@
       },
       "frameworks": {
         "net5.0": {
+          "targetAlias": "net5.0",
           "projectReferences": {}
         }
       },
@@ -7826,6 +7827,7 @@
     },
     "frameworks": {
       "net5.0": {
+        "targetAlias": "net5.0",
         "dependencies": {
           "Angular.UI.Bootstrap": {
             "target": "Package",
@@ -7890,7 +7892,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.7.20366.6\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.8.20417.9\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -7902,7 +7904,7 @@
       "message": "Microsoft.VisualStudio.Web.CodeGeneration.Templating 5.0.0-preview.7.20370.3 depends on Microsoft.CodeAnalysis.CSharp (>= 3.7.0-3.20269.11) but Microsoft.CodeAnalysis.CSharp 3.7.0-3.20269.11 was not found. An approximate best match of Microsoft.CodeAnalysis.CSharp 3.7.0-3.final was resolved.",
       "libraryId": "Microsoft.CodeAnalysis.CSharp",
       "targetGraphs": [
-        ".NETCoreApp,Version=v5.0"
+        "net5.0"
       ]
     },
     {
@@ -7912,7 +7914,7 @@
       "message": "Microsoft.VisualStudio.Web.CodeGeneration.Utils 5.0.0-preview.7.20370.3 depends on Microsoft.CodeAnalysis.CSharp.Workspaces (>= 3.7.0-3.20269.11) but Microsoft.CodeAnalysis.CSharp.Workspaces 3.7.0-3.20269.11 was not found. An approximate best match of Microsoft.CodeAnalysis.CSharp.Workspaces 3.7.0-3.final was resolved.",
       "libraryId": "Microsoft.CodeAnalysis.CSharp.Workspaces",
       "targetGraphs": [
-        ".NETCoreApp,Version=v5.0"
+        "net5.0"
       ]
     }
   ]

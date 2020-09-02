@@ -29,8 +29,11 @@ namespace Ecom.App.Data
 
             builder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
 
-            builder.Entity<Product>()
-                .HasIndex(p => p.SKU).IsUnique();
+            builder.Entity<Product>(entity => {
+                entity.HasIndex(p => p.SKU).IsUnique();
+                entity.HasIndex(p => p.Name).IsUnique();
+            });
+                
 
             builder.Entity<Publisher>()
                 .HasIndex(p => p.Name).IsUnique();

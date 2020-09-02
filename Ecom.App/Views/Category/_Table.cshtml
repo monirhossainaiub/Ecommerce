@@ -23,9 +23,9 @@
                                 <option ng-value="100">100</option>
                             </select>
                         </label>
-                        <button ng-click="showFormPopUpForSave()" title="{{addEntityTitle}}" type="button" data-toggle="modal" >
+                        <button class="btn btn-primary" ng-click="showFormPopUpForSave()" title="{{addEntityTitle}}" type="button" data-toggle="modal" >
                             <span>
-                                <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+                                <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
                             </span>
                         </button>
                     </div>
@@ -47,7 +47,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="x in dataSource | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
+                                <tr ng-hide="dataSource.length == 0" ng-repeat="x in dataSource | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
                                     <td>{{x.id}}</td>
                                     <td>{{x.name}}</td>
                                     <td>{{x.description}}</td>
@@ -59,12 +59,19 @@
                                         <span ng-click="delete(x)" title="Delete"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></span>
                                     </td>
                                 </tr>
+                                <tr ng-show="dataSource.length == 0">
+                                    <td colspan="{{columns.length}}">
+                                        <h3 class="text-danger d-block text-center">There is no recored yet</h3>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            @await Html.PartialAsync("~/Views/Shared/_Pagination.cshtml")
+            <div ng-hide="dataSource.length == 0">
+                @await Html.PartialAsync("~/Views/Shared/_Pagination.cshtml")
+            </div>
         </div>
     </div>
 </div>

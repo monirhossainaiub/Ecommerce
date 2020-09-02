@@ -5,8 +5,20 @@
 }
 
 <div ng-controller="categoryController as $ctrl">
-    @await Html.PartialAsync("~/Views/Shared/_Table.cshtml")
-    @await Html.PartialAsync("~/Views/Category/FormPopUp.cshtml")
+    <div>
+        <div ng-show="isResponseComplete">
+            @await Html.PartialAsync("~/Views/Category/_Table.cshtml")
+            @await Html.PartialAsync("~/Views/Category/FormPopUp.cshtml")
+        </div>
+        <div ng-hide="isResponseComplete" class="container-fluid">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+   
 </div>
 
 
