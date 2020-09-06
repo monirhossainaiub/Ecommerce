@@ -170,3 +170,4 @@ E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.genruntimeconfig.c
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\FormPopUp.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\Index.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\_Table.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\AutoMapper.DataReaderMapper.dll

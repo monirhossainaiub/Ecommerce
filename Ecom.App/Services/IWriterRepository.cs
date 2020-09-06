@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Ecom.App.Services
 {
-    public interface IWriterRepository
+    public interface IWriterRepository : IRepository<Writer>
     {
 
         Task<Writer> GetAsync(int id, bool includeRelated = true);
         Task<IEnumerable<Writer>> GetAllAsync();
-        void Add(Writer writer);
         void Remove(Writer writer);
-
         Task<List<string>> Names();
 
        

@@ -1,4 +1,5 @@
-﻿using Ecom.App.Controllers.Resources.DTOs;
+﻿using AutoMapper;
+using Ecom.App.Controllers.Resources.DTOs;
 using Ecom.App.Data;
 using Ecom.App.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,25 +10,18 @@ using System.Threading.Tasks;
 
 namespace Ecom.App.Services
 {
-    public class WriterRepository : IWriterRepository
+    public class WriterRepository : Repository<Writer>, IWriterRepository
     {
-        private readonly ApplicationDbContext context;
-        public WriterRepository(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
-
-        public void Add(Writer writer)
-        {
-            context.Writers.Add(writer);
-            
-        }
-
+        public WriterRepository(ApplicationDbContext context, IMapper mapper) : base(context, mapper) { }
+        
         public async Task<IEnumerable<Writer>> GetAllAsync()
         {
             return await context.Writers
-                .OrderBy(w => w.Name)
+                .OrderBy(w => w.Id)
+                .ThenBy(w => w.Name)
                 .ToListAsync();
+            //string sql = $"SELECT * FROM Writers";
+            //return await base.ReadData<Writer>(sql);
         }
 
         public async Task<Writer> GetAsync(int id, bool includeRelated = true)
@@ -45,7 +39,7 @@ namespace Ecom.App.Services
             context.Writers.Remove(writer);
         }
 
-       public async Task<List<string>> Names()
+        public async Task<List<string>> Names()
         {
             return await context.Writers.Select(p => p.Name).ToListAsync();
         }

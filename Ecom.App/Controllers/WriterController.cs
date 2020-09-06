@@ -84,7 +84,7 @@ namespace Ecom.App.Controllers
            
             var writer = mapper.Map<WriterDto, Writer>(writerDto);
             writer.CreatedAt = DateTime.Now;
-            writerRepository.Add(writer);
+            writerRepository.Insert(writer);
             await unitOfWork.SaveChangesAsync();
 
             var result = mapper.Map<Writer, WriterDto>(writer);

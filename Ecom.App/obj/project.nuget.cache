@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "GYDlUKMHcx/WtZkkOAvbu740ekA6PYEubUcyx05+wWfWLkrkmcEx3MgfLyY0L1si8/xkbbcj0cApzSBgtqtVTA==",
+  "dgSpecHash": "7W627KArpT+ExleLTbLRYf0v4ST+ZsFblUDScR/Da9zhtYojl9uOw8qNuD63vLrnpAipcjZONAGOnfMu+y1Xjw==",
   "success": true,
   "projectFilePath": "E:\\Projects\\Book\\Ecommerce\\Ecom.App\\Ecom.App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Monir\\.nuget\\packages\\angular.ui.bootstrap\\2.5.0\\angular.ui.bootstrap.2.5.0.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
+    "C:\\Users\\Monir\\.nuget\\packages\\automapper.datareadermapper\\1.0.6136.33530\\automapper.datareadermapper.1.0.6136.33530.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.1\\automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\bootstrap\\3.4.1\\bootstrap.3.4.1.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
@@ -162,6 +163,26 @@
       "warningLevel": 1,
       "message": "Microsoft.VisualStudio.Web.CodeGeneration.Utils 5.0.0-preview.7.20370.3 depends on Microsoft.CodeAnalysis.CSharp.Workspaces (>= 3.7.0-3.20269.11) but Microsoft.CodeAnalysis.CSharp.Workspaces 3.7.0-3.20269.11 was not found. An approximate best match of Microsoft.CodeAnalysis.CSharp.Workspaces 3.7.0-3.final was resolved.",
       "libraryId": "Microsoft.CodeAnalysis.CSharp.Workspaces",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: AutoMapper.DataReaderMapper 1.0.6136.33530 requires AutoMapper (= 4.2.1) but version AutoMapper 10.0.0 was resolved.",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'AutoMapper.DataReaderMapper 1.0.6136.33530' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "AutoMapper.DataReaderMapper",
       "targetGraphs": [
         "net5.0"
       ]
