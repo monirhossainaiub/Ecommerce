@@ -37,11 +37,11 @@ namespace Ecom.App.Models
 
 
         #region Navigation Properties
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ProductPublisher> ProductPublishers { get; set; }
         #endregion
         public Publisher()
         {
-            Products = new Collection<Product>();
+            ProductPublishers = new Collection<ProductPublisher>();
         }
     }
 }

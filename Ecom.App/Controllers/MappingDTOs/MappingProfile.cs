@@ -16,12 +16,17 @@ namespace Ecom.App.Controllers.MappingDTOs
             CreateMap<Category, CategoryDto>();
             CreateMap<Product, ProductDto>();
             CreateMap<Publisher, PublisherDto>();
+            CreateMap<Country, CountryDto>();
+            CreateMap<Writer, WriterDto>();
+
 
 
             // API Resource to Domain
             CreateMap<CategoryDto, Category>();
             CreateMap<ProductDto, Product>();
             CreateMap<PublisherDto, Publisher>();
+            CreateMap<CountryDto, Country>();
+            CreateMap<WriterDto, Writer>();
         }
     }
 }

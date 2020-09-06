@@ -7,7 +7,7 @@
         <div class="col-sm-6">
             <div class="pull-right">
                 <ul uib-pagination
-                    total-items="(categories | filter:searchText).length"
+                    total-items="(dataSource | filter:searchText).length"
                     ng-model="currentPage"
                     items-per-page="itemsPerpage"
                     max-size="5"

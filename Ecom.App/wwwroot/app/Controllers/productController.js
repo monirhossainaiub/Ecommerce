@@ -13,6 +13,10 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
     $scope.isResponseComplete = false;
     $scope.action = "Save";
     $scope.dataSource = [];
+    $scope.countries = [];
+    $scope.categories = [];
+    $scope.publishers = [];
+
     $scope.addEntityTitle = "Add " + entityNameToPerform;
     $scope.formTitle = "Create a " + entityNameToPerform;
  
@@ -48,10 +52,14 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         ISBN: null,
         
         edition: null,
-        country : null,
+        country: null,
+        countryId: 0,
+        categoryId: 0,
+        publisherId: 0,
         language: null,
         description : null,
         displayOrder: 0,
+        
         price : 0,
         oldPrice  : 0,
         costPrice: 0,
@@ -131,6 +139,40 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         return;
     }
 
+    $scope.getCountries = () => {
+        httpRequestService.getHttpRequestService("country").getAll()
+            .then(
+                (response) => {
+                    
+                    $scope.countries = response.data;
+                },
+                (err) => {
+                    messageService.error(err.status);
+                });
+    };
+    $scope.getPublishers = () => {
+        httpRequestService.getHttpRequestService("publisher").getAll()
+            .then(
+                (response) => {
+
+                    $scope.publishers = response.data;
+                },
+                (err) => {
+                    messageService.error(err.status);
+                });
+    };
+    $scope.getCategories = () => {
+        httpRequestService.getHttpRequestService("category").getAll()
+            .then(
+                (response) => {
+
+                    $scope.categories = response.data;
+                },
+                (err) => {
+                    messageService.error(err.status);
+                });
+    };
+
     $scope.getAll = () => {
         httpRequestService.getHttpRequestService(controllerName).getAll()
             .then(
@@ -144,6 +186,10 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
             });
     };
     $scope.getAll();
+    $scope.getCountries();
+    $scope.getPublishers();
+    $scope.getCategories();
+
     $scope.formSubmit = ()=> {
         if (!$scope.form.$valid)
             return;
@@ -158,6 +204,9 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                         addToDataSource(response.data);
                         $scope.reset();
                     }, (error) => {
+                        var x = error;
+
+                        console.log(error);
                         messageService.error(error.status);
                     });
         }

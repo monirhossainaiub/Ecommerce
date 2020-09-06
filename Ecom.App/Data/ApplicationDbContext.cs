@@ -20,6 +20,9 @@ namespace Ecom.App.Data
         public DbSet<ProductNote> ProductNotes { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<ProductPublisher> ProductPublishers { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Writer> Writers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -29,14 +32,37 @@ namespace Ecom.App.Data
 
             builder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
 
+            builder.Entity<Category>()
+                .HasMany(c => c.Products)
+                .WithOne(p => p.Category)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<Product>(entity => {
-                entity.HasIndex(p => p.SKU).IsUnique();
                 entity.HasIndex(p => p.Name).IsUnique();
             });
-                
+
+            builder.Entity<ProductPublisher>(entity => {
+                entity.HasIndex(p => p.SKU).IsUnique();
+            });
+            builder.Entity<Writer>(entity => {
+                entity.HasIndex(p => p.Name).IsUnique();
+            });
 
             builder.Entity<Publisher>()
                 .HasIndex(p => p.Name).IsUnique();
+
+            builder.Entity<ProductPublisher>()
+                .HasKey(pp => new { pp.ProductId, pp.PublisherId});
+
+            builder.Entity<ProductPublisher>()
+                .HasOne(pp => pp.Product)
+                .WithMany(p => p.ProductPublishers)
+                .HasForeignKey(pp => pp.ProductId);
+
+            builder.Entity<ProductPublisher>()
+                .HasOne(pp => pp.Publisher)
+                .WithMany(p => p.ProductPublishers)
+                .HasForeignKey(pp => pp.PublisherId);
         }
     }
 }

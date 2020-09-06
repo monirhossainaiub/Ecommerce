@@ -1,0 +1,114 @@
+﻿<div class="modal fade" id="FormPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{formTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-elements form-horizontal">
+                    <form method="post" name="form">
+                        <input type="hidden" ng-model="model.id">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Name<sup>*</sup></label>
+                                    <input ng-change="isExistName()"
+                                           type="text"
+                                           class="form-control"
+                                           id="name"
+                                           name="name"
+                                           ng-model="model.name"
+                                           required
+                                           autocomplete="off"
+                                           maxlength="100"
+                                           autofocus>
+                                </div>
+                                <span class="text-danger" ng-show="form.name.$touched && form.name.$invalid">Writer name is required.</span>
+                                <span class="text-danger" ng-show="form.name.$dirty && isExist">This name already exits.</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="phone">Phone<sup>*</sup></label>
+                                    <input ng-change="isExistPhone()"
+                                           type="text"
+                                           class="form-control"
+                                           id="phone"
+                                           name="phone"
+                                           ng-model="model.phone"
+                                           required
+                                           autocomplete="off"
+                                           maxlength="15">
+                                </div>
+                                <span class="text-danger" ng-show="form.phone.$touched && form.phone.$invalid">Phone name is required.</span>
+                                <span class="text-danger" ng-show="form.phone.$dirty && isPhoneExist">This phone already exits.</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="email">Email<sup>*</sup></label>
+                                    <input ng-change="isExistEmail()"
+                                           type="email"
+                                           class="form-control"
+                                           id="email"
+                                           name="email"
+                                           ng-model="model.email"
+                                           required
+                                           autocomplete="off"
+                                           maxlength="50">
+                                </div>
+                                <span class="text-danger" ng-show="form.email.$touched && form.email.$error.required">Email is required.</span>
+                                <span class="text-danger" ng-show="form.email.$touched && form.email.$error.email">Email is invalid.</span>
+                                <span class="text-danger" ng-show="form.email.$dirty && isEmailExist">This email already exits.</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="country">Select a country</label>
+                                <select class="form-control" name="countryId" id="country" ng-model="model.countryId">
+                                    <option>Select country</option>
+                                    <option ng-repeat="option in countries" ng-value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control"
+                                          id="description"
+                                          rows="3"
+                                          name="addrdescriptioness"
+                                          ng-model="model.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="address">Address</label>
+                                <textarea class="form-control"
+                                          id="address"
+                                          rows="3"
+                                          name="address"
+                                          ng-model="model.address"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fa fa-times-circle fa-lg"></i> Close
+                </button>
+                <button ng-click="reset()" type="button" class="btn btn-secondary">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> Reset
+                </button>
+                <button ng-click="formSubmit()" ng-disabled="form.$invalid || isExist || isPhoneExist || isEmailExist" type="button" class="btn btn-primary">
+                    <i class="fa fa-save fa-lg" fa-save"></i>
+                    {{action}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

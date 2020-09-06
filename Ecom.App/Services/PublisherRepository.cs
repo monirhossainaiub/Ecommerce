@@ -37,7 +37,6 @@ namespace Ecom.App.Services
                 return await context.Publishers.FindAsync(id);
 
             return await context.Publishers
-                .Include(pb => pb.Products)
                 .SingleOrDefaultAsync(pb => pb.Id == id);
         }
 

@@ -31,7 +31,7 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
         { title: 'Description', key: 'description', isSortable: true },
         { title: 'Display Order', key: 'displayOrder', isSortable: true },
         { title: 'isPublished', key: 'isPublished', isSortable: true },
-        { title: 'parentCategoryId', key: 'parentCategoryId', isSortable: true },
+        { title: 'Parent Category', key: 'parentCategory', isSortable: true },
         { title: 'Action', key: 'action', isSortable: false }
 
     ];
@@ -40,7 +40,8 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
     var defaultModel = {
         id: 0,
         name: null,
-        parentCategoryId : 0,
+        parentCategoryId: 0,
+        parentCategory: "",
         description: null,
         displayOrder: 0,
         isPublished: true
@@ -48,8 +49,10 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
 
     $scope.model = angular.copy(defaultModel);
 
+    $scope.records = [];
     var addToDataSource = (data) => {
         $scope.dataSource.push(data);
+        $scope.pushParentCategory();
     }
     var updateDataSource = (data) => {
         for (var i = 0; i < $scope.dataSource.length; i++) {
@@ -108,16 +111,34 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
         return;
     }
 
+    $scope.pushParentCategory = ()=>
+    {
+        for (var i = 0; i < $scope.records.length; i++) {
+            if ($scope.records[i].parentCategoryId == 0) {
+                $scope.records[i].parentCategory = "";
+                continue;
+            }
+            for (var j = 0; j < $scope.records.length; j++) {
+                if ($scope.records[i].parentCategoryId == $scope.records[j].id) {
+                    $scope.records[i].parentCategory = $scope.records[j].name;
+                    break;
+                }
+            }
+
+        }
+        $scope.dataSource = $scope.records;
+    }
+
     $scope.getAll = () => {
         httpRequestService.getHttpRequestService(controllerName).getAll()
             .then(
                 (response) => {
                     $scope.isResponseComplete = true;
-                    $scope.dataSource = response.data;
+                    $scope.records = response.data;
+                    $scope.pushParentCategory();
             },
                 (err) => {
                     $scope.isResponseComplete = true;
-                    
                     //toastr.error("status code:" + err.message + ", The resource could not be found", 'Error', { timeOut: 5000 });
                     messageService.error(err.status);
             });
@@ -126,7 +147,8 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
     $scope.formSubmit = ()=> {
         if (!$scope.form.$valid)
             return;
-        
+
+        $scope.model.parentCategoryId = parseInt($scope.model.parentCategoryId);
         if ($scope.action === "Save") {
             httpRequestService.getHttpRequestService(controllerName).createEntity($scope.model)
                 .then(
@@ -134,7 +156,9 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
                         $scope.reverse = true;
                         baseService.hidePopUpByPopId(FormPopUp);
                         messageService.added(response.data.name);
-                        addToDataSource(response.data);
+
+                        $scope.getAll();
+                        //addToDataSource(response.data);
                         $scope.reset();
                     }, (error) => {
                         messageService.error(error.status);
@@ -146,7 +170,9 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
                     (response) => {
                         baseService.hidePopUpByPopId(FormPopUp);
                         messageService.updated(response.data.name);
-                        updateDataSource(response.data);
+
+                        $scope.getAll();
+                        //updateDataSource(response.data);
                         $scope.reset();
                     }, (error) => {
                         messageService.error(error.status);
@@ -174,7 +200,8 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
                         .then(
                             (result) => {
                                 removeFromDataSource(result.data);
-                                messageService.deleted(entity.name);
+                                //messageService.deleted(entity.name);
+                                $scope.getAll();
                             },
                             (error) => { messageService.error(err.status); }
                      );

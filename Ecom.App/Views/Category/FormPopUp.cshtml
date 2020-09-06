@@ -53,6 +53,13 @@
                                     <label class="form-check-label" for="isPublished">isPublished?</label>
                                 </div>
                             </div>
+                            <div class="col-sm-6">
+                                <label for="parentCategory">Select Parant Category</label>
+                                <select class="form-control" name="parentCategoryId" id="parentCategory" ng-model="model.parentCategoryId">
+                                    <option value="0"></option>
+                                    <option ng-repeat="option in dataSource" ng-value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 form-group">

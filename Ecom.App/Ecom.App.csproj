@@ -8,6 +8,10 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200823082653_removeProductCodeFromProduct.cs" />
     <Compile Remove="Data\Migrations\20200823082653_removeProductCodeFromProduct.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200906052308_addWriter.cs" />
+    <Compile Remove="Data\Migrations\20200906052308_addWriter.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200906052928_addAnnotationToWriter.cs" />
+    <Compile Remove="Data\Migrations\20200906052928_addAnnotationToWriter.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

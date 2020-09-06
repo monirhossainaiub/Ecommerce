@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ecom.App.Controllers.Resources.DTOs;
 using Ecom.App.Models;
 using Ecom.App.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace Ecom.App.Controllers
 {

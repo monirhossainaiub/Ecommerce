@@ -31,22 +31,6 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">ISBN</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="ISBN"
-                                           name="ISBN"
-                                           ng-model="model.ISBN"
-                                           required
-                                           autocomplete="off"
-                                           maxlength="150">
-                                </div>
-                                <span class="text-danger" ng-show="form.ISBN.$touched && form.ISBN.$invalid">ISBN is required.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
                                     <label for="language">Language</label>
                                     <input type="text"
                                            class="form-control"
@@ -59,34 +43,8 @@
                                 </div>
                                 <span class="text-danger" ng-show="form.language.$touched && form.language.$invalid">Language is required.</span>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="edition">Edition</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="edition"
-                                           name="edition"
-                                           ng-model="model.edition"
-                                           autocomplete="off"
-                                           maxlength="150">
-                                </div>
-                                @*<span class="text-danger" ng-show="form.edition.$touched && form.edition.$invalid">Edition is required.</span>*@
-                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="country">Country</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="country"
-                                           name="country"
-                                           ng-model="model.country"
-                                           autocomplete="off"
-                                           maxlength="50">
-                                </div>
-                                @*<span class="text-danger" ng-show="form.country.$touched && form.country.$invalid">Language is required.</span>*@
-                            </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="edition">Display Order</label>
@@ -97,146 +55,28 @@
                                            ng-model="model.displayOrder"
                                            autocomplete="off">
                                 </div>
-                                @*<span class="text-danger" ng-show="form.edition.$touched && form.edition.$invalid">Edition is required.</span>*@
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="category">Select a category <sup>*</sup></label>
+                                <select required class="form-control" name="categoryId" id="category" ng-model="model.categoryId">
+                                    <option value="0">--Select category--</option>
+                                    <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                <span class="text-danger" ng-show="form.categoryId.$dirty  && form.categoryId.$invalid">Category is required.</span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="costPrice">Cost Price</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="costPrice"
-                                           name="costPrice"
-                                           ng-model="model.costPrice"
-                                           placeholder="0.00"
-                                           step="0.01"
-                                           min="0"
-                                           autocomplete="off"
-                                           maxlength="15">
-                                </div>
-                                @*<span class="text-danger" ng-show="form.country.$touched && form.country.$invalid">Language is required.</span>*@
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="price">Selling Price</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="price"
-                                           name="price"
-                                           ng-model="model.price"
-                                           required
-                                           placeholder="0.00"
-                                           step="0.01"
-                                           min="0"
-                                           autocomplete="off">
-                                </div>
-                                <span class="text-danger" ng-show="form.price.$touched && form.price.$invalid">Selling Price is required.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="oldPrice">Old Price</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="oldPrice"
-                                           name="oldPrice"
-                                           ng-model="model.oldPrice"
-                                           placeholder="0.00"
-                                           step="0.01"
-                                           min="0"
-                                           autocomplete="off"
-                                           maxlength="15">
-                                </div>
-                                @*<span class="text-danger" ng-show="form.country.$touched && form.country.$invalid">Language is required.</span>*@
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="stockQuantity">Stock in Quantity</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="stockQuantity"
-                                           name="stockQuantity"
-                                           ng-model="model.stockQuantity"
-                                           required
-                                           min="0"
-                                           autocomplete="off">
-                                </div>
-                                <span class="text-danger" ng-show="form.stockQuantity.$touched && form.stockQuantity.$invalid">Stock Price is required.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="orderMinimumQuantity">Minimum Order Quantity</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="orderMinimumQuantity"
-                                           name="orderMinimumQuantity"
-                                           ng-model="model.orderMinimumQuantity"
-                                           placeholder="0.00"
-                                           step="0.01"
-                                           min="0"
-                                           autocomplete="off"
-                                           maxlength="15">
-                                </div>
-                                @*<span class="text-danger" ng-show="form.country.$touched && form.country.$invalid">Language is required.</span>*@
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="orderMaximumQuantity">Maximum order quantity</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="orderMaximumQuantity"
-                                           name="orderMaximumQuantity"
-                                           ng-model="model.orderMaximumQuantity"
-                                           required
-                                           min="0"
-                                           autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="notifyForMinimumQuantityBellow">Notify for under minimum quantity</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="notifyForMinimumQuantityBellow"
-                                           name="notifyForMinimumQuantityBellow"
-                                           ng-model="model.notifyForMinimumQuantityBellow"
-                                           placeholder="0.00"
-                                           step="0.01"
-                                           min="0"
-                                           autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="numberOfPage">No. of page</label>
-                                    <input type="number"
-                                           class="form-control"
-                                           id="numberOfPage"
-                                           name="numberOfPage"
-                                           ng-model="model.numberOfPage"
-                                           min="0"
-                                           autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row">
                             <div class="col-sm-12 form-group">
-                                <label for="description">Title / Short description</label>
+                                <label for="description">Title / Short description<sup>*</sup></label>
                                 <textarea class="form-control"
                                           id="title"
                                           rows="2"
                                           name="title"
+                                          required
                                           ng-model="model.title"></textarea>
+                                <span class="text-danger" ng-show="form.title.$touched && form.title.$invalid">Titel name is required.</span>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-sm-12 form-group">
                                 <label for="description">Description</label>
@@ -247,75 +87,8 @@
                                           ng-model="model.description"></textarea>
                             </div>
                         </div>
-
-
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-check">
-                                    <input type="checkbox"
-                                           class="form-check-input"
-                                           id="isPublished"
-                                           name="isPublished"
-                                           ng-model="model.isPublished">
-                                    <label class="form-check-label" for="isPublished">Is Published?</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-check">
-                                    <input type="checkbox"
-                                           class="form-check-input"
-                                           id="isAproved"
-                                           name="isAproved"
-                                           ng-model="model.isAproved">
-                                    <label class="form-check-label" for="isAproved">Is Aproved?</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-check">
-                                    <input type="checkbox"
-                                           class="form-check-input"
-                                           id="isNewProduct"
-                                           name="isNewProduct"
-                                           ng-model="model.isNewProduct">
-                                    <label class="form-check-label" for="isNewProduct">Is NewProduct?</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-check">
-                                    <input type="checkbox"
-                                           class="form-check-input"
-                                           id="isReturnAble"
-                                           name="isReturnAble"
-                                           ng-model="model.isReturnAble">
-                                    <label class="form-check-label" for="isReturnAble">Is ReturnAble?</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-check">
-                                    <input type="checkbox"
-                                           class="form-check-input"
-                                           id="isShippingChargeApplicable"
-                                           name="isShippingChargeApplicable"
-                                           ng-model="model.isShippingChargeApplicable">
-                                    <label class="form-check-label" for="isShippingChargeApplicable">Is ShippingChargeApplicable?</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-check">
-                                    <input type="checkbox"
-                                           class="form-check-input"
-                                           id="isLimitedToStore"
-                                           name="isLimitedToStore"
-                                           ng-model="model.isLimitedToStore">
-                                    <label class="form-check-label" for="isLimitedToStore">Is LimitedToStore?</label>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">

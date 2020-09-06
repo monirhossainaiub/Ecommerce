@@ -27,7 +27,7 @@ namespace Ecom.App.Models
 
 
         #region Navigation Properties
-        //public ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
         #endregion
     }
 }

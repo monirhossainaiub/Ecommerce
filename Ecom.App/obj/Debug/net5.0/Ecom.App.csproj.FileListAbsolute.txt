@@ -138,6 +138,9 @@ E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Areas\Identity\Pages\
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Category\FormPopUp.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Category\Index.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Category\_Table.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Country\FormPopUp.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Country\Index.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Country\_Table.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Product\FormPopUp.cshtml.g.cs
@@ -164,3 +167,6 @@ E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\staticwebassets\Ecom.App.St
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.dll
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.pdb
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.genruntimeconfig.cache
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\FormPopUp.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\Index.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\_Table.cshtml.g.cs

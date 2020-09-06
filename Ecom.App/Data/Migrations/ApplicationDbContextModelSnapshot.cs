@@ -69,6 +69,23 @@ namespace Ecom.App.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Ecom.App.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("Ecom.App.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -93,11 +110,8 @@ namespace Ecom.App.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<double>("CostPrice")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -117,76 +131,24 @@ namespace Ecom.App.Data.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
-                    b.Property<string>("Edition")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("IPAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ISBN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsAproved")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsLimitedToStore")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsNewProduct")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsReturnAble")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsShippingChargeApplicable")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Language")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int>("NotifyForMinimumQuantityBellow")
-                        .HasColumnType("int");
-
-                    b.Property<double>("NumberOfPage")
-                        .HasColumnType("float");
-
-                    b.Property<double>("OldPrice")
-                        .HasColumnType("float");
-
-                    b.Property<int>("OrderMaximumQuantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderMinimumQuantity")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
                     b.Property<string>("PublishedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PublishedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SKU")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -199,12 +161,9 @@ namespace Ecom.App.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.HasIndex("PublisherId");
-
-                    b.HasIndex("SKU")
                         .IsUnique();
 
                     b.ToTable("Products");
@@ -246,6 +205,82 @@ namespace Ecom.App.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductNotes");
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.ProductPublisher", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("CostPrice")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Edition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<bool>("IsAproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsLimitedToStore")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsNewProduct")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReturnAble")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsShippingChargeApplicable")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NotifyForMinimumQuantityBellow")
+                        .HasColumnType("int");
+
+                    b.Property<double>("NumberOfPage")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OldPrice")
+                        .HasColumnType("float");
+
+                    b.Property<int>("OrderMaximumQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderMinimumQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("countryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "PublisherId");
+
+                    b.HasIndex("PublisherId");
+
+                    b.HasIndex("SKU")
+                        .IsUnique();
+
+                    b.ToTable("ProductPublishers");
                 });
 
             modelBuilder.Entity("Ecom.App.Models.Publisher", b =>
@@ -307,6 +342,68 @@ namespace Ecom.App.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Publishers");
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.Writer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublishedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("PublishedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Writers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -511,10 +608,10 @@ namespace Ecom.App.Data.Migrations
 
             modelBuilder.Entity("Ecom.App.Models.Product", b =>
                 {
-                    b.HasOne("Ecom.App.Models.Publisher", "Publisher")
+                    b.HasOne("Ecom.App.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -523,6 +620,21 @@ namespace Ecom.App.Data.Migrations
                     b.HasOne("Ecom.App.Models.Product", "Product")
                         .WithMany("ProductNotes")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.ProductPublisher", b =>
+                {
+                    b.HasOne("Ecom.App.Models.Product", "Product")
+                        .WithMany("ProductPublishers")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecom.App.Models.Publisher", "Publisher")
+                        .WithMany("ProductPublishers")
+                        .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
