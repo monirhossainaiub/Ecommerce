@@ -2,22 +2,17 @@
 
 'use strict';
 
-app.controller("productController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>
+app.controller("languageController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>
 {
     //server controller name
-    var controllerName = "product";
-    $scope.dataTableName = "Products";
+    var controllerName = "language";
+    $scope.dataTableName = "Languages";
     var FormPopUp = "FormPopUp";
-    var entityNameToPerform = "product";
+    var entityNameToPerform = "language";
     $scope.isExist = false;
     $scope.isResponseComplete = false;
     $scope.action = "Save";
     $scope.dataSource = [];
-    $scope.countries = [];
-    $scope.languages = [];
-    $scope.categories = [];
-    $scope.publishers = [];
-
     $scope.addEntityTitle = "Add " + entityNameToPerform;
     $scope.formTitle = "Create a " + entityNameToPerform;
  
@@ -33,51 +28,13 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
     $scope.columns = [
         { title: 'Id', key: 'id', isSortable: true },
         { title: 'Name', key: 'name', isSortable: true },
-        { title: 'Title', key: 'title', isSortable: true },
-        { title: 'ISBN', key: 'ISBN', isSortable: true },
-        { title: 'Edition', key: 'edition', isSortable: true },
-        { title: 'Country', key: 'country', isSortable: true },
-        { title: 'Language', key: 'language', isSortable: true },
-        { title: 'Display Order', key: 'displayOrder', isSortable: true },
-        { title: 'Price', key: 'price', isSortable: true },
-        { title: 'OldPrice', key: 'oldPrice', isSortable: true },
-        { title: 'CostPrice', key: 'costPrice', isSortable: true },
-        { title: 'Quantity', key: 'stockQuantity', isSortable: true }
+        { title: 'Action', key: 'action', isSortable: false }
     ];
     //#endregion pagination 
 
     var defaultModel = {
         id: 0,
-        name: null,
-        title: null,
-        ISBN: null,
-        
-        edition: null,
-        country: null,
-        countryId: 0,
-        categoryId: 0,
-        categoryId: 0,
-        languageId: 0,
-        publisherId: 0,
-        language: null,
-        description : null,
-        displayOrder: 0,
-        
-        price : 0,
-        oldPrice  : 0,
-        costPrice: 0,
-        numberOfPage: 0,
-        stockQuantity: 0,
-        orderMinimumQuantity : 0,
-        orderMaximumQuantity : 0,
-        notifyForMinimumQuantityBellow : 0,
-
-        isNewProduct: true,
-        isPublished: true,
-        isAproved : true,
-        isReturnAble : true,
-        isShippingChargeApplicable : true,
-        isLimitedToStore : true,
+        name: null
     };
 
     $scope.model = angular.copy(defaultModel);
@@ -142,51 +99,6 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         return;
     }
 
-    $scope.getCountries = () => {
-        httpRequestService.getHttpRequestService("country").getAll()
-            .then(
-                (response) => {
-                    
-                    $scope.countries = response.data;
-                },
-                (err) => {
-                    messageService.error(err.status);
-                });
-    };
-    $scope.getLanguages = () => {
-        httpRequestService.getHttpRequestService("language").getAll()
-            .then(
-                (response) => {
-
-                    $scope.languages = response.data;
-                },
-                (err) => {
-                    messageService.error(err.status);
-                });
-    };
-    $scope.getPublishers = () => {
-        httpRequestService.getHttpRequestService("publisher").getAll()
-            .then(
-                (response) => {
-
-                    $scope.publishers = response.data;
-                },
-                (err) => {
-                    messageService.error(err.status);
-                });
-    };
-    $scope.getCategories = () => {
-        httpRequestService.getHttpRequestService("category").getAll()
-            .then(
-                (response) => {
-
-                    $scope.categories = response.data;
-                },
-                (err) => {
-                    messageService.error(err.status);
-                });
-    };
-
     $scope.getAll = () => {
         httpRequestService.getHttpRequestService(controllerName).getAll()
             .then(
@@ -196,15 +108,12 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
             },
                 (err) => {
                     $scope.isResponseComplete = true;
+                    
+                    //toastr.error("status code:" + err.message + ", The resource could not be found", 'Error', { timeOut: 5000 });
                     messageService.error(err.status);
             });
     };
     $scope.getAll();
-    $scope.getCountries();
-    $scope.getLanguages();
-    $scope.getPublishers();
-    $scope.getCategories();
-
     $scope.formSubmit = ()=> {
         if (!$scope.form.$valid)
             return;
@@ -219,9 +128,6 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                         addToDataSource(response.data);
                         $scope.reset();
                     }, (error) => {
-                        var x = error;
-
-                        console.log(error);
                         messageService.error(error.status);
                     });
         }

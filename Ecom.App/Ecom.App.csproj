@@ -12,6 +12,8 @@
     <Compile Remove="Data\Migrations\20200906052308_addWriter.Designer.cs" />
     <Compile Remove="Data\Migrations\20200906052928_addAnnotationToWriter.cs" />
     <Compile Remove="Data\Migrations\20200906052928_addAnnotationToWriter.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200907150401_addLanguage.cs" />
+    <Compile Remove="Data\Migrations\20200907150401_addLanguage.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,7 +18,8 @@ namespace Ecom.App.Controllers.MappingDTOs
             CreateMap<Publisher, PublisherDto>();
             CreateMap<Country, CountryDto>();
             CreateMap<Writer, WriterDto>();
-
+            CreateMap<Language, LanguageDto>();
+            
 
 
             // API Resource to Domain
@@ -27,6 +28,7 @@ namespace Ecom.App.Controllers.MappingDTOs
             CreateMap<PublisherDto, Publisher>();
             CreateMap<CountryDto, Country>();
             CreateMap<WriterDto, Writer>();
+            CreateMap<LanguageDto, Language>();
         }
     }
 }

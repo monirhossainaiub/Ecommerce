@@ -23,6 +23,7 @@ namespace Ecom.App.Data
         public DbSet<ProductPublisher> ProductPublishers { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Writer> Writers { get; set; }
+        public DbSet<Language> Languages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -49,6 +50,8 @@ namespace Ecom.App.Data
             });
 
             builder.Entity<Publisher>()
+                .HasIndex(p => p.Name).IsUnique();
+            builder.Entity<Language>()
                 .HasIndex(p => p.Name).IsUnique();
 
             builder.Entity<ProductPublisher>()

@@ -40,7 +40,8 @@ namespace Ecom.App
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IWriterRepository, WriterRepository>();
-            
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
+
 
             services.AddAutoMapper(typeof(Startup));
 

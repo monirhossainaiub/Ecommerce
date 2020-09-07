@@ -26,22 +26,16 @@
                                            maxlength="150"
                                            autofocus>
                                 </div>
-                                <span class="text-danger" ng-show="form.name.$touched && form.name.$invalid">Product name is required.</span>
-                                <span class="text-danger" ng-show="form.name.$dirty && isExist">This name already exits.</span>
+                                <span class="text-danger" ng-show="(form.name.$touched || form.name.$dirty) && form.name.$invalid">Name is required.</span>
+                                <span class="text-danger" ng-show="form.name.$dirty && isExist">This name is already exits.</span>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="language">Language<sup>*</sup></label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="language"
-                                           name="language"
-                                           ng-model="model.language"
-                                           required
-                                           autocomplete="off"
-                                           maxlength="50">
-                                </div>
-                                <span class="text-danger" ng-show="form.language.$touched && form.language.$invalid">Language is required.</span>
+                                <label for="language">Select a language <sup>*</sup></label>
+                                <select required class="form-control" name="languageId" id="language" ng-model="model.categoryId">
+                                    <option value="0">--Select language--</option>
+                                    <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                <span class="text-danger" ng-show="(form.languageId.$dirty || form.languageId.$touched)  && form.languageId.$invalid">Language is required.</span>
                             </div>
                         </div>
                         <div class="row">

@@ -171,3 +171,6 @@ E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\FormPopU
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\Index.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Writer\_Table.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\AutoMapper.DataReaderMapper.dll
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Language\FormPopUp.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Language\Index.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Language\_Table.cshtml.g.cs
