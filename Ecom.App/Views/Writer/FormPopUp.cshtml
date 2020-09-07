@@ -26,7 +26,7 @@
                                            maxlength="100"
                                            autofocus>
                                 </div>
-                                <span class="text-danger" ng-show="form.name.$touched && form.name.$invalid">Writer name is required.</span>
+                                <span class="text-danger" ng-show="(form.name.$dirty || form.name.$touched) && form.name.$invalid">Writer name is required.</span>
                                 <span class="text-danger" ng-show="form.name.$dirty && isExist">This name already exits.</span>
                             </div>
                             <div class="col-sm-6">
@@ -42,16 +42,17 @@
                                            autocomplete="off"
                                            maxlength="15">
                                 </div>
-                                <span class="text-danger" ng-show="form.phone.$touched && form.phone.$invalid">Phone name is required.</span>
-                                <span class="text-danger" ng-show="form.phone.$dirty && isPhoneExist">This phone already exits.</span>
+                                <span class="text-danger" ng-show="(form.phone.$dirty || form.phone.$touched) && form.phone.$invalid">Phone No. is required.</span>
+                                @*<span class="text-danger" ng-show="form.phone.$dirty && !isPhoneValidate ">Phone No. is invalid.</span>*@
+                                <span class="text-danger" ng-show="form.phone.$dirty && isPhoneExist">This phone No. is already exits.</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="email">Email<sup>*</sup></label>
-                                    <input ng-change="isExistEmail()"
-                                           type="email"
+                                    <input ng-change="isExistEmail();isValidateEmail()"
+                                           type="text"
                                            class="form-control"
                                            id="email"
                                            name="email"
@@ -60,9 +61,9 @@
                                            autocomplete="off"
                                            maxlength="50">
                                 </div>
-                                <span class="text-danger" ng-show="form.email.$touched && form.email.$error.required">Email is required.</span>
-                                <span class="text-danger" ng-show="form.email.$touched && form.email.$error.email">Email is invalid.</span>
-                                <span class="text-danger" ng-show="form.email.$dirty && isEmailExist">This email already exits.</span>
+                                <span class="text-danger" ng-show="(form.email.$dirty || form.email.$touched) && form.email.$error.required">Email is required.</span>
+                                <span class="text-danger" ng-show="form.email.$dirty && !isEmailValidate">Email is invalid.</span>
+                                <span class="text-danger" ng-show="form.email.$dirty && isEmailExist">This email is already exits.</span>
                             </div>
                             <div class="col-sm-6">
                                 <label for="country">Select a country</label>
@@ -104,7 +105,10 @@
                 <button ng-click="reset()" type="button" class="btn btn-secondary">
                     <i class="fa fa-refresh" aria-hidden="true"></i> Reset
                 </button>
-                <button ng-click="formSubmit()" ng-disabled="form.$invalid || isExist || isPhoneExist || isEmailExist" type="button" class="btn btn-primary">
+                <button 
+                        ng-click="formSubmit()" 
+                        ng-disabled="form.$invalid || isExist || isPhoneExist || isEmailExist || !isEmailValidate" 
+                        type="button" class="btn btn-primary">
                     <i class="fa fa-save fa-lg" fa-save"></i>
                     {{action}}
                 </button>

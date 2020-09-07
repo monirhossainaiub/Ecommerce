@@ -16,6 +16,8 @@ app.controller("writerController", ($scope, $http, $rootScope, httpRequestServic
     $scope.isExist = false;
     $scope.isPhoneExist = false;
     $scope.isEmailExist = false;
+    $scope.isEmailValidate = false;
+    $scope.isPhoneValidate = false;
     $scope.addEntityTitle = "Add " + entityNameToPerform;
     $scope.formTitle = "Create a " + entityNameToPerform;
  
@@ -198,6 +200,29 @@ app.controller("writerController", ($scope, $http, $rootScope, httpRequestServic
         }
         $scope.isEmailExist = false;
         return;
+    }
+    $scope.isValidateEmail = () => {
+        if ($scope.model.email === undefined || $scope.model.email === "") {
+            $scope.isEmailValidate = true;
+            return;
+        }
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (re.test($scope.model.email)) {
+            $scope.isEmailValidate = true;
+            return;
+        }
+        $scope.isEmailValidate = false;
+    }
+    $scope.isValidatePhone = () => {
+        //const re = RegExp("^(01)[0-9]{9}$|^(\+88)[0-9]{11}$|^(0088)[0-9]{11}$");
+        const re = "/^(01)[0-9]{9}$|^(\+88)[0-9]{11}$|^(0088)[0-9]{11}$/";
+        const phone = $scope.model.phone;
+
+        if ((phone.length == 11 || phone.length == 14 || phone.length == 15) && re.test(phone)) {
+            $scope.isPhoneValidate = true;
+            return;
+        }
+        $scope.isPhoneValidate = true;
     }
 
     $scope.getCountries = () => {

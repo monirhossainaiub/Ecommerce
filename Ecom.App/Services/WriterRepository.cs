@@ -20,6 +20,19 @@ namespace Ecom.App.Services
                 .OrderBy(w => w.Id)
                 .ThenBy(w => w.Name)
                 .ToListAsync();
+
+            //return await context.Writers.Select(w => new WriterDto
+            //{
+            //    Id = w.Id,
+            //    Name = w.Name,
+            //    Phone = w.Phone,
+            //    Email = w.Email,
+            //    CountryId = w.CountryId,
+            //    Description = w.Description,
+            //    Address = w.Address,
+            //    Country = context.Countries.Where(c => c.Id == w.CountryId).Select(c => c.Name).SingleOrDefault()
+            //}).ToListAsync();
+
             //string sql = $"SELECT * FROM Writers";
             //return await base.ReadData<Writer>(sql);
         }

@@ -38,8 +38,8 @@ namespace Ecom.App.Controllers
         public async Task<IActionResult> GetAll()
         {
             var writers = await writerRepository.GetAllAsync();
-            var result = mapper.Map<IEnumerable<Writer>, IEnumerable<WriterDto>>(writers);
-            return Ok(result);
+            //var result = mapper.Map<IEnumerable<WriterDto>, IEnumerable<WriterDto>>(writers);
+            return Ok(writers);
         }
 
         [HttpGet]

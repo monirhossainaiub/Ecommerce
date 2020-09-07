@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">Name<sup>*</sup></label>
                                     <input ng-change="isExistName()"
                                            type="text"
                                            class="form-control"
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="language">Language</label>
+                                    <label for="language">Language<sup>*</sup></label>
                                     <input type="text"
                                            class="form-control"
                                            id="language"
@@ -63,6 +63,16 @@
                                     <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
                                 </select>
                                 <span class="text-danger" ng-show="form.categoryId.$dirty  && form.categoryId.$invalid">Category is required.</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="writer">Select a writer <sup>*</sup></label>
+                                <select required class="form-control" name="writerId" id="writer" ng-model="model.writerId">
+                                    <option value="0">Select writer</option>
+                                    <option ng-repeat="option in writers" ng-value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                <span class="text-danger" ng-show="form.writerId.$dirty  && form.writerId.$invalid">Writer is required.</span>
                             </div>
                         </div>
                         <div class="row">
