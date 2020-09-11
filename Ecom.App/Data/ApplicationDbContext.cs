@@ -38,6 +38,17 @@ namespace Ecom.App.Data
                 .WithOne(p => p.Category)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Writer>()
+                .HasMany(w => w.Products)
+                .WithOne(p => p.Writer)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Language>()
+                .HasMany(l => l.Products)
+                .WithOne(p => p.Language)
+                .HasForeignKey(p => p.LanguageId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<Product>(entity => {
                 entity.HasIndex(p => p.Name).IsUnique();
             });

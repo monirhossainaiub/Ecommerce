@@ -14,6 +14,16 @@
     <Compile Remove="Data\Migrations\20200906052928_addAnnotationToWriter.Designer.cs" />
     <Compile Remove="Data\Migrations\20200907150401_addLanguage.cs" />
     <Compile Remove="Data\Migrations\20200907150401_addLanguage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200907154332_adaProduct_LanguageRelationship.cs" />
+    <Compile Remove="Data\Migrations\20200907154332_adaProduct_LanguageRelationship.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200907154951_adaProduct_LanguageRelationship.cs" />
+    <Compile Remove="Data\Migrations\20200907154951_adaProduct_LanguageRelationship.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200907155351_adaProduct_LanguageRelationship.cs" />
+    <Compile Remove="Data\Migrations\20200907155351_adaProduct_LanguageRelationship.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200907160441_adaProductLanguageRelationship.cs" />
+    <Compile Remove="Data\Migrations\20200907160441_adaProductLanguageRelationship.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200907162209_adaProductLanguageRelationship.cs" />
+    <Compile Remove="Data\Migrations\20200907162209_adaProductLanguageRelationship.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +35,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0-preview.7.20365.19" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0-preview.7.20365.19" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.0-preview.7.20365.19" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0-preview.7.20365.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0-preview.7.20365.15" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.0-preview.7.20370.3" />

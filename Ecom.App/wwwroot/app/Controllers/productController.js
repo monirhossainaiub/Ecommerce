@@ -12,9 +12,11 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
     $scope.isExist = false;
     $scope.isResponseComplete = false;
     $scope.action = "Save";
+
     $scope.dataSource = [];
     $scope.countries = [];
     $scope.languages = [];
+    $scope.writers = [];
     $scope.categories = [];
     $scope.publishers = [];
 
@@ -33,16 +35,13 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
     $scope.columns = [
         { title: 'Id', key: 'id', isSortable: true },
         { title: 'Name', key: 'name', isSortable: true },
-        { title: 'Title', key: 'title', isSortable: true },
-        { title: 'ISBN', key: 'ISBN', isSortable: true },
-        { title: 'Edition', key: 'edition', isSortable: true },
-        { title: 'Country', key: 'country', isSortable: true },
         { title: 'Language', key: 'language', isSortable: true },
+        { title: 'Category', key: 'category', isSortable: true },
+        { title: 'Writer', key: 'writer', isSortable: true },
         { title: 'Display Order', key: 'displayOrder', isSortable: true },
-        { title: 'Price', key: 'price', isSortable: true },
-        { title: 'OldPrice', key: 'oldPrice', isSortable: true },
-        { title: 'CostPrice', key: 'costPrice', isSortable: true },
-        { title: 'Quantity', key: 'stockQuantity', isSortable: true }
+        { title: 'Title', key: 'title', isSortable: true },
+        { title: 'Description', key: 'description', isSortable: true },
+        { title: 'Action', key: 'action', isSortable: false }
     ];
     //#endregion pagination 
 
@@ -164,6 +163,17 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                     messageService.error(err.status);
                 });
     };
+    $scope.getWriters = () => {
+        httpRequestService.getHttpRequestService("writer").getAll()
+            .then(
+                (response) => {
+
+                    $scope.writers = response.data;
+                },
+                (err) => {
+                    messageService.error(err.status);
+                });
+    };
     $scope.getPublishers = () => {
         httpRequestService.getHttpRequestService("publisher").getAll()
             .then(
@@ -186,7 +196,6 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                     messageService.error(err.status);
                 });
     };
-
     $scope.getAll = () => {
         httpRequestService.getHttpRequestService(controllerName).getAll()
             .then(
@@ -199,11 +208,13 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                     messageService.error(err.status);
             });
     };
-    $scope.getAll();
+    
     $scope.getCountries();
     $scope.getLanguages();
+    $scope.getWriters();
     $scope.getPublishers();
     $scope.getCategories();
+    $scope.getAll();
 
     $scope.formSubmit = ()=> {
         if (!$scope.form.$valid)
@@ -214,10 +225,10 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                 .then(
                     (response) => {
                         $scope.reverse = true;
-                        baseService.hidePopUpByPopId(FormPopUp);
+                        //baseService.hidePopUpByPopId(FormPopUp);
                         messageService.added(response.data.name);
                         addToDataSource(response.data);
-                        $scope.reset();
+                        //$scope.reset();
                     }, (error) => {
                         var x = error;
 
@@ -229,10 +240,10 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
             httpRequestService.getHttpRequestService(controllerName).updateEntity($scope.model)
                 .then(
                     (response) => {
-                        baseService.hidePopUpByPopId(FormPopUp);
+                        //baseService.hidePopUpByPopId(FormPopUp);
                         messageService.updated(response.data.name);
                         updateDataSource(response.data);
-                        $scope.reset();
+                        //$scope.reset();
                     }, (error) => {
                         messageService.error(error.status);
                     });
@@ -261,7 +272,7 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                                 removeFromDataSource(result.data);
                                 messageService.deleted(entity.name);
                             },
-                            (error) => { messageService.error(err.status); }
+                            (error) => { messageService.error(error.status); }
                      );
                 }
             }

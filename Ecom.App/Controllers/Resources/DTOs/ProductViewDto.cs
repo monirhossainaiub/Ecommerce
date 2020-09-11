@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace Ecom.App.Controllers.Resources.DTOs
 {
-    public class ProductDto
+    public class ProductViewDto
     {
         public int Id { get; set; }
-
-        [Required]
-        [MaxLength(150)]
-        [Display(Name = "Product")]
         public string Name { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public int DisplayOrder { get; set; }
         public int CategoryId { get; set; }
         public int LanguageId { get; set; }
         public int WriterId { get; set; }
-
+        public string Category { get; set; }
+        public string Language { get; set; }
+        public string Writer { get; set; }
+        public string Description { get; set; }
+        public string Title { get; set; }
+        public int DisplayOrder { get; set; }
+        
         public DateTime? CreatedAt { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }

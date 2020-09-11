@@ -157,8 +157,7 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
                         baseService.hidePopUpByPopId(FormPopUp);
                         messageService.added(response.data.name);
 
-                        $scope.getAll();
-                        //addToDataSource(response.data);
+                        addToDataSource(response.data);
                         $scope.reset();
                     }, (error) => {
                         messageService.error(error.status);
@@ -203,7 +202,7 @@ app.controller("categoryController", ($scope, $http, $rootScope, httpRequestServ
                                 //messageService.deleted(entity.name);
                                 $scope.getAll();
                             },
-                            (error) => { messageService.error(err.status); }
+                            (error) => { messageService.error(error.status); }
                      );
                 }
             }

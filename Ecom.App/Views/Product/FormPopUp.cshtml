@@ -8,103 +8,130 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-elements form-horizontal">
-                    <form method="post" name="form">
-                        <input type="hidden" ng-model="model.id">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="name">Name<sup>*</sup></label>
-                                    <input ng-change="isExistName()"
-                                           type="text"
-                                           class="form-control"
-                                           id="name"
-                                           name="name"
-                                           ng-model="model.name"
-                                           required
-                                           autocomplete="off"
-                                           maxlength="150"
-                                           autofocus>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="true">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="publisher-tab" data-toggle="tab" href="#publisher" role="tab" aria-controls="publisher" aria-selected="false">Publisher</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="photo-tab" data-toggle="tab" href="#photo" role="tab" aria-controls="photo" aria-selected="false">Photos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="note-tab" data-toggle="tab" href="#note" role="tab" aria-controls="note" aria-selected="false">Notes</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="product" role="tabpanel" aria-labelledby="product-tab">
+                        <div class="form-elements form-horizontal">
+                            <form method="post" name="form">
+                                <input type="hidden" ng-model="model.id">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="name">Name<sup>*</sup></label>
+                                            <input ng-change="isExistName()"
+                                                   type="text"
+                                                   class="form-control"
+                                                   id="name"
+                                                   name="name"
+                                                   ng-model="model.name"
+                                                   required
+                                                   autocomplete="off"
+                                                   maxlength="150"
+                                                   autofocus>
+                                        </div>
+                                        <span class="text-danger" ng-show="(form.name.$touched || form.name.$dirty) && form.name.$invalid">Name is required.</span>
+                                        <span class="text-danger" ng-show="form.name.$dirty && isExist">This name is already exits.</span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="language">Select a language <sup>*</sup></label>
+                                        <select required class="form-control" name="languageId" id="language" ng-model="model.languageId">
+                                            <option value="0">--Select language--</option>
+                                            <option ng-repeat="option in languages" ng-value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                        <span class="text-danger" ng-show="(form.languageId.$dirty || form.languageId.$touched)  && form.languageId.$invalid">Language is required.</span>
+                                    </div>
                                 </div>
-                                <span class="text-danger" ng-show="(form.name.$touched || form.name.$dirty) && form.name.$invalid">Name is required.</span>
-                                <span class="text-danger" ng-show="form.name.$dirty && isExist">This name is already exits.</span>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="language">Select a language <sup>*</sup></label>
-                                <select required class="form-control" name="languageId" id="language" ng-model="model.categoryId">
-                                    <option value="0">--Select language--</option>
-                                    <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
-                                </select>
-                                <span class="text-danger" ng-show="(form.languageId.$dirty || form.languageId.$touched)  && form.languageId.$invalid">Language is required.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="edition">Display Order</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="displayOrder"
-                                           name="displayOrder"
-                                           ng-model="model.displayOrder"
-                                           autocomplete="off">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="edition">Display Order</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="displayOrder"
+                                                   name="displayOrder"
+                                                   ng-model="model.displayOrder"
+                                                   autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="category">Select a category <sup>*</sup></label>
+                                        <select required class="form-control" name="categoryId" id="category" ng-model="model.categoryId">
+                                            <option value="0">--Select category--</option>
+                                            <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                        <span class="text-danger" ng-show="form.categoryId.$dirty  && form.categoryId.$invalid">Category is required.</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="category">Select a category <sup>*</sup></label>
-                                <select required class="form-control" name="categoryId" id="category" ng-model="model.categoryId">
-                                    <option value="0">--Select category--</option>
-                                    <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
-                                </select>
-                                <span class="text-danger" ng-show="form.categoryId.$dirty  && form.categoryId.$invalid">Category is required.</span>
-                            </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="writer">Select a writer <sup>*</sup></label>
+                                        <select required class="form-control" name="writerId" id="writer" ng-model="model.writerId">
+                                            <option value="0">Select writer</option>
+                                            <option ng-repeat="option in writers" ng-value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                        <span class="text-danger" ng-show="(form.writerId.$dirty || form.writerId.$touched)  && form.writerId.$invalid">Writer is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 form-group">
+                                        <label for="description">Title / Short description<sup>*</sup></label>
+                                        <textarea class="form-control"
+                                                  id="title"
+                                                  rows="2"
+                                                  name="title"
+                                                  required
+                                                  ng-model="model.title"></textarea>
+                                        <span class="text-danger" ng-show="form.title.$touched && form.title.$invalid">Titel name is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control"
+                                                  id="description"
+                                                  rows="3"
+                                                  name="description"
+                                                  ng-model="model.description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 d-block d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <i class="fa fa-times-circle fa-lg"></i> Close
+                                        </button>
+                                        <button ng-click="reset()" type="button" class="btn btn-secondary">
+                                            <i class="fa fa-refresh" aria-hidden="true"></i> Reset
+                                        </button>
+                                        <button ng-click="formSubmit()" ng-disabled="form.$invalid || isExist" type="button" class="btn btn-primary">
+                                            <i class="fa fa-save fa-lg" fa-save"></i>
+                                            {{action}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="writer">Select a writer <sup>*</sup></label>
-                                <select required class="form-control" name="writerId" id="writer" ng-model="model.writerId">
-                                    <option value="0">Select writer</option>
-                                    <option ng-repeat="option in writers" ng-value="{{option.id}}">{{option.name}}</option>
-                                </select>
-                                <span class="text-danger" ng-show="form.writerId.$dirty  && form.writerId.$invalid">Writer is required.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 form-group">
-                                <label for="description">Title / Short description<sup>*</sup></label>
-                                <textarea class="form-control"
-                                          id="title"
-                                          rows="2"
-                                          name="title"
-                                          required
-                                          ng-model="model.title"></textarea>
-                                <span class="text-danger" ng-show="form.title.$touched && form.title.$invalid">Titel name is required.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 form-group">
-                                <label for="description">Description</label>
-                                <textarea class="form-control"
-                                          id="description"
-                                          rows="3"
-                                          name="description"
-                                          ng-model="model.description"></textarea>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="tab-pane fade" id="publisher" role="tabpanel" aria-labelledby="publisher-tab">Publisher</div>
+                    <div class="tab-pane fade" id="photo" role="tabpanel" aria-labelledby="photo-tab">Photos</div>
+                    <div class="tab-pane fade" id="note" role="tabpanel" aria-labelledby="note-tab">Notes</div>
                 </div>
             </div>
+            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    <i class="fa fa-times-circle fa-lg"></i> Close
-                </button>
-                <button ng-click="reset()" type="button" class="btn btn-secondary">
-                    <i class="fa fa-refresh" aria-hidden="true"></i> Reset
-                </button>
-                <button ng-click="formSubmit()" ng-disabled="form.$invalid || isExist" type="button" class="btn btn-primary">
-                    <i class="fa fa-save fa-lg" fa-save"></i>
-                    {{action}}
-                </button>
+                
             </div>
         </div>
     </div>

@@ -308,7 +308,7 @@ app.controller("writerController", ($scope, $http, $rootScope, httpRequestServic
                                 removeFromDataSource(result.data);
                                 messageService.deleted(entity.name);
                             },
-                            (error) => { messageService.error(err.status); }
+                            (error) => { messageService.error(error.status); }
                      );
                 }
             }

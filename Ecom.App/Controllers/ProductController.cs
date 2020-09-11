@@ -39,8 +39,8 @@ namespace Ecom.App.Controllers
         {
             var products = await productRepository.GetAllAsync();
             
-            var results = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
-            return Ok(results);
+           // var results = mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewDto>>(products);
+            return Ok(products);
         }
 
         [HttpGet]
@@ -89,7 +89,8 @@ namespace Ecom.App.Controllers
             productRepository.Add(product);
             await unitOfWork.SaveChangesAsync();
 
-            var result = mapper.Map<Product, ProductDto>(product);
+            product = await productRepository.GetAsync(product.Id, true);
+            var result = mapper.Map<Product, ProductViewDto>(product);
             return CreatedAtAction("GetAsync", new { id = result.Id }, result);
            
         }
@@ -104,13 +105,12 @@ namespace Ecom.App.Controllers
             if (product == null)
                 return NotFound();
 
-            mapper.Map<ProductDto, Product>(productDto,product);
+            mapper.Map<ProductDto, Product>(productDto, product);
             product.UpdatedAt = DateTime.Now;
             await unitOfWork.SaveChangesAsync();
 
-            product = await productRepository.GetAsync(product.Id);
-            var result = mapper.Map<Product, ProductDto>(product);
-
+            product = await productRepository.GetAsync(product.Id, true);
+            var result = mapper.Map<Product, ProductViewDto>(product);
             return Ok(result);
         }
 

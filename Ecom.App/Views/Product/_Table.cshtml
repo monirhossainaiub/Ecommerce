@@ -50,18 +50,12 @@
                                 <tr ng-repeat="x in dataSource | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
                                     <td>{{x.id}}</td>
                                     <td>{{x.name}}</td>
-                                    <td>{{x.title}}</td>
-                                    <td>{{x.ISBN}}</td>
-                                    @*<td><input type="checkbox" style="background-color:blueviolet" disabled ng-model="x.isPublished"></td>*@
-                                    <td>{{x.edition}}</td>
-                                    <td>{{x.country}}</td>
                                     <td>{{x.language}}</td>
+                                    <td>{{x.category}}</td>
+                                    <td>{{x.writer}}</td>
                                     <td>{{x.displayOrder}}</td>
-                                    <td>{{x.price}}</td>
-                                    <td>{{x.oldPrice}}</td>
-                                    <td>{{x.costPrice}}</td>
-                                    <td>{{x.stockQuantity}}</td>
-                                    <td>{{x.costPrice}}</td>
+                                    <td>{{x.title}}</td>
+                                    <td>{{x.description}}</td>
                                     <td>
                                         <span ng-click="showFormPopUp(x)" title="Edit"><i class="fa fa-2x fa-pencil-square" aria-hidden="true"></i></span>
                                         <span ng-click="delete(x)" title="Delete"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></span>

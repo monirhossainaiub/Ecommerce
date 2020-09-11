@@ -1,4 +1,5 @@
-﻿using Ecom.App.Data;
+﻿using Ecom.App.Controllers.Resources.DTOs;
+using Ecom.App.Data;
 using Ecom.App.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,17 +23,64 @@ namespace Ecom.App.Services
             
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<ProductViewDto>> GetAllAsync()
         {
             return await context.Products
+                .Select(p => new ProductViewDto {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Language = p.Language.Name,
+                    Category = p.Category.Name,
+                    Writer = p.Writer.Name,
+                    DisplayOrder = p.DisplayOrder,
+                    Title = p.Title,
+                    Description = p.Description,
+                    CategoryId = p.CategoryId,
+                    LanguageId = p.LanguageId,
+                    WriterId = p.WriterId,
+                    CreatedAt = p.CreatedAt,
+                    CreatedBy = p.CreatedBy,
+                    UpdatedAt = p.UpdatedAt,
+                    UpdatedBy = p.UpdatedBy
+                })
+                //.Include(p => p.Category)
+                //.Include(p => p.Language)
+                //.Include(p => p.Writer)
                 .OrderBy(c => c.DisplayOrder)
                 .ThenBy(c => c.Name)
                 .ToListAsync();
         }
 
-        public async Task<Product> GetAsync(int id)
+        public async Task<Product> GetAsync(int id, bool includeRelated = true)
         {
-            return await context.Products.FindAsync(id);
+            if (!includeRelated)
+                return await context.Products.FindAsync(id);
+
+            return await context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Language)
+                .Include(p => p.Writer)
+                 //.Select(p => new ProductViewDto
+                 //{
+                 //    Id = p.Id,
+                 //    Name = p.Name,
+                 //    Language = p.Language.Name,
+                 //    Category = p.Category.Name,
+                 //    Writer = p.Writer.Name,
+                 //    DisplayOrder = p.DisplayOrder,
+                 //    Title = p.Title,
+                 //    Description = p.Description,
+                 //    CategoryId = p.CategoryId,
+                 //    LanguageId = p.LanguageId,
+                 //    WriterId = p.WriterId,
+                 //    CreatedAt = p.CreatedAt,
+                 //    CreatedBy = p.CreatedBy,
+                 //    UpdatedAt = p.UpdatedAt,
+                 //    UpdatedBy = p.UpdatedBy
+                 //})
+                .OrderBy(p => p.DisplayOrder)
+                .ThenBy(p => p.Name)
+                .SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public void Remove(Product product)

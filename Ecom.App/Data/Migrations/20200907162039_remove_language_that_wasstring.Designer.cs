@@ -4,14 +4,16 @@ using Ecom.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ecom.App.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200907162039_remove_language_that_wasstring")]
+    partial class remove_language_that_wasstring
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,9 +156,6 @@ namespace Ecom.App.Data.Migrations
                     b.Property<string>("IPAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -177,19 +176,12 @@ namespace Ecom.App.Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WriterId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("Name")
                         .IsUnique();
-
-                    b.HasIndex("WriterId");
 
                     b.ToTable("Products");
                 });
@@ -636,18 +628,6 @@ namespace Ecom.App.Data.Migrations
                     b.HasOne("Ecom.App.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Ecom.App.Models.Language", "Language")
-                        .WithMany("Products")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Ecom.App.Models.Writer", "Writer")
-                        .WithMany("Products")
-                        .HasForeignKey("WriterId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

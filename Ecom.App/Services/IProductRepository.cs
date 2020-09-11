@@ -1,4 +1,5 @@
-﻿using Ecom.App.Models;
+﻿using Ecom.App.Controllers.Resources.DTOs;
+using Ecom.App.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace Ecom.App.Services
     public interface IProductRepository
     {
 
-        Task<Product> GetAsync(int id);
+        Task<Product> GetAsync(int id, bool includeRelated = true);
         void Add(Product product);
-        Task<IEnumerable<Product>> GetAllAsync();
+        Task<IEnumerable<ProductViewDto>> GetAllAsync();
         void Remove(Product product);
 
         List<string> getNames();

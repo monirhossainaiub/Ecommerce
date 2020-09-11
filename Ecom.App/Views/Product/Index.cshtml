@@ -7,33 +7,24 @@
 
 
 <div ng-controller="productController">
-    <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab" aria-controls="nav-product" aria-selected="true">Products</a>
-            <a class="nav-item nav-link" id="nav-photo-tab" data-toggle="tab" href="#nav-photo" role="tab" aria-controls="nav-photo" aria-selected="false">Photos</a>
-            <a class="nav-item nav-link" id="nav-note-tab" data-toggle="tab" href="#nav-note" role="tab" aria-controls="nav-note" aria-selected="false">Notes</a>
-        </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+    <div class="tab-pane fade show active" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+        <div>
             <div>
-                <div >
-                    @await Html.PartialAsync("~/Views/Product/_Table.cshtml")
-                    @await Html.PartialAsync("~/Views/Product/FormPopUp.cshtml")
-                </div>
-                @*<div class="container-fluid">
+                @await Html.PartialAsync("~/Views/Product/_Table.cshtml")
+                @await Html.PartialAsync("~/Views/Product/FormPopUp.cshtml")
+            </div>
+            @*<div class="container-fluid">
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="spinner-grow text-primary" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
                 </div>*@
-            </div>
         </div>
-        <div class="tab-pane fade" id="nav-photo" role="tabpanel" aria-labelledby="nav-photo-tab">photos...</div>
-        <div class="tab-pane fade" id="nav-note" role="tabpanel" aria-labelledby="nav-note-tab">Note...</div>
     </div>
+
 </div>
+
 
 @section Scripts{
     <script>

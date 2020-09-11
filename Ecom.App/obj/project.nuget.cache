@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7W627KArpT+ExleLTbLRYf0v4ST+ZsFblUDScR/Da9zhtYojl9uOw8qNuD63vLrnpAipcjZONAGOnfMu+y1Xjw==",
+  "dgSpecHash": "SQgvdZaroIg2k/ycYievXaKzWWus+t8Yq9mn+1MD5eMTliAit5l94PkISdt8tHnPA8gNdFChLKMk3y3+Nn8x9w==",
   "success": true,
   "projectFilePath": "E:\\Projects\\Book\\Ecommerce\\Ecom.App\\Ecom.App.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,8 @@
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\5.0.0-preview.7.20365.19\\microsoft.aspnetcore.identity.entityframeworkcore.5.0.0-preview.7.20365.19.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\5.0.0-preview.7.20365.19\\microsoft.aspnetcore.identity.ui.5.0.0-preview.7.20365.19.nupkg.sha512",
+    "C:\\Users\\Monir\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.8\\microsoft.aspnetcore.jsonpatch.3.1.8.nupkg.sha512",
+    "C:\\Users\\Monir\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.8\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.8.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\5.0.0-preview.7.20365.19\\microsoft.aspnetcore.razor.language.5.0.0-preview.7.20365.19.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.aspnetcore.razor.runtime\\2.2.0\\microsoft.aspnetcore.razor.runtime.2.2.0.nupkg.sha512",
@@ -68,7 +70,8 @@
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\5.0.0-preview.7.20370.3\\microsoft.visualstudio.web.codegenerators.mvc.5.0.0-preview.7.20370.3.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\Monir\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\Monir\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Monir\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\nuget.frameworks\\5.7.0-preview.2.6618\\nuget.frameworks.5.7.0-preview.2.6618.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512",
     "C:\\Users\\Monir\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",

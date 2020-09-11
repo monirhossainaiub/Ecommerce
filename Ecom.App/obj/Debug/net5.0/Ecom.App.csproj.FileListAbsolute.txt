@@ -174,3 +174,6 @@ E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\AutoMapper.DataReaderMapper
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Language\FormPopUp.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Language\Index.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Language\_Table.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

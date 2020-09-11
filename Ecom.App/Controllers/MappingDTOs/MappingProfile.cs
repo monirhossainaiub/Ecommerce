@@ -15,6 +15,10 @@ namespace Ecom.App.Controllers.MappingDTOs
             // Domain to API Resource
             CreateMap<Category, CategoryDto>();
             CreateMap<Product, ProductDto>();
+            CreateMap<Product, ProductViewDto>()
+                .ForMember(pv => pv.Writer, opt => opt.MapFrom(p => p.Writer.Name))
+                .ForMember(pv => pv.Language, opt => opt.MapFrom(p => p.Language.Name))
+                .ForMember(pv => pv.Category, opt => opt.MapFrom(p => p.Category.Name));
             CreateMap<Publisher, PublisherDto>();
             CreateMap<Country, CountryDto>();
             CreateMap<Writer, WriterDto>();
@@ -29,6 +33,7 @@ namespace Ecom.App.Controllers.MappingDTOs
             CreateMap<CountryDto, Country>();
             CreateMap<WriterDto, Writer>();
             CreateMap<LanguageDto, Language>();
+
         }
     }
 }

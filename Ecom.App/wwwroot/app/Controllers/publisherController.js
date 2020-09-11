@@ -172,7 +172,7 @@ app.controller("publisherController", ($scope, $http, $rootScope, httpRequestSer
                                 removeFromDataSource(result.data);
                                 messageService.deleted(entity.name);
                             },
-                            (error) => { messageService.error(err.status); }
+                            (error) => { messageService.error(error.status); }
                      );
                 }
             }

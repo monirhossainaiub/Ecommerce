@@ -22,17 +22,19 @@ namespace Ecom.App.Models
 
         public string Title { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Language { get; set; }
-
         public string Description { get; set; }
         
         public int DisplayOrder { get; set; }
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
-        
+
+        [ForeignKey("Language")]
+        public int LanguageId { get; set; }
+
+        [ForeignKey("Writer")]
+        public int WriterId { get; set; }
+
         #endregion
 
         #region Common Properties
@@ -51,7 +53,9 @@ namespace Ecom.App.Models
         public ICollection<ProductNote> ProductNotes { get; set; }
         public ICollection<ProductPublisher> ProductPublishers { get; set; }
         public Category Category { get; set; }
-      
+        public Language Language { get; set; }
+        public Writer Writer { get; set; }
+
         #endregion
 
         public Product()
