@@ -1,4 +1,6 @@
-﻿using Ecom.App.Controllers.Resources.DTOs;
+﻿using AutoMapper;
+using Ecom.App.Controllers.Resources;
+using Ecom.App.Controllers.Resources.DTOs;
 using Ecom.App.Data;
 using Ecom.App.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Ecom.App.Services
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
-        private readonly ApplicationDbContext context;
-        public ProductRepository(ApplicationDbContext context)
+        //private readonly ApplicationDbContext context;
+        public ProductRepository(ApplicationDbContext context,IMapper mapper) : base(context, mapper)
         {
-            this.context = context;
+            //this.context = context;
         }
 
         public void Add(Product product)
@@ -23,6 +25,7 @@ namespace Ecom.App.Services
             
         }
 
+       
         public async Task<IEnumerable<ProductViewDto>> GetAllAsync()
         {
             return await context.Products
@@ -92,5 +95,16 @@ namespace Ecom.App.Services
         {
             return context.Products.Select(c => c.Name).ToList();
         }
+
+        public async Task<ProductPublisher> GetProductPublisherAsync(ProductPublisherIds data)
+        {
+            return await context.ProductPublishers.Where(pp => pp.ProductId == data.ProductId && pp.PublisherId == data.PublisherId).SingleOrDefaultAsync();
+        }
+        public void AddProductPublisher(ProductPublisher productPublisher)
+        {
+            context.ProductPublishers.Add(productPublisher);
+        }
+
+
     }
 }

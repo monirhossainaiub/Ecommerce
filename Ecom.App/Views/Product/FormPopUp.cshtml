@@ -39,16 +39,17 @@
                                                    ng-model="model.name"
                                                    required
                                                    autocomplete="off"
-                                                   maxlength="150"
+                                                   ng-minlength="6"
+                                                   ng-maxlength="100"
                                                    autofocus>
                                         </div>
-                                        <span class="text-danger" ng-show="(form.name.$touched || form.name.$dirty) && form.name.$invalid">Name is required.</span>
+                                        <span class="text-danger" ng-show="(form.name.$touched || form.name.$dirty) && form.name.$error.required">Name is required.</span>
+                                        <span class="text-danger" ng-show="(form.name.$touched || form.name.$dirty) && form.name.$error.minlength">The value must be in range 5 to 150.</span>
                                         <span class="text-danger" ng-show="form.name.$dirty && isExist">This name is already exits.</span>
                                     </div>
                                     <div class="col-sm-6">
                                         <label for="language">Select a language <sup>*</sup></label>
                                         <select required class="form-control" name="languageId" id="language" ng-model="model.languageId">
-                                            <option value="0">--Select language--</option>
                                             <option ng-repeat="option in languages" ng-value="{{option.id}}">{{option.name}}</option>
                                         </select>
                                         <span class="text-danger" ng-show="(form.languageId.$dirty || form.languageId.$touched)  && form.languageId.$invalid">Language is required.</span>
@@ -69,7 +70,6 @@
                                     <div class="col-sm-6">
                                         <label for="category">Select a category <sup>*</sup></label>
                                         <select required class="form-control" name="categoryId" id="category" ng-model="model.categoryId">
-                                            <option value="0">--Select category--</option>
                                             <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
                                         </select>
                                         <span class="text-danger" ng-show="form.categoryId.$dirty  && form.categoryId.$invalid">Category is required.</span>
@@ -124,7 +124,257 @@
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="publisher" role="tabpanel" aria-labelledby="publisher-tab">Publisher</div>
+                    <div class="tab-pane fade" id="publisher" role="tabpanel" aria-labelledby="publisher-tab">
+                        <div class="form-elements form-horizontal">
+                            <form method="post" name="ppform">
+                                <input type="hidden" ng-model="productPublisherModel.id">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="publisher">Select a publisher <sup>*</sup></label>
+                                        <select required 
+                                                ng-change="checkPublisher()"
+                                                class="form-control" 
+                                                name="publisherId" 
+                                                id="publisher" 
+                                                ng-model="productPublisherModel.publisherId">
+                                            <option ng-repeat="option in publishers" ng-value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                        <span class="text-danger" ng-show="ppform.publisherId.$dirty  && ppform.publisherId.$invalid">Publisher is required.</span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="country">Select a country <sup>*</sup></label>
+                                        <select required class="form-control" name="countryId" id="country" ng-model="productPublisherModel.countryId">
+                                            <option ng-repeat="option in countries" ng-value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                        <span class="text-danger" ng-show="ppform.countryId.$dirty  && ppform.countryId.$invalid">Country is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="edition">Edition</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="edition"
+                                                   name="edition"
+                                                   ng-model="productPublisherModel.edition"
+                                                   autocomplete="off"
+                                                   maxlength="30">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="costPrice">Cost Price</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="costPrice"
+                                                   name="costPrice"
+                                                   ng-model="productPublisherModel.costPrice"
+                                                   step="0.01"
+                                                   min="0"
+                                                   autocomplete="off"
+                                                   maxlength="15">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="price">Selling Price<sup>*</sup></label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="price"
+                                                   name="price"
+                                                   ng-model="productPublisherModel.price"
+                                                   required
+                                                   step="0.01"
+                                                   min="0"
+                                                   autocomplete="off">
+                                        </div>
+                                        <span class="text-danger" ng-show="ppform.price.$touched && ppform.price.$invalid">Selling Price is required.</span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="oldPrice">Old Price</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="oldPrice"
+                                                   name="oldPrice"
+                                                   ng-model="productPublisherModel.oldPrice"
+                                                   step="0.01"
+                                                   min="0"
+                                                   autocomplete="off"
+                                                   maxlength="15">
+                                        </div>
+                                        @*<span class="text-danger" ng-show="ppform.country.$touched && ppform.country.$invalid">Language is required.</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="stockQuantity">Stock in Quantity</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="stockQuantity"
+                                                   name="stockQuantity"
+                                                   ng-model="productPublisherModel.stockQuantity"
+                                                   required
+                                                   min="0"
+                                                   autocomplete="off">
+                                        </div>
+                                        <span class="text-danger" ng-show="ppform.stockQuantity.$touched && ppform.stockQuantity.$invalid">Stock Price is required.</span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="orderMinimumQuantity">Minimum Order Quantity</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="orderMinimumQuantity"
+                                                   name="orderMinimumQuantity"
+                                                   ng-model="productPublisherModel.orderMinimumQuantity"
+                                                   step="0.01"
+                                                   min="0"
+                                                   autocomplete="off"
+                                                   maxlength="15">
+                                        </div>
+                                        @*<span class="text-danger" ng-show="ppform.country.$touched && ppform.country.$invalid">Language is required.</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="orderMaximumQuantity">Maximum order quantity</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="orderMaximumQuantity"
+                                                   name="orderMaximumQuantity"
+                                                   ng-model="productPublisherModel.orderMaximumQuantity"
+                                                   required
+                                                   min="0"
+                                                   autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="notifyForMinimumQuantityBellow">Notify for under minimum quantity</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="notifyForMinimumQuantityBellow"
+                                                   name="notifyForMinimumQuantityBellow"
+                                                   ng-model="productPublisherModel.notifyForMinimumQuantityBellow"
+                                                   step="0.01"
+                                                   min="0"
+                                                   autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="numberOfPage">No. of page</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="numberOfPage"
+                                                   name="numberOfPage"
+                                                   ng-model="productPublisherModel.numberOfPage"
+                                                   min="0"
+                                                   autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="isbn">ISBN</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="isbn"
+                                                   name="isbn"
+                                                   ng-model="productPublisherModel.isbn"
+                                                   autocomplete="off"
+                                                   maxlength="150">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-check">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   id="isPublished"
+                                                   name="isPublished"
+                                                   ng-model="productPublisherModel.isPublished">
+                                            <label class="form-check-label" for="isPublished">Is Published?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-check">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   id="isAproved"
+                                                   name="isAproved"
+                                                   ng-model="productPublisherModel.isAproved">
+                                            <label class="form-check-label" for="isAproved">Is Aproved?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-check">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   id="isNewProduct"
+                                                   name="isNewProduct"
+                                                   ng-model="productPublisherModel.isNewProduct">
+                                            <label class="form-check-label" for="isNewProduct">Is NewProduct?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-check">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   id="isReturnAble"
+                                                   name="isReturnAble"
+                                                   ng-model="productPublisherModel.isReturnAble">
+                                            <label class="form-check-label" for="isReturnAble">Is ReturnAble?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-check">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   id="isShippingChargeApplicable"
+                                                   name="isShippingChargeApplicable"
+                                                   ng-model="productPublisherModel.isShippingChargeApplicable">
+                                            <label class="form-check-label" for="isShippingChargeApplicable">Is ShippingChargeApplicable?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-check">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   id="isLimitedToStore"
+                                                   name="isLimitedToStore"
+                                                   ng-model="productPublisherModel.isLimitedToStore">
+                                            <label class="form-check-label" for="isLimitedToStore">Is LimitedToStore?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 d-block d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <i class="fa fa-times-circle fa-lg"></i> Close
+                                        </button>
+                                        <button ng-click="ppReset()" type="button" class="btn btn-secondary">
+                                            <i class="fa fa-refresh" aria-hidden="true"></i> Reset
+                                        </button>
+                                        <button ng-click="ppFormSubmit()" ng-disabled="ppform.$invalid" type="button" class="btn btn-primary">
+                                            <i class="fa fa-save fa-lg" fa-save"></i>
+                                            {{ppAction}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="photo" role="tabpanel" aria-labelledby="photo-tab">Photos</div>
                     <div class="tab-pane fade" id="note" role="tabpanel" aria-labelledby="note-tab">Notes</div>
                 </div>

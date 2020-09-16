@@ -19,6 +19,7 @@ namespace Ecom.App.Controllers.MappingDTOs
                 .ForMember(pv => pv.Writer, opt => opt.MapFrom(p => p.Writer.Name))
                 .ForMember(pv => pv.Language, opt => opt.MapFrom(p => p.Language.Name))
                 .ForMember(pv => pv.Category, opt => opt.MapFrom(p => p.Category.Name));
+            CreateMap<ProductPublisher, ProductPublisherDto>();
             CreateMap<Publisher, PublisherDto>();
             CreateMap<Country, CountryDto>();
             CreateMap<Writer, WriterDto>();
@@ -33,7 +34,7 @@ namespace Ecom.App.Controllers.MappingDTOs
             CreateMap<CountryDto, Country>();
             CreateMap<WriterDto, Writer>();
             CreateMap<LanguageDto, Language>();
-
+            CreateMap<ProductPublisherDto, ProductPublisher>();
         }
     }
 }

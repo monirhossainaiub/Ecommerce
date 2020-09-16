@@ -10,8 +10,11 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
     var FormPopUp = "FormPopUp";
     var entityNameToPerform = "product";
     $scope.isExist = false;
+    $scope.isIsbnExist = false;
     $scope.isResponseComplete = false;
     $scope.action = "Save";
+    $scope.ppAction = "Save";
+
 
     $scope.dataSource = [];
     $scope.countries = [];
@@ -49,9 +52,7 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         id: 0,
         name: null,
         title: null,
-        ISBN: null,
-        
-        edition: null,
+
         country: null,
         countryId: 0,
         categoryId: 0,
@@ -61,25 +62,35 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         language: null,
         description : null,
         displayOrder: 0,
-        
-        price : 0,
-        oldPrice  : 0,
+    };
+
+    var productPublisher = {
+        id: 0,
+        publisherId: 0,
+        productId: 0,
+        isbn: null,
+        edition: null,
+        sku: null,
+        countryId: 0,
+        price: 0,
+        oldPrice: 0,
         costPrice: 0,
         numberOfPage: 0,
         stockQuantity: 0,
-        orderMinimumQuantity : 0,
-        orderMaximumQuantity : 0,
-        notifyForMinimumQuantityBellow : 0,
+        orderMinimumQuantity: 1,
+        orderMaximumQuantity: 0,
+        notifyForMinimumQuantityBellow: 0,
 
         isNewProduct: true,
         isPublished: true,
-        isAproved : true,
-        isReturnAble : true,
-        isShippingChargeApplicable : true,
-        isLimitedToStore : true,
+        isAproved: true,
+        isReturnAble: true,
+        isShippingChargeApplicable: true,
+        isLimitedToStore: true,
     };
 
     $scope.model = angular.copy(defaultModel);
+    $scope.productPublisherModel = angular.copy(productPublisher);
 
     var addToDataSource = (data) => {
         $scope.dataSource.push(data);
@@ -98,7 +109,48 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
             }
         }
     }
-    
+
+    $scope.isExistISBN = () => {
+        if ($scope.model.name == undefined) {
+            $scope.isIsbnExist = false;
+            return;
+        }
+
+        if ($scope.dataSource.length == 0) {
+            $scope.isIsbnExist = false;
+            return;
+        }
+
+        for (var i = 0; i < $scope.dataSource.length; i++) {
+            if ($scope.model.id == 0 && $scope.dataSource[i].name.toLowerCase() == $scope.model.name.toLowerCase()) {
+                $scope.isIsbnExist = true;
+                return;
+            }
+
+
+            else if ($scope.model.id > 0) {
+                if ($scope.model.id == $scope.dataSource[i].id && $scope.dataSource[i].name.toLowerCase() == $scope.model.name.toLowerCase()) {
+                    $scope.isIsbnExist = false;
+                    return;
+                }
+                else {
+                    for (var j = 0; j < $scope.dataSource.length; j++) {
+                        if ($scope.model.id == $scope.dataSource[j].id)
+                            continue;
+                        if ($scope.dataSource[j].name.toLowerCase() == $scope.model.name.toLowerCase()) {
+                            $scope.isIsbnExist = true;
+                            return;
+                        }
+                    }
+                }
+
+
+            }
+
+        }
+        $scope.isIsbnExist = false;
+        return;
+    }
     $scope.isExistName = () => {
         if ($scope.model.name == undefined) {
             $scope.isExist = false;
@@ -225,14 +277,12 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                 .then(
                     (response) => {
                         $scope.reverse = true;
-                        //baseService.hidePopUpByPopId(FormPopUp);
-                        messageService.added(response.data.name);
+                        $scope.action = "Update";
+                        $scope.model = angular.copy(response.data);
+                        productPublisher.productId = response.data.id;
                         addToDataSource(response.data);
-                        //$scope.reset();
+                        messageService.added(response.data.name);
                     }, (error) => {
-                        var x = error;
-
-                        console.log(error);
                         messageService.error(error.status);
                     });
         }
@@ -240,10 +290,8 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
             httpRequestService.getHttpRequestService(controllerName).updateEntity($scope.model)
                 .then(
                     (response) => {
-                        //baseService.hidePopUpByPopId(FormPopUp);
                         messageService.updated(response.data.name);
                         updateDataSource(response.data);
-                        //$scope.reset();
                     }, (error) => {
                         messageService.error(error.status);
                     });
@@ -298,13 +346,86 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
     }
     $scope.showFormPopUp = (entity) => {
         $scope.model = angular.copy(entity);
+        productPublisher.productId = $scope.model.id;
         baseService.showPopUpByPopId(FormPopUp);
         $scope.action = "Update";
         $scope.formTitle = "Update the " + entityNameToPerform;
     }
     $scope.reset = () => {
         $scope.model = angular.copy(defaultModel);
+        $scope.action = "Save";
         $scope.form.$setPristine();
         $scope.form.$setUntouched();
     };
+
+    // #region product publisher 
+    $scope.ppFormSubmit = () => {
+        if (!$scope.form.$valid)
+            return;
+
+        if ($scope.ppAction === "Save") {
+            $scope.productPublisherModel.productId = productPublisher.productId;
+            httpRequestService.getHttpRequestService(controllerName).createEntityProvidingDataUrl($scope.productPublisherModel,"CreateProductPublisher")
+                .then(
+                    (response) => {
+                        $scope.productPublisherModel = angular.copy(response.data);
+                        $scope.ppAction = "Update";
+                        messageService.added("Data");
+                    }, (error) => {
+                        messageService.error(error.status);
+                    });
+        }
+        else if ($scope.ppAction === "Update") {
+            httpRequestService.getHttpRequestService(controllerName).updateEntityProvidingDataUrl($scope.productPublisherModel, "UpdateProductPublisher")
+                .then(
+                    (response) => {
+                        messageService.updated("Data");
+                        $scope.productPublisherModel = angular.copy(response.data);
+                    }, (error) => {
+                        messageService.error(error.status);
+                    });
+        }
+
+    };
+
+    var getProductPublisher = () => {
+        
+        if (productPublisher.productId && $scope.productPublisherModel.publisherId) {
+            var data = {
+                productId: productPublisher.productId,
+                publisherId: $scope.productPublisherModel.publisherId
+            }
+            httpRequestService.getHttpRequestService(controllerName).getAllProvidingDataUrl(data, "getProductPublisher")
+                .then(
+                    (response) => {
+                        if (response.status === 200) {
+                            $scope.productPublisherModel = angular.copy(response.data);
+                            $scope.ppAction = "Update";
+                        }
+                        
+                    },
+                    (error) => {
+                        if (error.status === 404) {
+                            $scope.productPublisherModel = angular.copy(productPublisher);
+                            $scope.productPublisherModel.publisherId = data.publisherId;
+                            $scope.ppAction = "Save";
+                        }
+                        else
+                            messageService.error(error.status);
+                    });
+        }
+        else {
+            $scope.productPublisherModel = angular.copy(productPublisher);
+        }
+    };
+    $scope.checkPublisher = () => {
+        getProductPublisher();
+    };
+    $scope.ppReset = () => {
+        $scope.productPublisherModel = angular.copy(productPublisher);
+        $scope.ppAction = "Save";
+        $scope.ppform.$setPristine();
+        $scope.ppform.$setUntouched();
+    };
+    // #endregion 
 });

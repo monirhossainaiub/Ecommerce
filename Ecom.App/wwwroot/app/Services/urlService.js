@@ -5,6 +5,7 @@ var urlService = ($rootScope) => {
     return {
         getUrlService: function (controllerName) {
             const ROOT_URL = "https://localhost:44317/"
+            const ROOT_URL_WITH_CONTROLLER = "https://localhost:44317/" + controllerName + "/";
             const POST_URL = ROOT_URL + controllerName + "/" + "create";
             const PUT_URL = ROOT_URL + controllerName + "/" + "edit/";
             const GET_URL = ROOT_URL + controllerName + "/" + "getall";
@@ -12,6 +13,8 @@ var urlService = ($rootScope) => {
             const DELETE_URL = ROOT_URL + controllerName + "/" + "delete/";
 
             return {
+                rootUrl: ROOT_URL,
+                rootUrlWithController: ROOT_URL_WITH_CONTROLLER,
                 postUrl: POST_URL,
                 putUrl: PUT_URL,
                 getUrl: GET_URL,

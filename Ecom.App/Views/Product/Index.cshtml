@@ -9,20 +9,19 @@
 <div ng-controller="productController">
     <div class="tab-pane fade show active" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
         <div>
-            <div>
+            <div ng-show="isResponseComplete">
                 @await Html.PartialAsync("~/Views/Product/_Table.cshtml")
                 @await Html.PartialAsync("~/Views/Product/FormPopUp.cshtml")
             </div>
-            @*<div class="container-fluid">
+            <div ng-hide="isResponseComplete" class="container-fluid">
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="spinner-grow text-primary" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
-                </div>*@
+               </div>
         </div>
     </div>
-
 </div>
 
 
