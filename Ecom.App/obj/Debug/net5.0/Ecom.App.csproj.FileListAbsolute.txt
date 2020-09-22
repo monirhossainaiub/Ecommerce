@@ -180,3 +180,6 @@ E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\OrderStatus\FormPopUp.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\OrderStatus\Index.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\OrderStatus\_Table.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\PaymentMethod\FormPopUp.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\PaymentMethod\Index.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\PaymentMethod\_Table.cshtml.g.cs

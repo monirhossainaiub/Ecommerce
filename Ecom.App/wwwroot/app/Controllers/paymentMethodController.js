@@ -2,13 +2,13 @@
 
 'use strict';
 
-app.controller("orderStatusController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>
+app.controller("paymentMethodController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>
 {
     //server controller name
-    var controllerName = "orderStatus";
-    $scope.dataTableName = "order Status";
+    var controllerName = "paymentMethod";
+    $scope.dataTableName = "payment Methods";
     var FormPopUp = "FormPopUp";
-    var entityNameToPerform = "orderStatus";
+    var entityNameToPerform = "paymentMethod";
     $scope.isResponseComplete = false;
     $scope.action = "Save";
     $scope.dataSource = [];

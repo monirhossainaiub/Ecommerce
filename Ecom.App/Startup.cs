@@ -45,6 +45,7 @@ namespace Ecom.App
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
+            services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
 
 
             services.AddAutoMapper(typeof(Startup));
