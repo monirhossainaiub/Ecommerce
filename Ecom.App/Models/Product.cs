@@ -52,6 +52,7 @@ namespace Ecom.App.Models
         #region Navigation Property
         public ICollection<ProductNote> ProductNotes { get; set; }
         public ICollection<ProductPublisher> ProductPublishers { get; set; }
+        
         public Category Category { get; set; }
         public Language Language { get; set; }
         public Writer Writer { get; set; }
@@ -62,7 +63,6 @@ namespace Ecom.App.Models
         {
             ProductNotes = new Collection<ProductNote>();
             ProductPublishers = new Collection<ProductPublisher>();
-            //Photos = new Collection<Photo>();
         }
     }
 }

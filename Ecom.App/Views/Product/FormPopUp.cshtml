@@ -12,14 +12,14 @@
                     <li class="nav-item">
                         <a class="nav-link active" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="true">Product</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="publisher-tab" data-toggle="tab" href="#publisher" role="tab" aria-controls="publisher" aria-selected="false">Publisher</a>
+                    <li class="nav-item ">
+                        <a  class="nav-link" ng-class="{'disabled':model.id === 0}" id="publisher-tab" data-toggle="tab" href="#publisher" role="tab" aria-controls="publisher" aria-selected="false">Publisher</a>
+                    </li>
+                    <li class="nav-item" ng-click="loadPhotos()">
+                        <a class="nav-link" ng-class="{'disabled':(model.id === 0 || productPublisherModel.publisherId === 0)}" id="photo-tab" data-toggle="tab" href="#photo" role="tab" aria-controls="photo" aria-selected="false">Photos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="photo-tab" data-toggle="tab" href="#photo" role="tab" aria-controls="photo" aria-selected="false">Photos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="note-tab" data-toggle="tab" href="#note" role="tab" aria-controls="note" aria-selected="false">Notes</a>
+                        <a class="nav-link" ng-class="{'disabled':(model.id === 0 || productPublisherModel.publisherId === 0)}" id="note-tab" data-toggle="tab" href="#note" role="tab" aria-controls="note" aria-selected="false">Notes</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -375,14 +375,19 @@
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="photo" role="tabpanel" aria-labelledby="photo-tab">Photos</div>
+                    <div class="tab-pane fade" id="photo" role="tabpanel" aria-labelledby="photo-tab">
+                        <h3>Photos</h3>
+                        <input type="file" select-ng-files ng-model="fileList" multiple ng-change="uploadPhoto()">
+                        <hr />
+                        <div>
+                            <img ng-repeat="photo in imagePaths" src="{{photo}}" height="210" width="118 " class="img-thumbnail" />
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="note" role="tabpanel" aria-labelledby="note-tab">Notes</div>
                 </div>
             </div>
             </div>
-            <div class="modal-footer">
-                
-            </div>
+        <div class="modal-footer">
         </div>
     </div>
 </div>

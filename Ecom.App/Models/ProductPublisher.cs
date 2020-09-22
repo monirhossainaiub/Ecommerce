@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Ecom.App.Models
     [Table("ProductPublishers")]
     public class ProductPublisher
     {
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
+        public int Id { get; set; }
         public int ProductId { get; set; }
         public int PublisherId { get; set; }
 
@@ -63,5 +66,11 @@ namespace Ecom.App.Models
         public bool IsShippingChargeApplicable { get; set; }
         public bool IsLimitedToStore { get; set; }
 
+        public ICollection<Photo> Photos { get; set; }
+
+        public ProductPublisher()
+        {
+            Photos = new Collection<Photo>();
+        }
     }
 }

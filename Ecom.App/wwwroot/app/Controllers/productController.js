@@ -2,7 +2,7 @@
 
 'use strict';
 
-app.controller("productController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>
+app.controller("productController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService, urlService) =>
 {
     //server controller name
     var controllerName = "product";
@@ -41,9 +41,10 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         { title: 'Language', key: 'language', isSortable: true },
         { title: 'Category', key: 'category', isSortable: true },
         { title: 'Writer', key: 'writer', isSortable: true },
-        { title: 'Display Order', key: 'displayOrder', isSortable: true },
-        { title: 'Title', key: 'title', isSortable: true },
-        { title: 'Description', key: 'description', isSortable: true },
+        { title: 'Publisher', key: 'publisher', isSortable: true },
+        { title: 'SKU', key: 'sku', isSortable: true },
+        { title: 'Price', key: 'price', isSortable: true },
+        { title: 'Qnt.', key: 'quantity', isSortable: true },
         { title: 'Action', key: 'action', isSortable: false }
     ];
     //#endregion pagination 
@@ -62,6 +63,13 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         language: null,
         description : null,
         displayOrder: 0,
+        sku:null,
+        publisher: null,
+        photo:null,
+        price: 0,
+        costPrice: 0,
+        oldPrice: 0,
+        stockQuantity: 0
     };
 
     var productPublisher = {
@@ -401,6 +409,7 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
                         if (response.status === 200) {
                             $scope.productPublisherModel = angular.copy(response.data);
                             $scope.ppAction = "Update";
+                            
                         }
                         
                     },
@@ -428,4 +437,67 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         $scope.ppform.$setUntouched();
     };
     // #endregion 
+
+    // #region  photo
+    $scope.photos = [];
+    $scope.imagePaths = [];
+    var fileServiceUrl = urlService.getUrlService("File");
+    var createImagePath = () => {
+        if ($scope.photos.length > 0) {
+            for (var i = 0; i < $scope.photos.length; i++) {
+                $scope.imagePaths.push(fileServiceUrl.rootUrl + "uploads/" + $scope.photos[i].fileName);
+            }
+        }
+       
+    }
+    $scope.loadPhotos = () => {
+        $scope.photos = [];
+        $scope.imagePaths = [];
+        if ($scope.model.id === 0) {
+            messageService.error("Save a product first");
+            return;
+        }
+        if ($scope.productPublisherModel.publisherId === 0) {
+            messageService.error("Please select a publisher first");
+            return;
+        }
+        $scope.getPhotos();
+    }
+    
+    $scope.getPhotos = () => {
+        let data = { productId: productPublisher.productId, publisherId: $scope.productPublisherModel.publisherId };
+        $http.post(fileServiceUrl.rootUrlWithController + "getAllByProductPublisher", data)
+            .then(
+                (response) => {
+                    $scope.photos = response.data;
+                    createImagePath();
+                },
+                (err) => {
+                    messageService.error(err.status);
+                });
+    };
+    
+    $scope.uploadPhoto = () => {
+        
+        var url = fileServiceUrl.rootUrlWithController + "Upload";
+
+        var formData = new FormData();
+        formData.append("file", $scope.fileList[0]);
+        formData.append("productId", productPublisher.productId);
+        formData.append("publisherId", $scope.productPublisherModel.publisherId);
+        $http({
+            url: url,
+            method: "POST",
+            data: formData,
+            headers: { 'Content-Type': undefined },
+            transformResponse: angular.identity
+        }).then(
+            (response) => {
+                $scope.photos.push(JSON.parse(response.data));
+                createImagePath();
+            }, (error) => {
+                messageService.error(error.status);
+            });
+    };
+    // #endregion
 });

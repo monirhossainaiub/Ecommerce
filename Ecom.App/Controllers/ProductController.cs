@@ -38,9 +38,55 @@ namespace Ecom.App.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var products = await productRepository.GetAllAsync();
-            
-           // var results = mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewDto>>(products);
+            string sql = @"SELECT 
+	                    p.[Id]
+                      ,p.[Name]
+	                  ,c.[Name] as Category
+	                  ,l.[Name] as Language
+	                  ,w.[Name] as Writer
+	                  ,pb.[Name] as Publisher
+	                  ,cn.[Name] as Country
+                      ,p.[Title]
+                      ,p.[Description]
+					   ,ISNULL(p.[DisplayOrder], 0) as DisplayOrder
+                      ,p.[CreatedAt]
+                      ,p.[CreatedBy]
+                      ,p.[UpdatedAt]
+                      ,p.[UpdatedBy]
+                      ,p.[DeletedAt]
+                      ,p.[DeletedBy]
+                      ,p.[PublishedDate]
+                      ,p.[PublishedBy]
+                      ,p.[IPAddress]
+	                  ,ISNULL(pp.[CostPrice], 0) as CostPrice
+                      ,pp.[Edition]
+                      ,pp.[ISBN]
+                      ,ISNULL(pp.[IsAproved], 0) as IsAproved
+					  ,ISNULL(pp.[IsLimitedToStore], 0) as IsLimitedToStore
+                      ,ISNULL(pp.[IsNewProduct], 0) as IsNewProduct
+                      ,ISNULL(pp.[IsPublished], 0) as IsPublished
+                      ,ISNULL(pp.[IsReturnAble], 0) as IsReturnAble
+                      ,ISNULL(pp.[IsShippingChargeApplicable], 0) as IsShippingChargeApplicable
+                      ,ISNULL(pp.[NotifyForMinimumQuantityBellow], 0) as NotifyForMinimumQuantityBellow
+                      ,ISNULL(pp.[NumberOfPage], 0) as NumberOfPage
+                      ,ISNULL(pp.[OldPrice], 0) as OldPrice
+                      ,ISNULL(pp.[OrderMaximumQuantity], 0) as OrderMaximumQuantity
+                      ,ISNULL(pp.[OrderMinimumQuantity], 0) as OrderMinimumQuantity
+                      ,ISNULL(pp.[Price], 0) as Price
+                      ,ISNULL(pp.[StockQuantity], 0) as StockQuantity
+                      ,pp.[SKU] as Sku
+                      ,ISNULL(pp.Id,0) as ProductPublisherId
+                      ,ISNULL(p.CategoryId, 0)  as CategoryId
+					   ,ISNULL(p.LanguageId, 0)  as LanguageId
+					   ,ISNULL(p.WriterId, 0)  as WriterId
+                FROM Products p
+                LEFT JOIN ProductPublishers pp ON p.Id = pp.ProductId
+                LEFT JOIN Publishers pb ON PP.PublisherId = pb.Id
+                LEFT JOIN Countries cn ON pp.countryId = cn.Id
+                LEFT JOIN Categories c ON p.CategoryId = c.Id
+                LEFT JOIN Languages l ON p.LanguageId = l.Id
+                LEFT JOIN Writers w ON p.WriterId = w.Id";
+            var products = await ((ProductRepository)productRepository).ReadData(sql);
             return Ok(products);
         }
 

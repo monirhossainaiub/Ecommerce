@@ -14,6 +14,8 @@ namespace Ecom.App.Models
         [StringLength(255)]
         public string FileName { get; set; }
 
-        //public int ProductId { get; set; }
+
+        public int? ProductPublisherId { get; set; }
+        public ProductPublisher ProductPublisher { get; set; }
     }
 }

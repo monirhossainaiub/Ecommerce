@@ -41,7 +41,7 @@ namespace Ecom.App.Services
         }
 
 
-        public async Task<IEnumerable<Writer>> ReadData<T>(string queryString) where T : class
+        public async Task<IEnumerable<T>> ReadData<T>(string queryString) where T : class
         {
             using (var command = context.Database.GetDbConnection().CreateCommand())
             {
@@ -51,7 +51,7 @@ namespace Ecom.App.Services
                 {
                     if (reader.HasRows)
                     {
-                        return mapper.Map<IDataReader, IEnumerable<Writer>>(reader);
+                        return mapper.Map<IDataReader, IEnumerable<T>>(reader);
                     }
                 }
             }

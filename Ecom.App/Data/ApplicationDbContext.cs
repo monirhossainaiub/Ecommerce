@@ -49,6 +49,13 @@ namespace Ecom.App.Data
                 .HasForeignKey(p => p.LanguageId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<ProductPublisher>()
+                .HasMany(p => p.Photos)
+                .WithOne(ph => ph.ProductPublisher)
+                .HasForeignKey(p => p.ProductPublisherId)
+                .HasPrincipalKey(pp => pp.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
             builder.Entity<Product>(entity => {
                 entity.HasIndex(p => p.Name).IsUnique();
             });
@@ -66,7 +73,7 @@ namespace Ecom.App.Data
                 .HasIndex(p => p.Name).IsUnique();
 
             builder.Entity<ProductPublisher>()
-                .HasKey(pp => new { pp.ProductId, pp.PublisherId});
+                .HasKey(pp => new { pp.ProductId, pp.PublisherId, pp.Id});
 
             builder.Entity<ProductPublisher>()
                 .HasOne(pp => pp.Product)

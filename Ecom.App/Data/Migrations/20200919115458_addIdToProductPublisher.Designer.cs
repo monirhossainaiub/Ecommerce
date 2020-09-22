@@ -4,14 +4,16 @@ using Ecom.App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ecom.App.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200919115458_addIdToProductPublisher")]
+    partial class addIdToProductPublisher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,12 +120,12 @@ namespace Ecom.App.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int?>("ProductPublisherId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductPublisherId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Photos");
                 });
@@ -643,10 +645,9 @@ namespace Ecom.App.Data.Migrations
 
             modelBuilder.Entity("Ecom.App.Models.Photo", b =>
                 {
-                    b.HasOne("Ecom.App.Models.ProductPublisher", "ProductPublisher")
+                    b.HasOne("Ecom.App.Models.Product", "Product")
                         .WithMany("Photos")
-                        .HasForeignKey("ProductPublisherId")
-                        .HasPrincipalKey("Id");
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("Ecom.App.Models.Product", b =>

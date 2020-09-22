@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Ecom.App.Services
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository 
     {
         Task<Product> GetAsync(int id, bool includeRelated = true);
         void Add(Product product);
         void AddProductPublisher(ProductPublisher productPublisher);
-        Task<IEnumerable<ProductViewDto>> GetAllAsync();
+        Task<IEnumerable<Product>> GetAllAsync();
         void Remove(Product product);
         List<string> getNames();
         Task<ProductPublisher> GetProductPublisherAsync(ProductPublisherIds data);
