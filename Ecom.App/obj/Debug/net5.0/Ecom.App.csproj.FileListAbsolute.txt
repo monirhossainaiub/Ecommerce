@@ -177,3 +177,6 @@ E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Language\_Table
 E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 E:\Projects\Book\Ecommerce\Ecom.App\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\OrderStatus\FormPopUp.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\OrderStatus\Index.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\OrderStatus\_Table.cshtml.g.cs

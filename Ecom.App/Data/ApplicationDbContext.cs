@@ -24,6 +24,8 @@ namespace Ecom.App.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Language> Languages { get; set; }
+        public DbSet<OrderStatus> OrderStatus { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -32,6 +34,8 @@ namespace Ecom.App.Data
             //builder.ApplyConfiguration(new CategoryConfiguration());
 
             builder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<OrderStatus>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<PaymentMethod>().HasIndex(c => c.Name).IsUnique();
 
             builder.Entity<Category>()
                 .HasMany(c => c.Products)
