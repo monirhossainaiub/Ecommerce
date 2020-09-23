@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace Ecom.App.Models
 {
-    [Table("Countries")]
-    public class Country
+    [Table("Cities")]
+    public class City
     {
         [Key]
         public int Id { get; set; }
 
-        [Required]
         [MaxLength(100)]
+        [Required]
         public string Name { get; set; }
+        public int CountryId { get; set; }
     }
 }

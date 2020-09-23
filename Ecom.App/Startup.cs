@@ -41,6 +41,7 @@ namespace Ecom.App
             services.AddScoped<IPublisherRepository, PublisherRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IWriterRepository, WriterRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();

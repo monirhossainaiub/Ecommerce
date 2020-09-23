@@ -183,3 +183,6 @@ E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\OrderStatus\_Ta
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\PaymentMethod\FormPopUp.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\PaymentMethod\Index.cshtml.g.cs
 E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\PaymentMethod\_Table.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\City\FormPopUp.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\City\Index.cshtml.g.cs
+E:\Projects\Book\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\City\_Table.cshtml.g.cs

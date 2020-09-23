@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace Ecom.App.Models
 {
-    [Table("Countries")]
-    public class Country
+    [Table("OrderNotes")]
+    public class OrderNote
     {
         [Key]
         public int Id { get; set; }
+        public string Note { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string Name { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public string UpdatedBy { get; set; }
+
     }
 }

@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Cities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-controller="cityController as $ctrl">
+    <div>
+        <div ng-show="isResponseComplete">
+            @await Html.PartialAsync("~/Views/City/_Table.cshtml")
+            @await Html.PartialAsync("~/Views/City/FormPopUp.cshtml")
+        </div>
+        <div ng-hide="isResponseComplete" class="container-fluid">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })</script>
+    <script src="~/app/Controllers/cityController.js"></script>
+}
