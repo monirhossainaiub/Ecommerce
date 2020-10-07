@@ -66,6 +66,8 @@ namespace Ecom.App.Models
         public bool IsShippingChargeApplicable { get; set; }
         public bool IsLimitedToStore { get; set; }
 
+        public int? BannerId { get; set; }
+        public Banner Banner { get; set; }
         public ICollection<Photo> Photos { get; set; }
 
         public ProductPublisher()

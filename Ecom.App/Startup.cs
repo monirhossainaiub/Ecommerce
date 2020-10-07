@@ -30,6 +30,18 @@ namespace Ecom.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                  });
+            });
+
             services.Configure<PhotoSettings>(Configuration.GetSection("ConnectionStrings"));
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -47,6 +59,7 @@ namespace Ecom.App
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
             services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+            services.AddScoped<IBannerRepository, BannerRepository>();
 
 
             services.AddAutoMapper(typeof(Startup));
@@ -80,7 +93,7 @@ namespace Ecom.App
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 

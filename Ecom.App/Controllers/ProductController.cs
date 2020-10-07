@@ -21,7 +21,10 @@ namespace Ecom.App.Controllers
         private readonly IPublisherRepository publisherRepository;
         private readonly IMapper mapper;
 
-        public ProductController(IUnitOfWork unitOfWork,IProductRepository productRepository, IPublisherRepository publisherRepository, IMapper mapper)
+        public ProductController(IUnitOfWork unitOfWork,
+            IProductRepository productRepository, 
+            IPublisherRepository publisherRepository, 
+            IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.productRepository = productRepository;

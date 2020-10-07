@@ -1,0 +1,75 @@
+﻿<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <h3 class="card-header">{{dataTableName}}</h3>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 float-left">
+                        <i class="fa fa-filter fa-lg" aria-hidden="true"></i>: <input type="text" name="search" ng-model="searchText" autocomplete="off">
+                    </div>
+                    <div class="col-md-6 form-group float-md-right text-md-right">
+                        Show
+                        <label>
+                            <select class="form-control" ng-model="itemsPerpage">
+                                <option ng-value="1">1</option>
+                                <option ng-value="2">2</option>
+                                <option ng-value="3">3</option>
+                                <option ng-value="4">4</option>
+                                <option ng-value="5">5</option>
+                                <option ng-value="10">10</option>
+                                <option ng-value="15">15</option>
+                                <option ng-value="25">25</option>
+                                <option ng-value="50">50</option>
+                                <option ng-value="100">100</option>
+                            </select>
+                        </label>
+                        <button class="btn btn-primary" ng-click="showFormPopUpForSave()" title="{{addEntityTitle}}" type="button" data-toggle="modal" >
+                            <span>
+                                <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th ng-repeat="c in columns">
+                                        <div ng-if="!c.isSortable">
+                                            {{c.title}}
+                                        </div>
+                                        <div ng-if="c.isSortable" ng-click="sortBy(c.key)">
+                                            {{c.title}}
+                                            <i class="glyphicon" ng-show="sortColumn == c.key" ng-class="!reverse ? 'fa fa-sort-amount-asc':'fa fa-sort-amount-desc'"></i>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-hide="dataSource.length == 0" ng-repeat="x in dataSource | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
+                                    <td>{{x.id}}</td>
+                                    <td>{{x.title}}</td>
+                                    <td>{{x.displayOrder}}</td>
+                                    <td><input type="checkbox" style="background-color:blueviolet" disabled ng-model="x.isActive"></td>
+                                    <td>
+                                        <span ng-click="showFormPopUp(x)" title="Edit"><i class="fa fa-2x fa-pencil-square" aria-hidden="true"></i></span>
+                                        <span ng-click="delete(x)" title="Delete"><i class="fa fa-2x fa-trash" aria-hidden="true"></i></span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="dataSource.length == 0">
+                                    <td colspan="{{columns.length}}">
+                                        <h3 class="text-danger d-block text-center">There is no recored yet</h3>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div ng-hide="dataSource.length == 0">
+                @await Html.PartialAsync("~/Views/Shared/_Pagination.cshtml")
+            </div>
+        </div>
+    </div>
+</div>

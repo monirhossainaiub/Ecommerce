@@ -28,6 +28,9 @@ namespace Ecom.App.Data
         public DbSet<OrderStatus> OrderStatus { get; set; }
         public DbSet<OrderNote> OrderNotes { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Banner> Banners { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -40,6 +43,8 @@ namespace Ecom.App.Data
             builder.Entity<PaymentMethod>().HasIndex(c => c.Name).IsUnique();
             builder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
             builder.Entity<City>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<Customer>().HasIndex(c =>new { c.Email, c.Phone}).IsUnique();
+            builder.Entity<Banner>().HasIndex(b =>new {b.Title}).IsUnique();
 
             builder.Entity<Category>()
                 .HasMany(c => c.Products)
@@ -92,6 +97,12 @@ namespace Ecom.App.Data
                 .HasOne(pp => pp.Publisher)
                 .WithMany(p => p.ProductPublishers)
                 .HasForeignKey(pp => pp.PublisherId);
+
+            builder.Entity<Banner>()
+                .HasMany(b => b.ProductPublishers)
+                .WithOne(p => p.Banner)
+                .HasForeignKey(b => b.BannerId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

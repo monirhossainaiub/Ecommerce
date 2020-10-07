@@ -19,6 +19,62 @@ namespace Ecom.App.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0-preview.7.20365.15");
 
+            modelBuilder.Entity("Ecom.App.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Address1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StateProvidiant")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
+
+                    b.ToTable("Banners");
+                });
+
             modelBuilder.Entity("Ecom.App.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -110,6 +166,38 @@ namespace Ecom.App.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email", "Phone")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL AND [Phone] IS NOT NULL");
+
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Ecom.App.Models.Language", b =>
@@ -341,6 +429,9 @@ namespace Ecom.App.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int?>("BannerId")
+                        .HasColumnType("int");
+
                     b.Property<double>("CostPrice")
                         .HasColumnType("float");
 
@@ -400,6 +491,8 @@ namespace Ecom.App.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ProductId", "PublisherId", "Id");
+
+                    b.HasIndex("BannerId");
 
                     b.HasIndex("PublisherId");
 
@@ -772,6 +865,10 @@ namespace Ecom.App.Data.Migrations
 
             modelBuilder.Entity("Ecom.App.Models.ProductPublisher", b =>
                 {
+                    b.HasOne("Ecom.App.Models.Banner", "Banner")
+                        .WithMany("ProductPublishers")
+                        .HasForeignKey("BannerId");
+
                     b.HasOne("Ecom.App.Models.Product", "Product")
                         .WithMany("ProductPublishers")
                         .HasForeignKey("ProductId")

@@ -11,7 +11,9 @@ var httpRequestService = ($http, urlService, $rootScope) => {
             let getAll = () => {
                 return $http.get(service.getUrl);
             }
-
+            let getAllByUrl = (url) => {
+                return $http.get(service.rootUrlWithController + url);
+            }
             let getAllProvidingUrl = (url) => {
                 return $http.get(service.rootUrlWithController + url);
             }
@@ -54,6 +56,7 @@ var httpRequestService = ($http, urlService, $rootScope) => {
 
             return {
                 getAll: getAll,
+                getAllByUrl: getAllByUrl,
                 getById: getById,
                 createEntity: createEntity,
                 updateEntity: updateEntity,

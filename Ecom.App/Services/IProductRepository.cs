@@ -17,5 +17,6 @@ namespace Ecom.App.Services
         void Remove(Product product);
         List<string> getNames();
         Task<ProductPublisher> GetProductPublisherAsync(ProductPublisherIds data);
+        Task<IEnumerable<ProductBannerView>> GetProductsForBanner();
     }
 }

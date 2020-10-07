@@ -4,8 +4,10 @@ using Ecom.App.Controllers.Resources;
 using Ecom.App.Controllers.Resources.DTOs;
 using Ecom.App.Data;
 using Ecom.App.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,7 +33,17 @@ namespace Ecom.App.Services
             
         }
 
-       
+        [HttpGet]
+        public async Task<IEnumerable<ProductBannerView>> GetProductsForBanner()
+        {
+            return await context.ProductPublishers
+                .Select(pp => new ProductBannerView
+                {
+                    Id = pp.Id,
+                    Name = pp.Product.Name + " - " + pp.Publisher.Name
+                    ///,Image = context.Photos.Where(p => p.ProductPublisherId == pp.Id).SingleOrDefault().FileName
+                }).ToListAsync();
+        }
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await context.Products
@@ -43,8 +55,6 @@ namespace Ecom.App.Services
                 .Include(p => p.ProductPublishers)
                     .ThenInclude(pp => pp.Photos)
                 .ToListAsync();
-
-
 
 
             //return await context.Products
