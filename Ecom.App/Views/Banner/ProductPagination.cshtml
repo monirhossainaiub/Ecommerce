@@ -1,0 +1,33 @@
+﻿    <div class="row">
+        <div class="col-sm-5 float-left">
+            <div class="pull-left">
+                <pre>Page: {{ProductcurrentPage}}/{{numPages}}</pre>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="pull-right float-right">
+                <ul uib-pagination
+                    total-items="(products | filter:ProductsearchText).length"
+                    ng-model="ProductcurrentPage"
+                    items-per-page="ProductitemsPerpage"
+                    max-size="10"
+                    boundary-links="true"
+                    num-pages="numPages"
+
+                    force-ellipses="true"
+                    rotate="true"
+                    previous-text="&lsaquo;" 
+                    next-text="&rsaquo;" 
+                    first-text="&laquo;" 
+                    last-text="&raquo;"
+                    >
+                </ul>
+            </div>
+        </div>
+        <div  class="col-sm-3 float-right">
+            <button ng-click="registerProducts()" type="button" class="btn btn-primary">
+                <i class="fa fa-save fa-lg" fa-save"></i>
+                Save Changes
+            </button>
+        </div>
+    </div>

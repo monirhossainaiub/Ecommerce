@@ -31,6 +31,8 @@ namespace Ecom.App.Data
         public DbSet<Address> Address { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -62,20 +64,14 @@ namespace Ecom.App.Data
                 .HasForeignKey(p => p.LanguageId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<ProductPublisher>()
-                .HasMany(p => p.Photos)
-                .WithOne(ph => ph.ProductPublisher)
-                .HasForeignKey(p => p.ProductPublisherId)
-                .HasPrincipalKey(pp => pp.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+            
 
+           
             builder.Entity<Product>(entity => {
                 entity.HasIndex(p => p.Name).IsUnique();
             });
 
-            builder.Entity<ProductPublisher>(entity => {
-                entity.HasIndex(p => p.SKU).IsUnique();
-            });
+            
             builder.Entity<Writer>(entity => {
                 entity.HasIndex(p => p.Name).IsUnique();
             });
@@ -87,16 +83,36 @@ namespace Ecom.App.Data
 
             builder.Entity<ProductPublisher>()
                 .HasKey(pp => new { pp.ProductId, pp.PublisherId, pp.Id});
-
+            builder.Entity<ProductPublisher>(entity => {
+                entity.HasIndex(p => p.SKU).IsUnique();
+            });
+            builder.Entity<ProductPublisher>()
+                .HasMany(p => p.Photos)
+                .WithOne(ph => ph.ProductPublisher)
+                .HasForeignKey(p => p.ProductPublisherId)
+                .HasPrincipalKey(pp => pp.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull);
             builder.Entity<ProductPublisher>()
                 .HasOne(pp => pp.Product)
                 .WithMany(p => p.ProductPublishers)
                 .HasForeignKey(pp => pp.ProductId);
-
             builder.Entity<ProductPublisher>()
                 .HasOne(pp => pp.Publisher)
                 .WithMany(p => p.ProductPublishers)
                 .HasForeignKey(pp => pp.PublisherId);
+
+            builder.Entity<OrderItem>()
+                .HasKey(oi => new { oi.OrderId, oi.ProductPublisherId, oi.Id });
+            builder.Entity<OrderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasPrincipalKey(oi => oi.Id)
+                .HasForeignKey(oi => oi.OrderId);
+            builder.Entity<OrderItem>()
+                .HasOne(oi => oi.ProductPublisher)
+                .WithMany(pp => pp.OrderItems)
+                .HasPrincipalKey(oi => oi.Id)
+                .HasForeignKey(oi => oi.ProductPublisherId);
 
             builder.Entity<Banner>()
                 .HasMany(b => b.ProductPublishers)

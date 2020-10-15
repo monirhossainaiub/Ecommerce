@@ -5,7 +5,8 @@
 'use strict';
 var app = angular.module("app", [
     'ui.bootstrap',
-    'angularjs-dropdown-multiselect'
+    'ngMaterial',
+    'ngMessages'
 ]);
 
 app.directive("selectNgFiles", function() {

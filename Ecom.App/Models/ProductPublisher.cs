@@ -69,10 +69,11 @@ namespace Ecom.App.Models
         public int? BannerId { get; set; }
         public Banner Banner { get; set; }
         public ICollection<Photo> Photos { get; set; }
-
+        public ICollection<OrderItem> OrderItems { get; set; }
         public ProductPublisher()
         {
             Photos = new Collection<Photo>();
+            OrderItems = new Collection<OrderItem>();
         }
     }
 }

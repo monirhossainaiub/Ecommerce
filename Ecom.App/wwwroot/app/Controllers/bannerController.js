@@ -2,7 +2,7 @@
 
 'use strict';
 
-app.controller("bannerController", ($scope, httpRequestService, messageService, baseService) =>
+app.controller("bannerController", ($scope, urlService, httpRequestService, messageService, baseService) =>
 {
     //server controller name
     var controllerName = "banner";
@@ -44,8 +44,13 @@ app.controller("bannerController", ($scope, httpRequestService, messageService, 
     };
     var product = {
         id: 0,
-        name: null
-        //,image: null
+        product: null,
+        publisher: null,
+        price: 0,
+        quantity: 0,
+        image: null,
+        bannerId: 0,
+        isRegisterToBanner: false
     }
     $scope.model = angular.copy(defaultModel);
     $scope.productModel = angular.copy(product);
@@ -131,19 +136,17 @@ app.controller("bannerController", ($scope, httpRequestService, messageService, 
                         $scope.reverse = true;
                         messageService.added(response.data.title);
                         addToDataSource(response.data);
-                        //$scope.reset();
+                        $scope.productModel.bannerId = response.data.id;
                     }, (error) => {
                         messageService.error(error.status);
                     });
         }
         else if ($scope.action === "Update") {
-            //baseService.hidePopUpByPopId(FormPopUp);
             httpRequestService.getHttpRequestService(controllerName).updateEntity($scope.model)
                 .then(
                     (response) => {
                         messageService.updated(response.data.title);
                         updateDataSource(response.data);
-                        //$scope.reset();
                     }, (error) => {
                         messageService.error(error.status);
                     });
@@ -151,7 +154,6 @@ app.controller("bannerController", ($scope, httpRequestService, messageService, 
             
     };
     $scope.delete = (entity)=> {
-
         bootbox.confirm({
             message: "Are you sure? You want to delete " + "<b><i>" + entity.title + "</i></b>" + " permanently?",
             buttons: {
@@ -197,8 +199,10 @@ app.controller("bannerController", ($scope, httpRequestService, messageService, 
         baseService.showPopUpByPopId(FormPopUp);
     }
     $scope.showFormPopUp = (entity) => {
-        $scope.model = angular.copy(entity);
+        $scope.reset();
         baseService.showPopUpByPopId(FormPopUp);
+        $scope.model = angular.copy(entity);
+        $scope.productModel.bannerId = $scope.model.id;
         $scope.action = "Update";
         $scope.formTitle = "Update the " + entityNameToPerform;
     }
@@ -208,22 +212,74 @@ app.controller("bannerController", ($scope, httpRequestService, messageService, 
         $scope.form.$setUntouched();
     };
 
-    $scope.setting = {
-        scrollableHeight: '100px',
-        scrollable: true,
-        enableSearch: true
-    };
     $scope.loadProducts = () => {
         if ($scope.model.id === 0)
             return;
        
-        httpRequestService.getHttpRequestService(controllerName).getAllByUrl("getProducts")
+        httpRequestService.getHttpRequestService(controllerName).getAllProvidingDataUrl($scope.productModel.bannerId,"getProducts")
             .then(
                 (response) => {
                     $scope.products = response.data;
+                    createImagePath();
                 },
                 (err) => {
                     messageService.error(err.status);
+                });
+    };
+
+    var fileServiceUrl = urlService.getUrlService("banner");
+    var createImagePath = () => {
+        if ($scope.products.length > 0) {
+            for (var i = 0; i < $scope.products.length; i++) {
+                $scope.products[i].image = fileServiceUrl.rootUrl + "uploads/" + $scope.products[i].image;
+                if ($scope.products[i].bannerId > 0 && $scope.products[i].bannerId === $scope.productModel.bannerId) {
+                    $scope.products[i].isRegisterToBanner = true;
+                }
+            }
+        }
+
+    }
+
+    //#region product pagination
+    $scope.ProductsearchText = "";
+    $scope.ProductitemsPerpage = 10;
+    $scope.ProductcurrentPage = 1;
+    $scope.ProductsortBy = function (column) {
+        $scope.ProductsortColumn = column;
+        $scope.Productreverse = !$scope.Productreverse;
+    }
+
+    $scope.productTableColumns = [
+        { title: 'Id', key: 'id', isSortable: true },
+        { title: 'Product', key: 'product', isSortable: true },
+        { title: 'Publisher', key: 'publisher', isSortable: true },
+        { title: 'Stock Quantity', key: 'quantity', isSortable: true },
+        { title: 'Price', key: 'price', isSortable: true },
+        { title: 'Photo', key: 'image', isSortable: true }
+    ];
+    //#endregion product pagination1
+
+    var data = {
+        bannerId: 0,
+        productIds: []
+    };
+
+    $scope.registerProducts = () => {
+        console.log($scope.products);
+        data.bannerId = $scope.model.id;
+        if ($scope.products.length > 0) {
+            for (var i = 0; i < $scope.products.length; i++) {
+                if ($scope.products[i].isRegisterToBanner == true) {
+                    data.productIds.push($scope.products[i].id);
+                }
+            }
+        }
+        httpRequestService.getHttpRequestService(controllerName).createEntityProvidingDataUrl(data,"RegisterProducts")
+            .then(
+                (response) => {
+                    messageService.added("Data is changed");
+                }, (error) => {
+                    messageService.error(error.status);
                 });
     };
 });

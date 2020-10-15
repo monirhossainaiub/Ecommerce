@@ -19,5 +19,15 @@ namespace Ecom.App.Services
         {
             return await context.Photos.Where(p => p.ProductPublisherId == productPublisherId).ToListAsync();
         }
+
+        public async Task<Photo> GetPhotoById(int id)
+        {
+            return await context.Photos.FindAsync(id);
+        }
+
+        public void Delete(Photo photo)
+        {
+            context.Photos.Remove(photo);
+        }
     }
 }

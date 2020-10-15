@@ -37,9 +37,11 @@ namespace Ecom.App.Controllers
             return View();
         }
 
-        public async Task<IActionResult> getProducts()
+        //get products for banner where bannaerId == null or provided bannerId
+        [HttpPost]
+        public async Task<IActionResult> GetProducts([FromBody] int id)
         {
-            return Ok(await productRepository.GetProductsForBanner());
+            return Ok(await productRepository.GetProductsForBanner(id));
         }
 
         [HttpGet]
@@ -52,8 +54,8 @@ namespace Ecom.App.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            
-            var banners = await bannerRepository.GetAsync(id,false);
+
+            var banners = await bannerRepository.GetAsync(id, false);
             return Ok(banners);
         }
 
@@ -67,7 +69,7 @@ namespace Ecom.App.Controllers
             {
                 for (int i = 0; i < Names.Count; i++)
                 {
-                    if(name == Names[i])
+                    if (name == Names[i])
                     {
                         return true;
                     }
@@ -87,7 +89,7 @@ namespace Ecom.App.Controllers
                 ModelState.AddModelError("Exist", "Banner is already exist.");
                 return BadRequest(ModelState);
             }
-                
+
             bannerRepository.Add(banner);
             await unitOfWork.SaveChangesAsync();
 
@@ -122,6 +124,72 @@ namespace Ecom.App.Controllers
 
             return Ok(banner);
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterProducts([FromBody] ProductBannerRegister data)
+        {
+            var banner = await bannerRepository.GetAsync(data.BannerId);
+            var productIds = await productRepository.GetProductIdsThatIsRegisteredToABanner(data.BannerId);
+
+            if(productIds.Count == 0)
+            {
+                foreach (var productPublisherId in data.ProductIds)
+                {
+                    var product = await productRepository.GetPruductPublisherById(productPublisherId);
+
+                    banner.ProductPublishers.Add(product);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < data.ProductIds.Count; i++)
+                {
+
+                    bool isAdded = true;
+                    for (int j = 0; j < productIds.Count; j++)
+                    {
+                        if (data.ProductIds[i] == productIds[j])
+                        {
+                            isAdded = false;
+                            break;
+                        }
+                    }
+                    if (isAdded)
+                    {
+                        var product = await productRepository.GetPruductPublisherById(data.ProductIds[i]);
+                        banner.ProductPublishers.Add(product);
+                    }
+                    
+
+                }
+
+                for (int i = 0; i < productIds.Count; i++)
+                {
+                    bool isRemoved = true;
+
+                    for (int j = 0; j < data.ProductIds.Count; j++)
+                    {
+                        if (productIds[i] == data.ProductIds[j])
+                        {
+                            isRemoved = false;
+                            break;
+                        }
+                       
+                    }
+                    if(isRemoved)
+                    {
+                        var product = await productRepository.GetPruductPublisherById(productIds[i]);
+                        banner.ProductPublishers.Remove(product);
+                    }
+                }
+            }
+            
+            
+            
+
+            await unitOfWork.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }

@@ -36,7 +36,7 @@ let error = (status) => {
         return;
     }
 
-    toastr.error("status code:" + status + " ," + message, 'Error', { timeOut: 5000 });
+    toastr.error("status code:" + status, 'Error', { timeOut: 5000 });
 }
 
 // #endregion tostr message

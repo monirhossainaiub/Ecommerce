@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ecom.App.Controllers.Resources;
@@ -49,11 +48,7 @@ namespace Ecom.App.Controllers
 
             if (file == null) return BadRequest("Null file");
             if (file.Length == 0) return BadRequest("Empty file");
-            //if (file.Length > photoSettings.MaxBytes) return BadRequest("File is too large");
-            //10 mb
-            //if (!photoSettings.IsSupported(file.FileName)) return BadRequest("Invalid file type");
-
-
+            
             var uploadFolderPath = Path.Combine(host.WebRootPath, "uploads");
             if (!Directory.Exists(uploadFolderPath))
                 Directory.CreateDirectory(uploadFolderPath);
@@ -82,6 +77,26 @@ namespace Ecom.App.Controllers
 
             var photos = await photoRepository.GetAllPhotosByProductPublisherAsync(productPublisher.Id);
             return Ok(mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoDto>>(photos));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromBody] Photo photo)
+        {
+            string uploadFolderPath = Path.Combine(host.WebRootPath, "uploads");
+            string filePath = Path.Combine(uploadFolderPath, photo.FileName);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+
+                photoRepository.Delete(photo);
+                await unitOfWork.SaveChangesAsync();
+                return Ok(photo);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
     }
 }

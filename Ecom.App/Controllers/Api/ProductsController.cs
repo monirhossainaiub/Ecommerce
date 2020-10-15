@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ecom.App.Services;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,54 @@ namespace Ecom.App.Controllers.Api
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        // GET: api/<ProductsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IProductRepository productRepository;
+        private readonly IUnitOfWork unitOfWork;
+
+       
+        public ProductsController(IProductRepository productRepository,IUnitOfWork unitOfWork)
         {
-            return new string[] { "value1", "value2" };
+            this.productRepository = productRepository;
+            this.unitOfWork = unitOfWork;
+        }
+        //// GET: api/<ProductsController>
+        [HttpGet("")]
+        public async Task<IActionResult> Get()
+        {
+            var products = await productRepository.GetProductsBanners();
+            return Ok(products);
         }
 
-        // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("category/{id:int}")]
+        public async Task<IActionResult> GetProductsByCategory(int id)
         {
-            return "value";
+            var products = await productRepository.GetProductsByCategory(id);
+            return Ok(products);
+        }
+
+        // get product list for by each writer
+        [HttpGet]
+        [Route("writer/{id:int}")]
+        public async Task<IActionResult> GetProductsByWriter(int id)
+        {
+            var products = await productRepository.GetProductsByWriter(id);
+            return Ok(products);
+        }
+
+        // get product list for each publisher
+        [HttpGet]
+        [Route("publisher/{id:int}")]
+        public async Task<IActionResult> GetProductsByPublisher(int id)
+        {
+            var products = await productRepository.GetProductsByPublisher(id);
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var product = await productRepository.GetAsync(id, includeRelated: true);
+            return Ok(product);
         }
 
         // POST api/<ProductsController>

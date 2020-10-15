@@ -2,7 +2,7 @@
 
 'use strict';
 
-app.controller("productController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService, urlService) =>
+app.controller("productController", ($scope, $http, httpRequestService, messageService, baseService, urlService) =>
 {
     //server controller name
     var controllerName = "product";
@@ -15,13 +15,13 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
     $scope.action = "Save";
     $scope.ppAction = "Save";
 
-
     $scope.dataSource = [];
     $scope.countries = [];
     $scope.languages = [];
     $scope.writers = [];
     $scope.categories = [];
     $scope.publishers = [];
+    $scope.photos = [];
 
     $scope.addEntityTitle = "Add " + entityNameToPerform;
     $scope.formTitle = "Create a " + entityNameToPerform;
@@ -53,7 +53,6 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         id: 0,
         name: null,
         title: null,
-
         country: null,
         countryId: 0,
         categoryId: 0,
@@ -439,17 +438,19 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
     // #endregion 
 
     // #region  photo
-    $scope.photos = [];
+    
     $scope.imagePaths = [];
     var fileServiceUrl = urlService.getUrlService("File");
-    var createImagePath = () => {
-        if ($scope.photos.length > 0) {
-            for (var i = 0; i < $scope.photos.length; i++) {
-                $scope.imagePaths.push(fileServiceUrl.rootUrl + "uploads/" + $scope.photos[i].fileName);
-            }
-        }
+    $scope.imageRootDirectory = fileServiceUrl.rootUrl + "uploads/";
+    //var createImagePath = () => {
+    //    if ($scope.photos.length > 0) {
+    //        for (var i = 0; i < $scope.photos.length; i++) {
+    //            //$scope.imagePaths.push(fileServiceUrl.rootUrl + "uploads/" + $scope.photos[i].fileName);
+    //            $scope.photos[i].fileName = fileServiceUrl.rootUrl + "uploads/" + $scope.photos[i].fileName;
+    //        }
+    //    }
        
-    }
+    //}
     $scope.loadPhotos = () => {
         $scope.photos = [];
         $scope.imagePaths = [];
@@ -470,7 +471,6 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
             .then(
                 (response) => {
                     $scope.photos = response.data;
-                    createImagePath();
                 },
                 (err) => {
                     messageService.error(err.status);
@@ -494,10 +494,22 @@ app.controller("productController", ($scope, $http, $rootScope, httpRequestServi
         }).then(
             (response) => {
                 $scope.photos.push(JSON.parse(response.data));
-                createImagePath();
             }, (error) => {
                 messageService.error(error.status);
             });
+    };
+
+    $scope.removePhoto = (photo) => {
+        var data = { id: photo.id, fileName: photo.fileName };
+        $http.post(fileServiceUrl.rootUrlWithController + "delete", data)
+            .then(
+                (response) => {
+                    messageService.deleted("Photo");
+                    $scope.getPhotos();
+                },
+                (err) => {
+                    messageService.error(err.status);
+                });
     };
     // #endregion
 });

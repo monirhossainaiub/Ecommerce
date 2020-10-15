@@ -9,5 +9,7 @@ namespace Ecom.App.Services
     public interface IPhotoRepository
     {
         Task<IEnumerable<Photo>> GetAllPhotosByProductPublisherAsync(int productPublisherId);
+        Task<Photo> GetPhotoById(int id);
+        public void Delete(Photo photo);
     }
 }
