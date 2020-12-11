@@ -48,11 +48,11 @@
                                         <span class="text-danger" ng-show="form.name.$dirty && isExist">This name is already exits.</span>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="language">Select a language <sup>*</sup></label>
-                                        <select required class="form-control" name="languageId" id="language" ng-model="model.languageId">
-                                            <option ng-repeat="option in languages" ng-value="{{option.id}}">{{option.name}}</option>
+                                        <label for="category">Select a category <sup>*</sup></label>
+                                        <select required class="form-control" name="categoryId" id="category" ng-model="model.categoryId">
+                                            <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
                                         </select>
-                                        <span class="text-danger" ng-show="(form.languageId.$dirty || form.languageId.$touched)  && form.languageId.$invalid">Language is required.</span>
+                                        <span class="text-danger" ng-show="form.categoryId.$dirty  && form.categoryId.$invalid">Category is required.</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -68,15 +68,6 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="category">Select a category <sup>*</sup></label>
-                                        <select required class="form-control" name="categoryId" id="category" ng-model="model.categoryId">
-                                            <option ng-repeat="option in categories" ng-value="{{option.id}}">{{option.name}}</option>
-                                        </select>
-                                        <span class="text-danger" ng-show="form.categoryId.$dirty  && form.categoryId.$invalid">Category is required.</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
                                         <label for="writer">Select a writer <sup>*</sup></label>
                                         <select required class="form-control" name="writerId" id="writer" ng-model="model.writerId">
                                             <option value="0">Select writer</option>
@@ -84,6 +75,8 @@
                                         </select>
                                         <span class="text-danger" ng-show="(form.writerId.$dirty || form.writerId.$touched)  && form.writerId.$invalid">Writer is required.</span>
                                     </div>
+                                </div>
+                                <div class="row">
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 form-group">
@@ -95,16 +88,6 @@
                                                   required
                                                   ng-model="model.title"></textarea>
                                         <span class="text-danger" ng-show="form.title.$touched && form.title.$invalid">Titel name is required.</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 form-group">
-                                        <label for="description">Description</label>
-                                        <textarea class="form-control"
-                                                  id="description"
-                                                  rows="3"
-                                                  name="description"
-                                                  ng-model="model.description"></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -131,11 +114,11 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label for="publisher">Select a publisher <sup>*</sup></label>
-                                        <select required 
+                                        <select required
                                                 ng-change="checkPublisher()"
-                                                class="form-control" 
-                                                name="publisherId" 
-                                                id="publisher" 
+                                                class="form-control"
+                                                name="publisherId"
+                                                id="publisher"
                                                 ng-model="productPublisherModel.publisherId">
                                             <option ng-repeat="option in publishers" ng-value="{{option.id}}">{{option.name}}</option>
                                         </select>
@@ -292,6 +275,25 @@
                                                    autocomplete="off"
                                                    maxlength="150">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="language">Select a language <sup>*</sup></label>
+                                        <select required class="form-control" name="languageId" id="language" ng-model="productPublisherModel.languageId">
+                                            <option ng-repeat="option in languages" ng-value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                        <span class="text-danger" ng-show="(form.languageId.$dirty || form.languageId.$touched)  && form.languageId.$invalid">Language is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control"
+                                                  id="description"
+                                                  rows="3"
+                                                  name="description"
+                                                  ng-model="productPublisherModel.description"></textarea>
                                     </div>
                                 </div>
                                 <div class="row">

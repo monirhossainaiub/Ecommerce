@@ -13,16 +13,16 @@ namespace Ecom.App.Controllers.Resources.DTOs
         public string Name { get; set; }
         public string FileName { get; set; }
         public string Category { get; set; }
-        public string Language { get; set; }
+        //public string Language { get; set; }
         public string Writer { get; set; }
         public string Publisher { get; set; }
         public string Country { get; set; }
         
         public int CategoryId { get; set; }
-        public int LanguageId { get; set; }
+        //public int LanguageId { get; set; }
         public int WriterId { get; set; }
         
-        public string Description { get; set; }
+        //public string Description { get; set; }
         public string Title { get; set; }
         public int DisplayOrder { get; set; }
 

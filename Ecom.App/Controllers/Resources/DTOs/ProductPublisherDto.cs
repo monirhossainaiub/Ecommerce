@@ -46,6 +46,8 @@ namespace Ecom.App.Controllers.Resources.DTOs
         [Display(Name = "Notify Bellow Qnt")]
         public int NotifyForMinimumQuantityBellow { get; set; }
 
+        public int LanguageId { get; set; }
+        public string Description { get; set; }
 
         public bool IsNewProduct { get; set; }
         public bool IsPublished { get; set; }

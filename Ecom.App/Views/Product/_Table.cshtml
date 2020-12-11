@@ -49,8 +49,8 @@
                             <tbody>
                                 <tr ng-hide="dataSource.length == 0" ng-repeat="x in dataSource | orderBy: sortColumn:reverse | filter:searchText | limitTo: itemsPerpage: (currentPage - 1) * itemsPerpage">
                                     <td>{{x.id}}</td>
+                                    <td><img src="{{imageRootDirectory + x.photo}}" height="50" width="50 " class="img-thumbnail" /></td>
                                     <td>{{x.name}}</td>
-                                    <td>{{x.language}}</td>
                                     <td>{{x.category}}</td>
                                     <td>{{x.writer}}</td>
                                     <td>{{x.publisher}}</td>

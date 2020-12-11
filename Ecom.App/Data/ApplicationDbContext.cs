@@ -34,6 +34,9 @@ namespace Ecom.App.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -57,21 +60,11 @@ namespace Ecom.App.Data
                 .HasMany(w => w.Products)
                 .WithOne(p => p.Writer)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Language>()
-                .HasMany(l => l.Products)
-                .WithOne(p => p.Language)
-                .HasForeignKey(p => p.LanguageId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            
-
            
             builder.Entity<Product>(entity => {
                 entity.HasIndex(p => p.Name).IsUnique();
             });
 
-            
             builder.Entity<Writer>(entity => {
                 entity.HasIndex(p => p.Name).IsUnique();
             });
@@ -119,6 +112,19 @@ namespace Ecom.App.Data
                 .WithOne(p => p.Banner)
                 .HasForeignKey(b => b.BannerId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.Entity<ProductPublisher>()
+               .HasMany(pp => pp.Comments)
+               .WithOne(c => c.ProductPublisher)
+               .HasForeignKey(p => p.ProductPublisherId)
+               .HasPrincipalKey(pp => pp.Id);
+            //.OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.Entity<ProductPublisher>()
+              .HasMany(pp => pp.Ratings)
+              .WithOne(c => c.ProductPublisher)
+              .HasForeignKey(p => p.ProductPublisherId)
+              .HasPrincipalKey(pp => pp.Id);
         }
     }
 }

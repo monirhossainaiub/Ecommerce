@@ -37,8 +37,9 @@ app.controller("productController", ($scope, $http, httpRequestService, messageS
     
     $scope.columns = [
         { title: 'Id', key: 'id', isSortable: true },
+        { title: 'Photo', key: 'photo', isSortable: false },
         { title: 'Name', key: 'name', isSortable: true },
-        { title: 'Language', key: 'language', isSortable: true },
+        //{ title: 'Language', key: 'language', isSortable: true },
         { title: 'Category', key: 'category', isSortable: true },
         { title: 'Writer', key: 'writer', isSortable: true },
         { title: 'Publisher', key: 'publisher', isSortable: true },
@@ -59,8 +60,8 @@ app.controller("productController", ($scope, $http, httpRequestService, messageS
         categoryId: 0,
         languageId: 0,
         publisherId: 0,
-        language: null,
-        description : null,
+        //language: null,
+        //description : null,
         displayOrder: 0,
         sku:null,
         publisher: null,
@@ -87,6 +88,8 @@ app.controller("productController", ($scope, $http, httpRequestService, messageS
         orderMinimumQuantity: 1,
         orderMaximumQuantity: 0,
         notifyForMinimumQuantityBellow: 0,
+        languageId: 0,
+        description : null,
 
         isNewProduct: true,
         isPublished: true,

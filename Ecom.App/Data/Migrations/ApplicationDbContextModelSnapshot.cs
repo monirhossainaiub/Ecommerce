@@ -148,6 +148,36 @@ namespace Ecom.App.Data.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("Ecom.App.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("ProductPublisherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductPublisherId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Ecom.App.Models.Country", b =>
                 {
                     b.Property<int>("Id")
@@ -398,17 +428,11 @@ namespace Ecom.App.Data.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
                     b.Property<string>("IPAddress")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -436,8 +460,6 @@ namespace Ecom.App.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -504,6 +526,9 @@ namespace Ecom.App.Data.Migrations
                     b.Property<double>("CostPrice")
                         .HasColumnType("float");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Edition")
                         .HasColumnType("nvarchar(max)");
 
@@ -529,6 +554,9 @@ namespace Ecom.App.Data.Migrations
 
                     b.Property<bool>("IsShippingChargeApplicable")
                         .HasColumnType("bit");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
 
                     b.Property<int>("NotifyForMinimumQuantityBellow")
                         .HasColumnType("int");
@@ -630,6 +658,34 @@ namespace Ecom.App.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Publishers");
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductPublisherId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("RatingValue")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductPublisherId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("Ecom.App.Models.Writer", b =>
@@ -894,6 +950,22 @@ namespace Ecom.App.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Ecom.App.Models.Comment", b =>
+                {
+                    b.HasOne("Ecom.App.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecom.App.Models.ProductPublisher", "ProductPublisher")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductPublisherId")
+                        .HasPrincipalKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Ecom.App.Models.Order", b =>
                 {
                     b.HasOne("Ecom.App.Models.Customer", "Customer")
@@ -947,12 +1019,6 @@ namespace Ecom.App.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Ecom.App.Models.Language", "Language")
-                        .WithMany("Products")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Ecom.App.Models.Writer", "Writer")
                         .WithMany("Products")
                         .HasForeignKey("WriterId")
@@ -984,6 +1050,22 @@ namespace Ecom.App.Data.Migrations
                     b.HasOne("Ecom.App.Models.Publisher", "Publisher")
                         .WithMany("ProductPublishers")
                         .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.Rating", b =>
+                {
+                    b.HasOne("Ecom.App.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecom.App.Models.ProductPublisher", "ProductPublisher")
+                        .WithMany("Ratings")
+                        .HasForeignKey("ProductPublisherId")
+                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

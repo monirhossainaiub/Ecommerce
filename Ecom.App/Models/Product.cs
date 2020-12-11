@@ -19,18 +19,11 @@ namespace Ecom.App.Models
         [MaxLength(150)]
         [Display(Name = "Product")]
         public string Name { get; set; }
-
         public string Title { get; set; }
-
-        public string Description { get; set; }
-        
         public int DisplayOrder { get; set; }
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
-
-        [ForeignKey("Language")]
-        public int LanguageId { get; set; }
 
         [ForeignKey("Writer")]
         public int WriterId { get; set; }
@@ -54,7 +47,7 @@ namespace Ecom.App.Models
         public ICollection<ProductPublisher> ProductPublishers { get; set; }
         
         public Category Category { get; set; }
-        public Language Language { get; set; }
+        
         public Writer Writer { get; set; }
 
         #endregion

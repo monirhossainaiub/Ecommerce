@@ -39,7 +39,6 @@ namespace Ecom.App.Services
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await context.Products
-                .Include(p => p.Language)
                 .Include(p => p.Category)
                 .Include(p => p.Writer)
                 .Include(p => p.ProductPublishers)
@@ -81,7 +80,6 @@ namespace Ecom.App.Services
 
             return await context.Products
                 .Include(p => p.Category)
-                .Include(p => p.Language)
                 .Include(p => p.Writer)
                  //.Select(p => new ProductViewDto
                  //{
@@ -150,10 +148,10 @@ namespace Ecom.App.Services
                             product.Name = reader["Name"].ToString();
                             product.Title = reader["Title"].ToString();
                             
-                            product.Description = reader["Description"].ToString();
+                            //product.Description = reader["Description"].ToString();
                             product.DisplayOrder = Convert.ToInt32(reader["DisplayOrder"]);
                             product.Category = reader["Category"].ToString();
-                            product.Language = reader["Language"].ToString();
+                            //product.Language = reader["Language"].ToString();
                             product.Writer = reader["Writer"].ToString();
                             product.Publisher = reader["Publisher"].ToString();
                             product.Country = reader["Country"].ToString();
@@ -177,7 +175,7 @@ namespace Ecom.App.Services
                             product.IsLimitedToStore = Convert.ToBoolean(reader["IsLimitedToStore"]);
                             product.ProductPublisherId = Convert.ToInt32(reader["ProductPublisherId"]);
                             product.CategoryId = Convert.ToInt32(reader["CategoryId"]);
-                            product.LanguageId = Convert.ToInt32(reader["LanguageId"]);
+                            //product.LanguageId = Convert.ToInt32(reader["LanguageId"]);
                             product.WriterId = Convert.ToInt32(reader["WriterId"]);
                             //product.CreatedAt = Convert.ToDateTime(reader["CreatedAt"].ToString());
                             //product.UpdatedAt = Convert.ToDateTime(reader["UpdatedAt"].ToString());
@@ -186,7 +184,7 @@ namespace Ecom.App.Services
                             //product.DeletedBy = reader["DeletedBy"].ToString();
                             //product.IPAddress = reader["IPAddress"].ToString();
                             product.Photo = await context.Photos.Where(pt => pt.ProductPublisherId == product.ProductPublisherId).Select(pt => pt.FileName).FirstOrDefaultAsync();
-                         
+                            
                             products.Add(product);
                         }
                         

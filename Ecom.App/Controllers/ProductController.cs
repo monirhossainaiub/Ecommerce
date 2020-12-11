@@ -45,12 +45,12 @@ namespace Ecom.App.Controllers
 	                    p.[Id]
                       ,p.[Name]
 	                  ,c.[Name] as Category
-	                  ,l.[Name] as Language
+	                  --,l.[Name] as Language
 	                  ,w.[Name] as Writer
 	                  ,pb.[Name] as Publisher
 	                  ,cn.[Name] as Country
                       ,p.[Title]
-                      ,p.[Description]
+                     -- ,p.[Description]
 					   ,ISNULL(p.[DisplayOrder], 0) as DisplayOrder
                       ,p.[CreatedAt]
                       ,p.[CreatedBy]
@@ -80,14 +80,15 @@ namespace Ecom.App.Controllers
                       ,pp.[SKU] as Sku
                       ,ISNULL(pp.Id,0) as ProductPublisherId
                       ,ISNULL(p.CategoryId, 0)  as CategoryId
-					   ,ISNULL(p.LanguageId, 0)  as LanguageId
+					   --,ISNULL(p.LanguageId, 0)  as LanguageId
 					   ,ISNULL(p.WriterId, 0)  as WriterId
+    
                 FROM Products p
                 LEFT JOIN ProductPublishers pp ON p.Id = pp.ProductId
                 LEFT JOIN Publishers pb ON PP.PublisherId = pb.Id
                 LEFT JOIN Countries cn ON pp.countryId = cn.Id
                 LEFT JOIN Categories c ON p.CategoryId = c.Id
-                LEFT JOIN Languages l ON p.LanguageId = l.Id
+                --LEFT JOIN Languages l ON p.LanguageId = l.Id
                 LEFT JOIN Writers w ON p.WriterId = w.Id";
             var products = await ((ProductRepository)productRepository).ReadData(sql);
             return Ok(products);
@@ -175,7 +176,7 @@ namespace Ecom.App.Controllers
             return Ok(product);
         }
 
-
+        
         [HttpPost]
         public async Task<IActionResult> GetProductPublisherAsync([FromBody] ProductPublisherIds data)
         {

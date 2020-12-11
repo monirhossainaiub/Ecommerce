@@ -30,6 +30,8 @@ namespace Ecom.App.Services
                 .ToListAsync();
         }
 
+      
+
         public async Task<Banner> GetAsync(int id, bool includeRelated = true)
         {
 
@@ -49,5 +51,6 @@ namespace Ecom.App.Services
         {
             return await context.Banners.Select(p => p.Title).ToListAsync();
         }
+
     }
 }

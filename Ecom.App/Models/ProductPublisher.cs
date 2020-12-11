@@ -34,6 +34,11 @@ namespace Ecom.App.Models
 
         public string Edition { get; set; }
 
+        public string Description { get; set; }
+
+        [Required]
+        public int LanguageId { get; set; }
+
         [Required]
         [Range(0, Int32.MaxValue)]
         [Display(Name = "Stock Quantity")]
@@ -63,17 +68,20 @@ namespace Ecom.App.Models
         public bool IsPublished { get; set; }
         public bool IsAproved { get; set; }
         public bool IsReturnAble { get; set; }
-        public bool IsShippingChargeApplicable { get; set; }
         public bool IsLimitedToStore { get; set; }
 
         public int? BannerId { get; set; }
         public Banner Banner { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
         public ProductPublisher()
         {
             Photos = new Collection<Photo>();
             OrderItems = new Collection<OrderItem>();
+            Comments = new Collection<Comment>();
+            Ratings = new Collection<Rating>();
         }
     }
 }

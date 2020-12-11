@@ -17,11 +17,11 @@ namespace Ecom.App.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        //public ICollection<Product> Products { get; set; }
 
         public Language()
         {
-            Products = new Collection<Product>();
+            //Products = new Collection<Product>();
         }
     }
 }
