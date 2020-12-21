@@ -28,6 +28,7 @@ namespace Ecom.App.Models
         [ForeignKey("Writer")]
         public int WriterId { get; set; }
 
+
         #endregion
 
         #region Common Properties

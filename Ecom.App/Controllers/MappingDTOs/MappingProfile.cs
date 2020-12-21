@@ -28,6 +28,8 @@ namespace Ecom.App.Controllers.MappingDTOs
             CreateMap<Writer, WriterDto>();
             CreateMap<Language, LanguageDto>();
             CreateMap<Photo, PhotoDto>();
+            CreateMap<Slider, SliderDto>()
+                .ForMember(sd => sd.Photo, opt => opt.MapFrom(s => s.Photo.FileName));
             
 
 
@@ -39,6 +41,7 @@ namespace Ecom.App.Controllers.MappingDTOs
             CreateMap<WriterDto, Writer>();
             CreateMap<LanguageDto, Language>();
             CreateMap<ProductPublisherDto, ProductPublisher>();
+            CreateMap<SliderDto, Slider>();
         }
     }
 }

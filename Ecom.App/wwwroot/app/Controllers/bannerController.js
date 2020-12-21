@@ -200,11 +200,13 @@ app.controller("bannerController", ($scope, urlService, httpRequestService, mess
     }
     $scope.showFormPopUp = (entity) => {
         $scope.reset();
-        baseService.showPopUpByPopId(FormPopUp);
         $scope.model = angular.copy(entity);
+        
         $scope.productModel.bannerId = $scope.model.id;
         $scope.action = "Update";
         $scope.formTitle = "Update the " + entityNameToPerform;
+        $scope.loadProducts();
+        baseService.showPopUpByPopId(FormPopUp);
     }
     $scope.reset = () => {
         $scope.model = angular.copy(defaultModel);

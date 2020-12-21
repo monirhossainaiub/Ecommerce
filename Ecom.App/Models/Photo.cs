@@ -13,7 +13,7 @@ namespace Ecom.App.Models
         [Required]
         [StringLength(255)]
         public string FileName { get; set; }
-
+        public bool IsSliderPhoto { get; set; }
 
         public int? ProductPublisherId { get; set; }
         public ProductPublisher ProductPublisher { get; set; }

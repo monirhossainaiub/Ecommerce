@@ -31,7 +31,6 @@ namespace Ecom.App.Services
         public void Add(Product product)
         {
             context.Products.Add(product);
-            
         }
         
 
@@ -154,6 +153,7 @@ namespace Ecom.App.Services
                             //product.Language = reader["Language"].ToString();
                             product.Writer = reader["Writer"].ToString();
                             product.Publisher = reader["Publisher"].ToString();
+                            product.PublisherId = Convert.ToInt32(reader["PublisherId"]);
                             product.Country = reader["Country"].ToString();
                             product.Writer = reader["Writer"].ToString();
                             product.Sku = reader["SKU"].ToString();
@@ -201,7 +201,7 @@ namespace Ecom.App.Services
         public async Task<IEnumerable<ProductBannerView>> GetProductsForBanner(int bannerId)
         {
             return await context.ProductPublishers
-                .Where(pp => pp.BannerId == bannerId || pp.BannerId.GetValueOrDefault() == 0)
+                .Where(pp => pp.IsPublished == true)
                 .Select(pp => new ProductBannerView
                 {
                     Id = pp.Id,

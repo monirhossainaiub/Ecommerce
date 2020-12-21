@@ -48,6 +48,7 @@ namespace Ecom.App.Controllers
 	                  --,l.[Name] as Language
 	                  ,w.[Name] as Writer
 	                  ,pb.[Name] as Publisher
+                      ,pb.Id as PublisherId
 	                  ,cn.[Name] as Country
                       ,p.[Title]
                      -- ,p.[Description]

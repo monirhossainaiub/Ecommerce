@@ -352,11 +352,14 @@ app.controller("productController", ($scope, $http, httpRequestService, messageS
         $scope.reset();
         $scope.getMaxOrderBy();
         $scope.action = "Save";
+        $scope.productPublisherModel = angular.copy(productPublisher);
         baseService.showPopUpByPopId(FormPopUp);
     }
     $scope.showFormPopUp = (entity) => {
         $scope.model = angular.copy(entity);
         productPublisher.productId = $scope.model.id;
+        $scope.productPublisherModel.publisherId = entity.publisherId;
+        getProductPublisher();
         baseService.showPopUpByPopId(FormPopUp);
         $scope.action = "Update";
         $scope.formTitle = "Update the " + entityNameToPerform;

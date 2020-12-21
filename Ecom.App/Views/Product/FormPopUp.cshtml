@@ -15,8 +15,8 @@
                     <li class="nav-item ">
                         <a  class="nav-link" ng-class="{'disabled':model.id === 0}" id="publisher-tab" data-toggle="tab" href="#publisher" role="tab" aria-controls="publisher" aria-selected="false">Publisher</a>
                     </li>
-                    <li class="nav-item" ng-click="loadPhotos()">
-                        <a class="nav-link" ng-class="{'disabled':(model.id === 0 || productPublisherModel.publisherId === 0)}" id="photo-tab" data-toggle="tab" href="#photo" role="tab" aria-controls="photo" aria-selected="false">Photos</a>
+                    <li class="nav-item" >
+                        <a class="nav-link" ng-click="loadPhotos()" ng-class="{'disabled':(model.id === 0 || productPublisherModel.publisherId === 0)}" id="photo-tab" data-toggle="tab" href="#photo" role="tab" aria-controls="photo" aria-selected="false">Photos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" ng-class="{'disabled':(model.id === 0 || productPublisherModel.publisherId === 0)}" id="note-tab" data-toggle="tab" href="#note" role="tab" aria-controls="note" aria-selected="false">Notes</a>

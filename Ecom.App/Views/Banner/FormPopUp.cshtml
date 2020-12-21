@@ -12,8 +12,8 @@
                     <li class="nav-item">
                         <a class="nav-link active" id="banner-tab" data-toggle="tab" href="#banner" role="tab" aria-controls="banner" aria-selected="true">Add Banner</a>
                     </li>
-                    <li class="nav-item" ng-click="loadProducts()">
-                        <a class="nav-link" ng-class="{'disabled':model.id === 0}" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="false">Register products</a>
+                    <li class="nav-item">
+                        <a class="nav-link" @*ng-click="loadProducts()"*@ ng-class="{'disabled':model.id === 0}" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="false">Register products</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">

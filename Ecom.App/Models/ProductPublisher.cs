@@ -69,7 +69,7 @@ namespace Ecom.App.Models
         public bool IsAproved { get; set; }
         public bool IsReturnAble { get; set; }
         public bool IsLimitedToStore { get; set; }
-
+        public bool IsShippingChargeApplicable { get; set; }
         public int? BannerId { get; set; }
         public Banner Banner { get; set; }
         public ICollection<Photo> Photos { get; set; }

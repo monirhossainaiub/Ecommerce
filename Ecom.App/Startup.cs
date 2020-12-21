@@ -60,6 +60,7 @@ namespace Ecom.App
             services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
             services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
             services.AddScoped<IBannerRepository, BannerRepository>();
+            services.AddScoped<ISliderRepository, SliderRepository>();
 
 
             services.AddAutoMapper(typeof(Startup));

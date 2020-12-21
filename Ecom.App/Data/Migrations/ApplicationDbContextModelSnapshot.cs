@@ -396,6 +396,9 @@ namespace Ecom.App.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<bool>("IsSliderPhoto")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("ProductPublisherId")
                         .HasColumnType("int");
 
@@ -686,6 +689,35 @@ namespace Ecom.App.Data.Migrations
                     b.HasIndex("ProductPublisherId");
 
                     b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.Slider", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ActionName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ControllerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("PhotoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PhotoId");
+
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("Ecom.App.Models.Writer", b =>
@@ -1068,6 +1100,13 @@ namespace Ecom.App.Data.Migrations
                         .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Ecom.App.Models.Slider", b =>
+                {
+                    b.HasOne("Ecom.App.Models.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

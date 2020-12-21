@@ -34,6 +34,7 @@ namespace Ecom.App.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
+        public DbSet<Slider> Sliders { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Rating> Ratings { get; set; }
 
