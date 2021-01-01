@@ -1,4 +1,5 @@
-﻿using Ecom.App.Data;
+﻿using Ecom.App.Controllers.Resources.DTOs;
+using Ecom.App.Data;
 using Ecom.App.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,9 +30,6 @@ namespace Ecom.App.Services
                 .ThenBy(pb => pb.Title)
                 .ToListAsync();
         }
-
-      
-
         public async Task<Banner> GetAsync(int id, bool includeRelated = true)
         {
 
@@ -51,6 +49,61 @@ namespace Ecom.App.Services
         {
             return await context.Banners.Select(p => p.Title).ToListAsync();
         }
+
+        #region Banner for homepage 
+        public async Task<IEnumerable<BannerHomePage>> GetAllActiveAsync()
+        {
+            return await context.Banners
+                .Where(b => b.IsActive == true)
+                .Select(b => new BannerHomePage
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    IsActive = b.IsActive,
+                    DisplayOrder = b.DisplayOrder
+                })
+                .OrderBy(pb => pb.DisplayOrder)
+                .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<BannerHomePage>> GetAllActiveBannersWithProductsAsync()
+        {
+            var banners = await context.Banners
+                .Where(b => b.IsActive == true && b.ProductPublishers.Count != 0)
+                .Select(b => new BannerHomePage
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    IsActive = b.IsActive,
+                    DisplayOrder = b.DisplayOrder,
+                    Products = b.ProductPublishers
+                    //.Where(pp => pp.Id == b.Id)
+                    .Select(pp => new ProductBannerHomePage
+                    {
+                        ProductPublisherId = pp.Id,
+                        //Image = pp.Photos.SingleOrDefault().FileName,
+                        ProductName = pp.Product.Name,
+                        ProductTitle = pp.Product.Title,
+                        StockQuantity = pp.StockQuantity,
+                        Price = pp.Price,
+                        OldPrice = pp.OldPrice,
+                        PublisherId = pp.PublisherId,
+                        Publisher = pp.Publisher.Name,
+                        WriterId = pp.Product.Writer.Id,
+                        Writer = pp.Product.Writer.Name
+                    })
+                    .ToList()
+                })
+                .OrderBy(b => b.DisplayOrder)
+                .ToListAsync();
+
+            //var results = banners.Where(b => b.IsActive == true && b.Products.Count != 0).ToList();
+            return banners;
+
+
+        }
+        #endregion
 
     }
 }

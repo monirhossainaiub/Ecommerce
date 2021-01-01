@@ -1,4 +1,44 @@
 ﻿@{
-    ViewData["Title"] = "Country";
+    ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/Public/_PublicLayout.cshtml";
 }
+
+
+<div ng-controller="homeController as $ctrl">
+
+    
+    <!-- =============== SECTION 1 =============== -->
+    <section class="padding-bottom" ng-repeat="banner in banners">
+        <header class="section-heading heading-line">
+            <h4 class="title-section text-uppercase">{{banner.title}}</h4>
+        </header>
+
+        <div class="card card-home-category">
+            <div class="row no-gutters">
+                <div class="col-md-12">
+                    <ul class="row no-gutters bordered-cols" ng-repeat="product in banner.products">
+                        <li class="col-6 col-lg-3 col-md-4">
+                            <a href="#" class="item">
+                                <div class="card-body">
+                                    <h6 class="title">{{product.name}} </h6>
+                                    <img class="img-sm float-right" src="images/items/1.jpg">
+                                    <p class="text-muted"><i class="fa fa-map-marker-alt"></i> Guanjou, China</p>
+                                </div>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </div> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+    </section>
+    <!-- =============== SECTION 1 END =============== -->
+
+
+
+</div>
+
+@section Scripts{
+    <script src="~/app/Controllers/public/homeController.js"></script>
+}
+

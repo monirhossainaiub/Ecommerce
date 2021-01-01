@@ -7,7 +7,7 @@ var httpRequestService = ($http, urlService, $rootScope) => {
         getHttpRequestService: function (controllerName) {
 
             var service = urlService.getUrlService(controllerName);
-
+            
             let getAll = () => {
                 return $http.get(service.getUrl);
             }

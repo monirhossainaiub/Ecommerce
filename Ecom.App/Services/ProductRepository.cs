@@ -189,9 +189,11 @@ namespace Ecom.App.Services
                         }
                         
                     }
-                    
+                   // context.Database.CloseConnection();
                 }
-                
+                context.Dispose();
+
+
             }
 
             return products;
@@ -200,8 +202,8 @@ namespace Ecom.App.Services
         // get products for register which products to be added to a banner
         public async Task<IEnumerable<ProductBannerView>> GetProductsForBanner(int bannerId)
         {
-            return await context.ProductPublishers
-                .Where(pp => pp.IsPublished == true)
+            var products = await context.ProductPublishers
+                .Where(pp => pp.IsPublished == true && (pp.BannerId.GetValueOrDefault(0) == bannerId || pp.BannerId.GetValueOrDefault(0) == 0))
                 .Select(pp => new ProductBannerView
                 {
                     Id = pp.Id,
@@ -212,6 +214,9 @@ namespace Ecom.App.Services
                     BannerId = pp.BannerId.GetValueOrDefault(),
                     Image = context.Photos.Where(p => p.ProductPublisherId == pp.Id).SingleOrDefault().FileName
                 }).ToListAsync();
+            return products;
+           // products.Where(p => p.BannerId == bannerId || p.BannerId == 0);
+            
         }
 
         public async Task<IEnumerable<ProductPublisher>> GetRegisteredProductsByBannerId(int bannerId)

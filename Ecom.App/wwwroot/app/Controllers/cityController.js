@@ -1,5 +1,4 @@
-﻿/// <reference path="../app.js" />
-
+﻿
 'use strict';
 
 app.controller("cityController", ($scope, $http, $rootScope, httpRequestService, messageService, baseService) =>

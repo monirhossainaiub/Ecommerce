@@ -52,6 +52,21 @@ namespace Ecom.App.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetAllActive()
+        {
+            var banners = await bannerRepository.GetAllActiveAsync();
+            return Ok(banners);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetBannersWithProducts()
+        {
+            var banners = await bannerRepository.GetAllActiveBannersWithProductsAsync();
+            return Ok(banners);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
 

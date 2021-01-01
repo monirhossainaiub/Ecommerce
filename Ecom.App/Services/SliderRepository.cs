@@ -60,6 +60,6 @@ namespace Ecom.App.Services
             context.Sliders.Remove(slider);
         }
 
-      
+       
     }
 }

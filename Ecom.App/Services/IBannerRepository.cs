@@ -1,4 +1,5 @@
-﻿using Ecom.App.Models;
+﻿using Ecom.App.Controllers.Resources.DTOs;
+using Ecom.App.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Ecom.App.Services
 
         Task<Banner> GetAsync(int id, bool includeRelated = true);
         Task<IEnumerable<Banner>> GetAllAsync();
+        Task<IEnumerable<BannerHomePage>> GetAllActiveAsync();
+        Task<IEnumerable<BannerHomePage>> GetAllActiveBannersWithProductsAsync();
         void Add(Banner banner);
         void Remove(Banner banner);
 
