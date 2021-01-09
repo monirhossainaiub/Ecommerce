@@ -122,6 +122,17 @@ namespace Ecom.App.Controllers
 
             return Ok(publisher);
         }
-        
+
+        #region actions for public page
+        [HttpGet]
+        public IActionResult Products()
+        {
+            return View("~/Views/Product/ProductsByPublisher.cshtml");
+
+        }
+
+       
+        #endregion
+
     }
 }

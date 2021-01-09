@@ -4,9 +4,9 @@
 
 'use strict';
 var app = angular.module("app", [
-    'ui.bootstrap',
     'ngMaterial',
-    'ngMessages'
+    'ui.bootstrap',
+    'ngMdIcons'
 ]);
 
 app.directive("selectNgFiles", function() {

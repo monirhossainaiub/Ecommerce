@@ -4,41 +4,98 @@
 }
 
 
-<div ng-controller="homeController as $ctrl">
+<div ng-controller="homeController">
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        /*
+        * {
+          box-sizing: border-box;
+        } */
 
-    
-    <!-- =============== SECTION 1 =============== -->
+        .slider {
+            width: 95%;
+            margin: 100px auto;
+        }
+
+        .slick-slide {
+            margin: 0px 5px;
+        }
+
+            .slick-slide img {
+                width: 100%;
+            }
+
+        .slick-prev:before,
+        .slick-next:before {
+            color: black;
+        }
+
+
+        .slick-slide {
+            transition: all ease-in-out .3s;
+            opacity: .2;
+        }
+
+        .slick-active {
+            opacity: .5;
+        }
+
+        .slick-current {
+            opacity: 1;
+        }
+    </style>
+    @await Html.PartialAsync("~/Views/Shared/Public/_Header.cshtml")
+    @*@await Html.PartialAsync("~/Views/Shared/Public/_Sidenav.cshtml")*@
+<div class="container">
+    @*<section flex class="regular slider" id="slider1">
+            <div ng-repeat="d in data">
+                <img src="{{d}}">
+            </div>
+        </section>*@
+
+
+
+
+
+    <!-- =============== SECTION 2 =============== -->
     <section class="padding-bottom" ng-repeat="banner in banners">
-        <header class="section-heading heading-line">
-            <h4 class="title-section text-uppercase">{{banner.title}}</h4>
+
+        <header class="section-heading mb-4">
+            <h3 class="title-section">{{banner.title}}</h3>
         </header>
 
-        <div class="card card-home-category">
-            <div class="row no-gutters">
-                <div class="col-md-12">
-                    <ul class="row no-gutters bordered-cols" ng-repeat="product in banner.products">
-                        <li class="col-6 col-lg-3 col-md-4">
-                            <a href="#" class="item">
-                                <div class="card-body">
-                                    <h6 class="title">{{product.name}} </h6>
-                                    <img class="img-sm float-right" src="images/items/1.jpg">
-                                    <p class="text-muted"><i class="fa fa-map-marker-alt"></i> Guanjou, China</p>
-                                </div>
-                            </a>
-                        </li>
-                       
-                    </ul>
-                </div> <!-- col.// -->
-            </div> <!-- row.// -->
-        </div> <!-- card.// -->
+        <div class="row row-sm">
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6" ng-repeat="product in banner.products">
+                <div href="#" class="card card-sm card-product-grid">
+                    <a href="@Url.Action("Details", "Product")/{{product.productPublisherId}}" class="img-wrap">
+                        <b class="badge badge-danger mr-1">10% OFF</b>
+                        <img src="{{imageRootDirectory + product.image}}">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <a class="nav-link" href="@Url.Action("Details", "Product")/{{product.productPublisherId}}">Detail</a>
+                        <div class="price-wrap">
+                            <del ng-show="product.oldPrice > product.price" class="price-old">Tk.{{product.oldPrice}}</del>
+                            <span class="price">Tk.{{product.price}}</span>
+                        </div> <!-- price-wrap.// -->
+                    </figcaption>
+                </div>
+            </div> <!-- col.// -->
+        </div> <!-- row.// -->
     </section>
-    <!-- =============== SECTION 1 END =============== -->
+    <!-- =============== SECTION 2 END =============== -->
 
+
+
+</div>
 
 
 </div>
 
 @section Scripts{
     <script src="~/app/Controllers/public/homeController.js"></script>
+
 }
 

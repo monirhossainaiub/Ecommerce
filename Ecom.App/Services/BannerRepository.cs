@@ -66,8 +66,7 @@ namespace Ecom.App.Services
                 .ToListAsync();
         }
 
-
-        public async Task<IEnumerable<BannerHomePage>> GetAllActiveBannersWithProductsAsync()
+        public async Task<IEnumerable<BannerHomePage>> GetAllActiveBannersWithProductsAsync(int take)
         {
             var banners = await context.Banners
                 .Where(b => b.IsActive == true && b.ProductPublishers.Count != 0)
@@ -78,11 +77,10 @@ namespace Ecom.App.Services
                     IsActive = b.IsActive,
                     DisplayOrder = b.DisplayOrder,
                     Products = b.ProductPublishers
-                    //.Where(pp => pp.Id == b.Id)
                     .Select(pp => new ProductBannerHomePage
                     {
                         ProductPublisherId = pp.Id,
-                        //Image = pp.Photos.SingleOrDefault().FileName,
+                        Image = pp.Photos.SingleOrDefault().FileName,
                         ProductName = pp.Product.Name,
                         ProductTitle = pp.Product.Title,
                         StockQuantity = pp.StockQuantity,
@@ -93,6 +91,7 @@ namespace Ecom.App.Services
                         WriterId = pp.Product.Writer.Id,
                         Writer = pp.Product.Writer.Name
                     })
+                    .Take(take)
                     .ToList()
                 })
                 .OrderBy(b => b.DisplayOrder)

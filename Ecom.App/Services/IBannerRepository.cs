@@ -13,7 +13,7 @@ namespace Ecom.App.Services
         Task<Banner> GetAsync(int id, bool includeRelated = true);
         Task<IEnumerable<Banner>> GetAllAsync();
         Task<IEnumerable<BannerHomePage>> GetAllActiveAsync();
-        Task<IEnumerable<BannerHomePage>> GetAllActiveBannersWithProductsAsync();
+        Task<IEnumerable<BannerHomePage>> GetAllActiveBannersWithProductsAsync(int take);
         void Add(Banner banner);
         void Remove(Banner banner);
 

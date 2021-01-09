@@ -1,0 +1,79 @@
+﻿<!DOCTYPE HTML>
+<html lang="en" ng-app="app">
+<head>
+   
+    <title>@ViewData["Title"] - Ecommerce</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="max-age=604800" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    @*<title>Website title - bootstrap html template</title>*@
+
+    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <!-- jQuery -->
+    <script src="~/assets/public/js/jquery-2.0.0.min.js" type="text/javascript"></script>
+
+    <!-- Bootstrap4 files-->
+    <script src="~/assets/public/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <link href="~/assets/public/css/bootstrap.css?v=2.0" rel="stylesheet" type="text/css" />
+
+    <!-- Font awesome 5 -->
+    <link href="~/assets/public/fonts/fontawesome/css/all.min.css?v=2.0" type="text/css" rel="stylesheet">
+
+    <!-- custom style -->
+    <link href="~/assets/public/css/ui.css?v=2.0" rel="stylesheet" type="text/css" />
+    <link href="~/assets/public/css/responsive.css?v=2.0" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <!-- custom javascript -->
+    <script src="~/assets/public/js/script.js?v=2.0" type="text/javascript"></script>
+
+    <link href="~/assets/vendor/angular-material/angular-material.css" rel="stylesheet" />
+
+
+
+    <link href="~/assets/public/css/animate.css" rel="stylesheet" />
+    <link href="~/assets/public/css/main.css" rel="stylesheet" />
+
+    <title>@ViewData["Title"] - Ecommerce</title>
+</head>
+<body>
+
+    <!-- REMOVE FOLLOWING LINK -->
+    <!--<a href="Website title will go here" class="btn btn-dark rounded-pill" style="font-size:13px; z-index:100; position: fixed; bottom:10px; right:10px;">Remove This</a>-->
+    <!-- REMOVE  //END -->
+
+    @await Html.PartialAsync("~/Views/Shared/Public/_Header.cshtml")
+
+    @RenderBody()
+
+
+
+    <script src="~/assets/vendor/angular/angular.js"></script>
+    <script src="~/assets/vendor/angular/angular-route.js"></script>
+    <script src="~/assets/vendor/angular-aria/angular-aria.js"></script>
+    <script src="~/assets/vendor/angular-animate/angular-animate.js"></script>
+    <script src="~/assets/vendor/angular-messages/angular-messages.js"></script>
+    <script src="~/assets/vendor/angular-material/angular-material.js"></script>
+    <script src="~/assets/vendor/angular/ui-bootstrap-tpls-3.0.6.min.js"></script>
+
+    <script src="~/app/app.js"></script>
+    <script src="~/app/Services/messageService.js"></script>
+    <script src="~/app/Services/urlService.js"></script>
+    <script src="~/app/settingsController.js"></script>
+    <script src="~/app/Services/baseService.js"></script>
+    <script src="~/app/Services/httpRequestService.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".wish-icon i").click(function () {
+                $(this).toggleClass("fa-heart fa-heart-o");
+            });
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

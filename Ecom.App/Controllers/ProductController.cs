@@ -22,8 +22,8 @@ namespace Ecom.App.Controllers
         private readonly IMapper mapper;
 
         public ProductController(IUnitOfWork unitOfWork,
-            IProductRepository productRepository, 
-            IPublisherRepository publisherRepository, 
+            IProductRepository productRepository,
+            IPublisherRepository publisherRepository,
             IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
@@ -32,6 +32,7 @@ namespace Ecom.App.Controllers
             this.mapper = mapper;
         }
 
+        #region for admin control 
         [HttpGet]
         public IActionResult Index()
         {
@@ -96,12 +97,16 @@ namespace Ecom.App.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            
-            var product = await productRepository.GetAsync(id);
-            var result = mapper.Map<Product, ProductDto>(product);
-            return Ok(result);
+            return View("Details");
+
+            //id is productpublisherId
+            //var product = await productRepository.GetProdudctDetails(id);
+            //var product = await productRepository.GetProductDetaisAsync(id);
+
+            // var result = mapper.Map<Product, ProductDto>(product);
+            //return Ok(product);
         }
 
         private bool isNameExist(string name)
@@ -114,7 +119,7 @@ namespace Ecom.App.Controllers
             {
                 for (int i = 0; i < ProductNames.Count; i++)
                 {
-                    if(name == ProductNames[i])
+                    if (name == ProductNames[i])
                     {
                         return true;
                     }
@@ -134,8 +139,8 @@ namespace Ecom.App.Controllers
                 ModelState.AddModelError("Exist", "Product name already exist.");
                 return BadRequest(ModelState);
             }
-                
-           
+
+
             var product = mapper.Map<ProductDto, Product>(productDto);
             product.CreatedAt = DateTime.Now;
             productRepository.Add(product);
@@ -144,7 +149,7 @@ namespace Ecom.App.Controllers
             product = await productRepository.GetAsync(product.Id, true);
             var result = mapper.Map<Product, ProductViewDto>(product);
             return CreatedAtAction("GetAsync", new { id = result.Id }, result);
-           
+
         }
 
         [HttpPost]
@@ -177,7 +182,7 @@ namespace Ecom.App.Controllers
             return Ok(product);
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> GetProductPublisherAsync([FromBody] ProductPublisherIds data)
         {
@@ -195,7 +200,7 @@ namespace Ecom.App.Controllers
             string publisherNameWithoutWhatSpace = trimedPublisherName.Replace(" ", "");
 
             string SKU = "";
-            if(productNameWithoutWhatSpace.Length < 6)
+            if (productNameWithoutWhatSpace.Length < 6)
             {
                 SKU = productNameWithoutWhatSpace + "_";
             }
@@ -204,13 +209,13 @@ namespace Ecom.App.Controllers
                 SKU = productNameWithoutWhatSpace.Substring(0, 6) + "_";
             }
 
-            if(publisherNameWithoutWhatSpace.Length < 6)
+            if (publisherNameWithoutWhatSpace.Length < 6)
             {
                 SKU = String.Concat(SKU, publisherNameWithoutWhatSpace);
             }
             else
             {
-                SKU = String.Concat(SKU,publisherNameWithoutWhatSpace.Substring(0, 6));
+                SKU = String.Concat(SKU, publisherNameWithoutWhatSpace.Substring(0, 6));
             }
             return SKU;
         }
@@ -218,7 +223,7 @@ namespace Ecom.App.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProductPublisher([FromBody] ProductPublisherDto productPublisherDto)
         {
-            
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -236,7 +241,7 @@ namespace Ecom.App.Controllers
             product.ProductPublishers.Add(productPublisher);
             await unitOfWork.SaveChangesAsync();
 
-            productPublisher = await productRepository.GetProductPublisherAsync(new ProductPublisherIds { ProductId = productPublisher.ProductId, PublisherId = productPublisher .PublisherId});
+            productPublisher = await productRepository.GetProductPublisherAsync(new ProductPublisherIds { ProductId = productPublisher.ProductId, PublisherId = productPublisher.PublisherId });
             var result = mapper.Map<ProductPublisher, ProductPublisherDto>(productPublisher);
             return Ok(result);
         }
@@ -265,5 +270,39 @@ namespace Ecom.App.Controllers
             var result = mapper.Map<ProductPublisher, ProductPublisherDto>(productPublisher);
             return Ok(result);
         }
+
+        #endregion admin control
+
+        #region for public page control 
+
+        // get all products category wise (for a specific category)
+        [HttpGet]
+        public async Task<IActionResult> GetProdudctDetails(int id)
+        {
+            var product = await productRepository.GetProdudctDetails(id);
+            return Ok(product);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetProductsByCategory(int id)
+        {
+            var products = await productRepository.GetProductsByCategory(id);
+            return Ok(products);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProductsByWriter(int id)
+        {
+            var products = await productRepository.GetProductsByWriter(id);
+            return Ok(products);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProductsByPublisher(int id)
+        {
+            var products = await productRepository.GetProductsByPublisher(id);
+            return Ok(products);
+        }
+        #endregion for public page control
+
     }
 }
