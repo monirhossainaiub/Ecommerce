@@ -62,7 +62,7 @@ namespace Ecom.App.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBannersWithProducts()
         {
-            var banners = await bannerRepository.GetAllActiveBannersWithProductsAsync(12);
+            var banners = await bannerRepository.GetAllActiveBannersWithProductsAsync(6);
             return Ok(banners);
         }
 

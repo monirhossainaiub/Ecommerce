@@ -333,6 +333,7 @@ namespace Ecom.App.Services
                     PublisherId = pp.PublisherId,
                     Publisher = pp.Publisher.Name,
                     Country = context.Countries.SingleOrDefault(c => c.Id == pp.countryId).Name,
+                    Photos = pp.Photos.Select(p => new PhotoDto{Id =p.Id, FileName =p.FileName }).ToList(),
                     Description = pp.Description,
                     Title = pp.Product.Title,
                     DisplayOrder = pp.Product.DisplayOrder,
@@ -354,6 +355,7 @@ namespace Ecom.App.Services
                     IsLimitedToStore = pp.IsLimitedToStore
                 })
                 .SingleOrDefaultAsync();
+           
             return product;
         }
 

@@ -4,10 +4,18 @@
 
 'use strict';
 var app = angular.module("app", [
+    'ngRoute',
     'ngMaterial',
-    'ui.bootstrap',
-    'ngMdIcons'
+    'ui.bootstrap'
 ]);
+//app.config(function ($routeProvider, $locationProvider) {
+//    $routeProvider
+//        .when('Product/Details/:id', {
+//            templateUrl: '~/Views/Product/Details.cshtml',
+//            controller: '~/app/app.js'
+//        })
+        
+//})
 
 app.directive("selectNgFiles", function() {
 return {

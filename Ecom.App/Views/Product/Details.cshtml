@@ -1,23 +1,70 @@
 ﻿
+@model Ecom.App.Controllers.Resources.DTOs.ProductDetailDto
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Public/_PublicLayout.cshtml";
 }
 
 
-
 <div ng-controller="productController">
 
-    <h1>Product details</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <img src="{{imageRootDirectory}}@Model.Photos[0].FileName.ToString()" height="250" width="180" />
+            </div>
+            <div class="col-sm-6">
+                <h2>@Model.Title</h2>
+                <div>
+                    by
+                    <a>@Model.Writer</a>
+                </div>
+                <div>
+                    Category:
+                    <a>@Model.Category</a>
+                </div>
+                <div ng-show="{{@Model.OldPrice > @Model.Price}}">
+                    TK. @Model.OldPrice
+                </div>
+                <div>
+                    TK. @Model.Price <span ng-show="{{@Model.OldPrice > @Model.Price}}">You save (TK. {{@Model.OldPrice - @Model.Price}})</span>
+                </div>
+                <div ng-show="{{@Model.StockQuantity}}">
+                    In Stock (only @Model.StockQuantity copy is left)
+                </div>
+                <div ng-hide="{{@Model.StockQuantity}}">
+                    Stock out
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div class="row">
+            <div >
+                <h2 class="">Product Specification & Summary</h2>
+            </div>
+            <div >
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                        <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                        <a class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">..y.</div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">..g.</div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">.b..</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
-@section Scripts{
-    <script>
-        $('#myModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
-        })</script>
 
+
+@section Scripts{
     <script src="~/app/Controllers/productController.js"></script>
 }
 

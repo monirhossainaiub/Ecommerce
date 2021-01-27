@@ -14,6 +14,7 @@ app.controller("productController", ($scope, $http, httpRequestService, messageS
     $scope.isResponseComplete = false;
     $scope.action = "Save";
     $scope.ppAction = "Save";
+    
 
     $scope.dataSource = [];
     $scope.countries = [];
@@ -49,6 +50,17 @@ app.controller("productController", ($scope, $http, httpRequestService, messageS
         { title: 'Action', key: 'action', isSortable: false }
     ];
     //#endregion pagination 
+    ////$scope.getId = function (id) {
+    ////    $http.get(httpRequestService.getHttpRequestService(controllerName).getByIdProvidingUrl(id, "GetDetails/")).then(
+    ////        (response) => {
+    ////            console.log('product:');
+    ////            console.log(response.data);
+    ////            $scope.publishers = response.data;
+    ////        },
+    ////        (err) => {
+    ////            console.log('err'+ err);
+    ////        });
+    ////}
 
     var defaultModel = {
         id: 0,
@@ -450,15 +462,6 @@ app.controller("productController", ($scope, $http, httpRequestService, messageS
     $scope.imagePaths = [];
     var fileServiceUrl = urlService.getUrlService("File");
     $scope.imageRootDirectory = fileServiceUrl.rootUrl + "uploads/";
-    //var createImagePath = () => {
-    //    if ($scope.photos.length > 0) {
-    //        for (var i = 0; i < $scope.photos.length; i++) {
-    //            //$scope.imagePaths.push(fileServiceUrl.rootUrl + "uploads/" + $scope.photos[i].fileName);
-    //            $scope.photos[i].fileName = fileServiceUrl.rootUrl + "uploads/" + $scope.photos[i].fileName;
-    //        }
-    //    }
-       
-    //}
     $scope.loadPhotos = () => {
         $scope.photos = [];
         $scope.imagePaths = [];

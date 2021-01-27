@@ -97,17 +97,13 @@ namespace Ecom.App.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View("Details");
-
-            //id is productpublisherId
-            //var product = await productRepository.GetProdudctDetails(id);
-            //var product = await productRepository.GetProductDetaisAsync(id);
-
-            // var result = mapper.Map<Product, ProductDto>(product);
-            //return Ok(product);
+            ViewBag.id = id;
+            var product = await productRepository.GetProdudctDetails(id);
+            return View("Details", product);
         }
+
 
         private bool isNameExist(string name)
         {

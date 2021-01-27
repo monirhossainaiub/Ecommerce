@@ -198,3 +198,10 @@ C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Ecom.App.dll
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\ref\Ecom.App.dll
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Ecom.App.pdb
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Ecom.App.genruntimeconfig.cache
+C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Razor\Views\Product\ProductsByPublisher.cshtml.g.cs
+C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Razor\Views\Product\XDetails.cshtml.g.cs
+C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Razor\Views\Shared\Public\HeaderSlider.cshtml.g.cs
+C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Razor\Views\Shared\Public\X_Header.cshtml.g.cs
+C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Razor\Views\Shared\Public\X_PublicLayout.cshtml.g.cs
+C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Razor\Views\Shared\Public\_Header.cshtml.g.cs
+C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Release\net5.0\Razor\Views\Shared\Public\_Sidenav.cshtml.g.cs

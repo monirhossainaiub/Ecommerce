@@ -242,6 +242,8 @@ app.controller("bannerController", ($scope, urlService, httpRequestService, mess
 
     }
 
+
+
     //#region product pagination
     $scope.ProductsearchText = "";
     $scope.ProductitemsPerpage = 10;
@@ -267,7 +269,7 @@ app.controller("bannerController", ($scope, urlService, httpRequestService, mess
     };
 
     $scope.registerProducts = () => {
-        console.log($scope.products);
+        data.productIds = [];
         data.bannerId = $scope.model.id;
         if ($scope.products.length > 0) {
             for (var i = 0; i < $scope.products.length; i++) {

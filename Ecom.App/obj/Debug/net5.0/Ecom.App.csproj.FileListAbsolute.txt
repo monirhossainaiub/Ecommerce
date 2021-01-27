@@ -592,7 +592,6 @@ C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.pdb
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.genruntimeconfig.cache
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Shared\Public\_Header.cshtml.g.cs
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Shared\Public\HeaderSlider.cshtml.g.cs
-C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Debug\net5.0\Ecom.App.csprojAssemblyReference.cache
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Product\XDetails.cshtml.g.cs
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Product\ProductsByPublisher.cshtml.g.cs
 C:\Projects\Monir\Ecommerce\Ecommerce\Ecom.App\obj\Debug\net5.0\Razor\Views\Shared\Public\X_PublicLayout.cshtml.g.cs

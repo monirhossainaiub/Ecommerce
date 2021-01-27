@@ -4,8 +4,11 @@
 var urlService = ($rootScope) => {
     return {
         getUrlService: function (controllerName) {
-            const ROOT_URL = "http://mh809971-001-site1.btempurl.com/"
-            const ROOT_URL_WITH_CONTROLLER = "http://mh809971-001-site1.btempurl.com/" + controllerName + "/";
+            
+            const PUBLIC_URL = "http://monirhost123-001-site1.dtempurl.com/";
+            const ROOT_URL = "http://monirhost123-001-site1.dtempurl.com/";
+            const FILE_URL = "http://monirhost123-001-site1.dtempurl.com/uploads/";
+            const ROOT_URL_WITH_CONTROLLER = "http://monirhost123-001-site1.dtempurl.com/" + controllerName + "/";
             const POST_URL = ROOT_URL + controllerName + "/" + "create";
             const PUT_URL = ROOT_URL + controllerName + "/" + "edit/";
             const GET_URL = ROOT_URL + controllerName + "/" + "getall";
@@ -14,6 +17,8 @@ var urlService = ($rootScope) => {
 
             return {
                 rootUrl: ROOT_URL,
+                fileUrl: FILE_URL,
+                publicUrl: PUBLIC_URL,
                 rootUrlWithController: ROOT_URL_WITH_CONTROLLER,
                 postUrl: POST_URL,
                 putUrl: PUT_URL,
