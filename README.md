@@ -1,3 +1,5 @@
+Download Project: Open Commnad Prompt or gitbush or any termenal and write ' git clone https://github.com/monirhossainaiub/Ecommerce.git' and Enter keyboard button.
+
 Project Setup:
 This project have been created ASP.Net 5 and Entity Framework Core 5 Code first approach and SQL server..
 You have to restore database 'EcommerceDb' file that is included on this project on SQL server.
